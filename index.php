@@ -1,4 +1,5 @@
 <?php
-    echo "hello";
-
+    
+ $con = mysqli_connect($con, "locahost",'root','','seller');
+ 
 ?>
