@@ -109,6 +109,7 @@
   var $dropdown_legacy_offset_container = $('<div />', { class: 'mb-1' }).append($dropdown_legacy_offset_checkbox).append('<span>Dropdown Legacy Offset</span>')
   $container.append($dropdown_legacy_offset_container)
 
+
   var $no_border_checkbox = $('<input />', {
     type: 'checkbox',
     value: 1,
