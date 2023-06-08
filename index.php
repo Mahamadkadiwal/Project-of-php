@@ -19,7 +19,8 @@
 </head>
 
 <body>
-    <h1> hello </h1>
+    <?php require('inc/header.php'); ?>
+
 </body>
 
 </html>
