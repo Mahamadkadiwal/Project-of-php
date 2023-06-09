@@ -34987,6 +34987,9 @@ a.close.disabled, a.disabled.mailbox-attachment-close {
 .register-box {
   width: 360px;
 }
+.res-box{
+  width: 600px;
+}
 
 @media (max-width: 576px) {
   .login-box,
@@ -34996,6 +34999,12 @@ a.close.disabled, a.disabled.mailbox-attachment-close {
   }
 }
 
+@media (max-width: 576px) {
+  .res-box {
+    margin-top: .5rem;
+    width: 90%;
+  }
+}
 .login-box .card,
 .register-box .card {
   margin-bottom: 0;
