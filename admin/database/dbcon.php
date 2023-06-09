@@ -1,2 +1,5 @@
 <?php
-$con = mysqli_connect("localhost", "root", "", "siddhpur_seller");
+$con = mysqli_connect("localhost", "root", "", "inspire_seller");
+
+
+?>
