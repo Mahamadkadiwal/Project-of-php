@@ -32,16 +32,9 @@ require_once '../admin/database/dbcon.php';
         <p class="login-box-msg">Register a new seller</p>
 
         <form action="" method="post">
+
           <div class="input-group mb-3">
-            <input type="text" class="form-control" name="name" placeholder="Full name">
-            <div class="input-group-append">
-              <div class="input-group-text">
-                <span class="fas fa-user"></span>
-              </div>
-            </div>
-          </div>
-          <div class="input-group mb-3">
-            <input type="number" class="form-control" name="mobile" placeholder="Mobile number">
+            <input type="number" class="form-control" name="mobile" id="mobileInput" placeholder="Mobile number">
             <div class="input-group-append">
               <div class="input-group-text">
                 <span class="fas fa-mobile"></span>
@@ -49,15 +42,27 @@ require_once '../admin/database/dbcon.php';
             </div>
           </div>
           <div class="input-group mb-3">
-            <input type="email" class="form-control" name="email" placeholder="Email">
+            <input type="email" class="form-control" name="email" id="emailInput" placeholder="Email">
+
             <div class="input-group-append">
               <div class="input-group-text">
                 <span class="fas fa-envelope"></span>
               </div>
+              <!-- <input type="submit" value="Send OTP" class="btn btn-primary btn-sm" name="otp"> -->
+              <button type="submit" class="otp-btn btn-primary btn-sm" onclick="sendOTP()">Send OTP</button>
+
             </div>
           </div>
           <div class="input-group mb-3">
-            <input type="password" class="form-control" name="password" placeholder="Password">
+            <input type="text" class="form-control" name="verify" id="verifyInput" placeholder="Enter OTP" required>
+            <div class="input-group-append">
+              <div class="input-group-text">
+                <span class="fas fa-key"></span>
+              </div>
+            </div>
+          </div>
+          <div class="input-group mb-3">
+            <input type="password" class="form-control" name="password" id="passwordInput" placeholder="Password" required>
             <div class="input-group-append">
               <div class="input-group-text">
                 <span class="fas fa-lock"></span>
@@ -76,7 +81,7 @@ require_once '../admin/database/dbcon.php';
             </div>
             <!-- /.col -->
             <div class="col-4">
-              <input type="submit" value="Register" name="submit" class="btn btn-primary">
+              <input type="submit" value="Register" name="submit" class="btn btn-primary" onclick="insertdata()">
             </div>
             <!-- /.col -->
           </div>
@@ -108,59 +113,184 @@ require_once '../admin/database/dbcon.php';
 </html>
 
 <?php
-if (isset($_POST['submit'])) {
-  $name = $_POST['name'];
-  $mobile = $_POST['mobile'];
-  $email = $_POST['email'];
-  $password = $_POST['password'];
 
-  $errors = []; // Array to store validation errors
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+use PHPMailer\PHPMailer\SMTP;
 
-// Validate the password
-if (empty($password)) {
-    $errors[] = "Please enter a password.";
-}
-if (strlen($password) < 8) {
-    $errors[] = " Passwords must be at least 8 characters long.";
-}
-if (!preg_match("/[a-z]/", $password)) {
-    $errors[] = " Passwords must contain at least one lowercase letter.";
-}
-if (!preg_match("/[A-Z]/", $password)) {
-    $errors[] = " Passwords must contain at least one uppercase letter.";
-}
-if (!preg_match("/[0-9]/", $password)) {
-    $errors[] = " Passwords must contain at least one number.";
-}
-if (!preg_match("/[!@#$%^&*()\-_=+{};:,<.>]/", $password)) {
-    $errors[] = " Passwords must contain at least one special character (!@#$%^&*()\-_=+{};:,<.>).";
-}
-
-// Check if there are any validation errors
-if (!empty($errors)) {
-    // Display the validation error
-    echo '<script>';
-    echo 'var errorMessage = ' . json_encode(implode("\n", $errors)) . ';';
-    echo 'if (errorMessage) { alert(errorMessage); }';
-    echo '</script>';
-}
+require 'phpmailer/src/Exception.php';
+require 'phpmailer/src/PHPMailer.php';
+require 'phpmailer/src/SMTP.php';
 
 
+// if(isset($_POST['otp'])){
+//     echo "<script>alert('haa') </script>";
+//    echo '<script>alert("dhkf")</script>';
+//   $email = $_POST['email'];
+//   $mail = new PHPMailer(true);
 
+//   try {
+//     $mail->SMTPDebug = 0; //SMTP::DEBUG SERVER
+//     $mail->isSMTP();
+//     $mail->Host = 'smtp.gmail.com';
+//     $mail->SMTPAuth = true;
+//     $mail->Username = 'mohdkadiwal786@gmail.com'; // your gmail
+//     $mail->Password = 'wqnqoznfxpiuqbrm'; // your gmail app password
+
+//     $mail->SMTPSecure = 'ssl';
+//     $mail->Port = 465;
+
+//     $mail->setFrom('mohdkadiwal786@gmail.com'); // your gmail
+//     $mail->addAddress($email, $name);
+
+//     $mail->isHTML(true);
+//     $verification_code = substr(number_format(time() * rand(), 0, '', ''), 0, 6);
+
+//     $mail->Subject = 'Email Verication';
+//     $mail->Body = '<p>Your Verification Code is : <b style="font-size: 30px;">' .
+//       $verification_code . '</b></p>';
+
+//     $mail->send();
+// } catch (Exception $e){
+//   echo "Message could not be sent. Mailer error: {$mail->ErrorInfo}";
+// }
+// }
+
+// if (isset($_POST['submit'])) {
+
+//   $mobile = $_POST['mobile'];
+//   $email = $_POST['email'];
+//   $verify = $_POST['verify'];
+//   $password = $_POST['password'];
+
+  
     
-   else {
+
+//     $errors = []; // Array to store validation errors
+
+//   // Validate the password
+//   if (empty($password)) {
+//     $errors[] = "Please enter a password.";
+//   }
+//   if (strlen($password) < 8) {
+//     $errors[] = " Passwords must be at least 8 characters long.";
+//   }
+//   if (!preg_match("/[a-z]/", $password)) {
+//     $errors[] = " Passwords must contain at least one lowercase letter.";
+//   }
+//   if (!preg_match("/[A-Z]/", $password)) {
+//     $errors[] = " Passwords must contain at least one uppercase letter.";
+//   }
+//   if (!preg_match("/[0-9]/", $password)) {
+//     $errors[] = " Passwords must contain at least one number.";
+//   }
+//   if (!preg_match("/[!@#$%^&*()\-_=+{};:,<.>]/", $password)) {
+//     $errors[] = " Passwords must contain at least one special character (!@#$%^&*()\-_=+{};:,<.>).";
+//   }
+
+//   // Check if there are any validation errors
+//   if (!empty($errors)) {
+//     // Encode the error messages as JSON
+//     $errorMessage = json_encode(implode("\n", $errors));
+
+//     // Output the JavaScript code to display the error message
+//     echo '<script>';
+//     echo 'document.addEventListener("DOMContentLoaded", function() {';
+//     echo '    var errorMessage = ' . $errorMessage . ';';
+//     echo '    if (errorMessage) {';
+//     echo '        alert(errorMessage);';
+//     echo '    }';
+//     echo '});';
+//     echo '</script>';
+// }
+//  else {
+
+//     $enc_pass = password_hash($password, PASSWORD_DEFAULT);
+//     $sql = mysqli_query($con, "update seller_login set mobile='$mobile',password='$enc_pass',email_verified_at= NOW() where email='$email' and 
+//         verification_code='$verify'");
     
+//         if(mysqli_affected_rows($con) ==0){
+//           die('verification code failed.');
+//       }
+//       echo "<script>alert('You can login Now.')</script>";
+//       header('location: res.php');
+//       exit();
 
-    $sql = mysqli_query($con, "INSERT INTO `seller_login`(`name`, `mobile`, `email`, `password`) VALUES ('$name','$mobile','$email','$password')");
 
-    if ($sql) {
-      header('location: res.php');
-      exit(); // Terminate the script to prevent further execution
-    } else {
-      header('location: index.php');
-      echo '<script>alert("* Password must be 6 characters");</script>';
-      exit(); // Terminate the script to prevent further execution
-    }
-  }
-}
+    // if ($sql) {
+    //   header('location: res.php');
+    //   exit(); // Terminate the script to prevent further execution
+    // } else {
+    //   header('location: index.php');
+    //   echo '<script>alert("* Password must be 6 characters");</script>';
+    //   exit(); // Terminate the script to prevent further execution
+    // }
+  // }
+  
+
+  
+// }
 ?>
+<!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> -->
+<script>
+function sendOTP() {
+  // alert('haa');
+  event.preventDefault();
+  // Retrieve the email input
+
+  var email = $("#emailInput").val();
+  
+  // Perform the AJAX request
+  $.ajax({
+    url: "insert.php", // Replace with the correct path to the PHP file
+    type: "POST",
+    data: { email: email },
+    success: function(response) {
+      // Handle the response from the server
+      alert(response);
+      // You can update the page dynamically here if needed
+    },
+    error: function(xhr, status, error) {
+      // Handle errors, if any
+      alert("Error sending OTP: " + error);
+    }
+  });
+}
+
+function insertdata(){
+  event.preventDefault();
+
+  var mobile = $('#mobileInput').val();
+  // alert(mobile)
+  var email= $('#emailInput').val();
+  var verify = $('#verifyInput').val();
+  // alert(verify)
+  var password = $('#passwordInput').val();
+  
+  $.ajax({
+    type: "post",
+    url: "insert.php",
+    data: {
+        'checking': true,
+        mobile: mobile,
+        email: email,
+        verify: verify,
+        password: password
+    },
+    
+    success: function (response) {
+      // Handle the response from the server
+      alert(response);
+      
+      // You can update the page dynamically here if needed
+    },
+    error: function(xhr, status, error) {
+      // Handle errors, if any
+      alert("Error sending OTP: " + error);
+    }
+  });
+  
+
+
+}
+</script>
