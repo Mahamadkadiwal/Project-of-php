@@ -20,6 +20,9 @@ require_once '../admin/database/dbcon.php';
   <link rel="stylesheet" href="../admin/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="../admin/dist/css/adminlte.min.css">
+  <link rel="stylesheet" href="../admin/plugins/sweetalert2/sweetalert2.min.css">
+  
+  
 </head>
 
 <body class="hold-transition register-page">
@@ -104,10 +107,13 @@ require_once '../admin/database/dbcon.php';
 
   <!-- jQuery -->
   <script src="../admin/plugins/jquery/jquery.min.js"></script>
+  <script src="../admin/plugins/sweetalert2/sweetalert2.min.js"></script>
   <!-- Bootstrap 4 -->
   <script src="../admin/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
   <!-- AdminLTE App -->
   <script src="../admin/dist/js/adminlte.min.js"></script>
+  
+
 </body>
 
 </html>
@@ -246,10 +252,38 @@ function sendOTP() {
     type: "POST",
     data: { email: email },
     success: function(response) {
-      // Handle the response from the server
-      alert(response);
-      // You can update the page dynamically here if needed
-    },
+  // console.log(response);
+  
+  if (response === 'success') {
+    Swal.fire({
+      title: 'Success',
+      text: response,
+      icon: 'success',
+      showClass: {
+        popup: 'animate__animated animate__fadeInDown'
+      },
+      hideClass: {
+        popup: 'animate__animated animate__fadeOutUp'
+      }
+    });
+  } else {
+    Swal.fire({
+      title: 'Error',
+      text: response,
+      icon: 'error',
+      showClass: {
+        popup: 'animate__animated animate__fadeInDown'
+      },
+      hideClass: {
+        popup: 'animate__animated animate__fadeOutUp'
+      }
+    });
+  }
+},
+
+
+
+
     error: function(xhr, status, error) {
       // Handle errors, if any
       alert("Error sending OTP: " + error);
@@ -257,40 +291,84 @@ function sendOTP() {
   });
 }
 
-function insertdata(){
+function insertdata() {
   event.preventDefault();
 
   var mobile = $('#mobileInput').val();
-  // alert(mobile)
-  var email= $('#emailInput').val();
+  var email = $('#emailInput').val();
   var verify = $('#verifyInput').val();
-  // alert(verify)
   var password = $('#passwordInput').val();
-  
-  $.ajax({
-    type: "post",
-    url: "insert.php",
-    data: {
+
+  if (mobile !== '' && email !== '' && verify !== '' && password !== '') {
+    $.ajax({
+      type: "post",
+      url: "insertseller.php",
+      data: {
         'checking': true,
         mobile: mobile,
         email: email,
         verify: verify,
         password: password
-    },
-    
-    success: function (response) {
-      // Handle the response from the server
-      alert(response);
-      
-      // You can update the page dynamically here if needed
-    },
-    error: function(xhr, status, error) {
-      // Handle errors, if any
-      alert("Error sending OTP: " + error);
-    }
-  });
-  
-
-
+      },
+      success: function (response) {
+        if (response === 'success') {
+          Swal.fire({
+            title: 'Success',
+            text: 'Your data has been successfully inserted.',
+            icon: 'success',
+            showClass: {
+              popup: 'animate__animated animate__fadeInDown'
+            },
+            hideClass: {
+              popup: 'animate__animated animate__fadeOutUp'
+            }
+          }).then(function () {
+            // Redirect to another page
+            window.location.href = 'res.php';
+          });
+        } else {
+          Swal.fire({
+            title: 'Error',
+            text: response,
+            icon: 'error',
+            showClass: {
+              popup: 'animate__animated animate__fadeInDown'
+            },
+            hideClass: {
+              popup: 'animate__animated animate__fadeOutUp'
+            }
+          });
+        }
+      },
+      error: function (xhr, status, error) {
+        // Handle errors, if any
+        Swal.fire({
+          title: 'Error',
+          text: 'Error sending OTP: ' + error,
+          icon: 'error',
+          showClass: {
+            popup: 'animate__animated animate__fadeInDown'
+          },
+          hideClass: {
+            popup: 'animate__animated animate__fadeOutUp'
+          }
+        });
+      }
+    });
+  } else {
+    Swal.fire({
+      title: 'Error',
+      text: 'Please fill in all fields',
+      icon: 'error',
+      showClass: {
+        popup: 'animate__animated animate__fadeInDown'
+      },
+      hideClass: {
+        popup: 'animate__animated animate__fadeOutUp'
+      }
+    });
+  }
 }
+
+
 </script>

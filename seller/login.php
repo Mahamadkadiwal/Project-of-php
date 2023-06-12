@@ -97,21 +97,35 @@
 </html>
 
 <?php
-    if(isset($_POST['submit'])){
-        $email= $_POST['email'];
-        $password= $_POST['password'];
+     if(isset($_POST['submit'])){
+      $email = $_POST['email'];
+      $pass= $_POST['password'];
+      
+      $sql = mysqli_query($con, "select * from seller_login where email='$email'");
+      
+      if($count= mysqli_num_rows($sql) > 0){
+          $row= mysqli_fetch_assoc($sql);
+          $verify = password_verify($pass, $row['password']);
 
-        $sql = mysqli_query($con , "select * from seller_login where email='$email' and password='$password'");
-
-        if(mysqli_num_rows($sql) ==1){
-            session_start();
-            $_SESSION['seller_name']= $_POST['email'];
-            header('location:../admin/home.php');
-        }else{
-            ?>
-            <script>alert('login denied')</script>
-            <?php
-        }
-    }
+          if($verify==1){
+              
+              header('location:../admin/home.php');
+              die();
+              
+              
+          }
+          else{
+              ?>
+           <script>
+              alert( "please enter correct  password");</script>
+              <?php
+          }
+      }else{
+          ?>
+       <script>
+          alert( "please enter correct username & password");</script>
+          <?php
+      }
+  }
 
 ?>
