@@ -1,5 +1,11 @@
 <?php
 require_once '../admin/database/dbcon.php';
+session_start();
+
+if (isset($_SESSION["id"])) {
+    $id = $_SESSION["id"];
+   
+}
 
 ?>
 
@@ -39,8 +45,9 @@ require_once '../admin/database/dbcon.php';
 
 <body class="hold-transition register-page" >
      <div class="res-box">
+     
      <div class="card-header text-center">
-      <a href="../admin/index2.html" class="h1"><b>Inspire</b>Seller</a>
+      <a href="#" class="h1"><b>Inspire</b>Seller</a>
     </div>
           <!-- /.row -->
           <div class="row">
@@ -50,6 +57,7 @@ require_once '../admin/database/dbcon.php';
                   <h3 class="card-title">Registration</h3>
                 </div>
                 <div class="card-body p-0">
+                <form action="" method="post">
                   <div class="bs-stepper">
                     <div class="bs-stepper-header" role="tablist">
                       <!-- your steps here -->
@@ -82,25 +90,25 @@ require_once '../admin/database/dbcon.php';
                       <div id="logins-part" class="content" role="tabpanel" aria-labelledby="logins-part-trigger" >
                         <div class="form-group">
                           <label for="exampleInputEmail1">Floor/ Appartment/ Office</label>
-                          <input type="text" class="form-control" id="exampleInputEmail1"
+                          <input type="text" class="form-control" name="floor" id="exampleInputEmail1"
                             placeholder="Write Floor/ Appartment/ Office">
                         </div>
                         <div class="form-group">
                           <label for="exampleInputPassword1">Street</label>
-                          <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Enter street">
+                          <input type="text" class="form-control" name="street" id="exampleInputPassword1" placeholder="Enter street">
                         </div>
                         <div class="form-group">
                           <label for="exampleInputPassword1">Landmark</label>
-                          <input type="text" class="form-control" id="exampleInputPassword1"
+                          <input type="text" class="form-control" name="landmark" id="exampleInputPassword1"
                             placeholder="Enter landmark">
                         </div>
                         <div class="form-group">
                           <label for="exampleInputPassword1">City/ Postal</label>
-                          <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Enter city">
+                          <input type="text" class="form-control" name="city" id="exampleInputPassword1" placeholder="Enter city">
                         </div>
                         <div class="form-group">
                           <label>State</label>
-                          <select class="form-control select2" style="width: 100%;">
+                          <select class="form-control select2" name="state" style="width: 100%;">
                             <option selected="selected">Selected</option>
                             <option>Gujarat</option>
                             <option>Rajasthan</option>
@@ -112,47 +120,47 @@ require_once '../admin/database/dbcon.php';
                         </div>
                         <div class="form-group">
                           <label for="exampleInputPassword1">Pincode</label>
-                          <input type="number" class="form-control" id="exampleInputPassword1"
+                          <input type="number" class="form-control" name="pincode" id="exampleInputPassword1"
                             placeholder="Enter street">
                         </div>
 
-                        <button class="btn btn-primary" onclick="stepper.next()">Next</button>
+                        <button class="btn btn-primary" type="button" onclick="stepper.next()">Next</button>
                       </div>
                       <div id="information-part" class="content" role="tabpanel"
                         aria-labelledby="information-part-trigger">
                         <div class="form-group">
                           <label for="exampleInputPassword1">Bank Account Number</label>
-                          <input type="number" class="form-control" id="exampleInputPassword1" placeholder="Enter account number">
+                          <input type="number" class="form-control" name="bank" id="exampleInputPassword1" placeholder="Enter account number">
                         </div>
                         <div class="form-group">
                           <label for="exampleInputPassword1">Confirm Account Number</label>
-                          <input type="number" class="form-control" id="exampleInputPassword1" placeholder="Enter city">
+                          <input type="number" class="form-control" name="bankcom" id="exampleInputPassword1" placeholder="Enter city">
                         </div>
                         <div class="form-group">
                           <label for="exampleInputPassword1">Bank IFSC code</label>
-                          <input type="number" class="form-control" id="exampleInputPassword1" placeholder="Please write valid IFSC code">
+                          <input type="text" class="form-control"name="ifsc" id="exampleInputPassword1" placeholder="Please write valid IFSC code">
                         </div>
-                        <button class="btn btn-primary" onclick="stepper.previous()">Previous</button>
-                        <button class="btn btn-primary" onclick="stepper.next()">Next</button>
+                        <button class="btn btn-primary" type="button" onclick="stepper.previous()">Previous</button>
+                        <button class="btn btn-primary" type="button" onclick="stepper.next()">Next</button>
                         <!-- <button type="submit" class="btn btn-primary">Submit</button> -->
                       </div>
                       <div id="storeinfo-part" class="content" role="tabpanel"
                         aria-labelledby="information-part-trigger">
                         <div class="form-group">
                           <label for="exampleInputPassword1">Store Name</label>
-                          <input type="number" class="form-control" id="exampleInputPassword1" placeholder="Enter Store Name">
+                          <input type="text" class="form-control" name="store" id="exampleInputPassword1" placeholder="Enter Store Name">
                         </div>
                         <div class="form-group">
                           <label for="exampleInputPassword1">Full Name</label>
-                          <input type="number" class="form-control" id="exampleInputPassword1" placeholder="Enter your name">
+                          <input type="text" class="form-control" name="seller_name" id="exampleInputPassword1" placeholder="Enter your name">
                         </div>
                         
-                        <button class="btn btn-primary" onclick="stepper.previous()">Previous</button>
-                        <button class="btn btn-primary" onclick="stepper.next()">Next</button>
-                        <button type="submit" class="btn btn-primary">Submit</button>
+                        <button class="btn btn-primary" type="button" onclick="stepper.previous()">Previous</button>
+                        
+                        <button type="submit" class="btn btn-primary" name="submit">Submit</button>
                       </div>
                       
-                    
+                 </form>   
                 </div>
                 <!-- /.card-body -->
 
@@ -207,48 +215,25 @@ require_once '../admin/database/dbcon.php';
 
 
 <?php
-if (isset($_POST['submit'])) {
-  $name = $_POST['name'];
-  $mobile = $_POST['mobile'];
-  $email = $_POST['email'];
-  $password = $_POST['password'];
+if(isset($_POST['submit'])){
+  $seller_id= $_SESSION['id'];
+  $floor = $_POST['floor'];
+  $street = $_POST['street'];
+  $landmark = $_POST['landmark'];
+  $city = $_POST['city'];
+  $state = $_POST['state'];
+  $pincode = $_POST['pincode'];
+  $bank = $_POST['bank'];
+  $bankcom = $_POST['bankcom'];
+  $ifsc = $_POST['ifsc'];
+  $store = $_POST['store'];
+  $seller_name = $_POST['seller_name'];
 
-  $errors = []; // Array to store validation errors
+  $sql = mysqli_query($con, "INSERT INTO `seller_detail`( `seller_id`, `floor`, `street`, `landmark`, `city`, `state`, 
+  `pincode`, `account_number`, `confirm_account_number`, `ifsc_code`, `store_name`, `seller_name`) 
+  VALUES ('$seller_id','$floor','$street','$landmark','$city','$state','$pincode','$bank','$bankcom',
+  '$ifsc','$store','$seller_name')");
+  
 
-  // Validate the password
-  if (empty($password)) {
-    $errors[] = "Please enter a password.";
-  }
-  if (strlen($password) < 8) {
-    $errors[] = "Invalid password. Passwords must be at least 8 characters long.";
-  }
-  if (!preg_match("/[a-z]/", $password)) {
-    $errors[] = "Invalid password. Passwords must contain at least one lowercase letter.";
-  }
-  if (!preg_match("/[A-Z]/", $password)) {
-    $errors[] = "Invalid password. Passwords must contain at least one uppercase letter.";
-  }
-  if (!preg_match("/[0-9]/", $password)) {
-    $errors[] = "Invalid password. Passwords must contain at least one number.";
-  }
-  if (!preg_match("/[!@#$%^&*()\-_=+{};:,<.>]/", $password)) {
-    $errors[] = "Invalid password. Passwords must contain at least one special character (!@#$%^&*()\-_=+{};:,<.>).";
-  }
-
-  // Check if there are any validation errors
-  if (!empty($errors)) {
-    // Display the validation errors
-
-  } else {
-    // Password is valid, insert the record into the database
-    $sql = mysqli_query($con, "INSERT INTO `seller_login`(`name`, `mobile`, `email`, `password`) VALUES ('$name','$mobile','$email','$password')");
-
-    if ($sql) {
-      echo "Record added successfully.";
-    } else {
-      echo "Error: " . mysqli_error($con);
-    }
-  }
 }
-
 ?>

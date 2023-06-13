@@ -1,4 +1,5 @@
 <?php
+  session_start();
   require_once '../admin/database/dbcon.php';
 
   use PHPMailer\PHPMailer\PHPMailer;
@@ -21,13 +22,13 @@ if(isset($_POST['email'])){
     $mail->isSMTP();
     $mail->Host = 'smtp.gmail.com';
     $mail->SMTPAuth = true;
-    $mail->Username = 'mohdkadiwal786@gmail.com'; // your gmail
-    $mail->Password = 'wqnqoznfxpiuqbrm'; // your gmail app password
+    $mail->Username = 'techgaint530@gmail.com'; // your gmail
+    $mail->Password = 'ylurlbaassehoinb'; // your gmail app password
 
     $mail->SMTPSecure = 'ssl';
     $mail->Port = 465;
 
-    $mail->setFrom('mohdkadiwal786@gmail.com'); // your gmail
+    $mail->setFrom('techgaint530@gmail.com'); // your gmail
     $mail->addAddress($_POST['email']);
 
     $mail->isHTML(true);
@@ -40,10 +41,13 @@ if(isset($_POST['email'])){
     $mail->send();
     $sql = mysqli_query($con, "INSERT INTO `seller_login`( `mobile`, `email`, `password`, `verification_code`, `email_verified_at`) VALUES (NULL,'$email',NULL,'$verification_code',NULL)");
     if($sql){
+      $lastInsertedId = mysqli_insert_id($con);
+      $_SESSION["id"] = $lastInsertedId;
+      
       echo $return ="Please check your email to verify the code";
     }
 } catch (Exception $e){
-  echo "Message could not be sent. Mailer error: {$mail->ErrorInfo}";
+  //echo "Message could not be sent. Mailer error: {$mail->ErrorInfo}";
 }
 }
 

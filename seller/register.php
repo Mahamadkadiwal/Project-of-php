@@ -245,7 +245,7 @@ function sendOTP() {
   // Retrieve the email input
 
   var email = $("#emailInput").val();
-  
+  if (email != '' ) {
   // Perform the AJAX request
   $.ajax({
     url: "insert.php", // Replace with the correct path to the PHP file
@@ -253,8 +253,10 @@ function sendOTP() {
     data: { email: email },
     success: function(response) {
   // console.log(response);
-  
-  if (response === 'success') {
+   
+    
+   
+ 
     Swal.fire({
       title: 'Success',
       text: response,
@@ -266,19 +268,7 @@ function sendOTP() {
         popup: 'animate__animated animate__fadeOutUp'
       }
     });
-  } else {
-    Swal.fire({
-      title: 'Error',
-      text: response,
-      icon: 'error',
-      showClass: {
-        popup: 'animate__animated animate__fadeInDown'
-      },
-      hideClass: {
-        popup: 'animate__animated animate__fadeOutUp'
-      }
-    });
-  }
+  
 },
 
 
@@ -289,7 +279,20 @@ function sendOTP() {
       alert("Error sending OTP: " + error);
     }
   });
+}else{
+  Swal.fire({
+      title: 'Error',
+      text: 'Please write email',
+      icon: 'error',
+      showClass: {
+        popup: 'animate__animated animate__fadeInDown'
+      },
+      hideClass: {
+        popup: 'animate__animated animate__fadeOutUp'
+      }
+    });
 }
+} 
 
 function insertdata() {
   event.preventDefault();
@@ -311,6 +314,8 @@ function insertdata() {
         password: password
       },
       success: function (response) {
+        var errorMessage = response.errorMessage; // Assuming the response contains an "errorMessage" property
+    $('#elementId').append(errorMessage);
         if (response === 'success') {
           Swal.fire({
             title: 'Success',
