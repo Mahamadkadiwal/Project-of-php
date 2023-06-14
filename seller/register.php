@@ -21,8 +21,8 @@ require_once '../admin/database/dbcon.php';
   <!-- Theme style -->
   <link rel="stylesheet" href="../admin/dist/css/adminlte.min.css">
   <link rel="stylesheet" href="../admin/plugins/sweetalert2/sweetalert2.min.css">
-  
-  
+
+
 </head>
 
 <body class="hold-transition register-page">
@@ -65,7 +65,8 @@ require_once '../admin/database/dbcon.php';
             </div>
           </div>
           <div class="input-group mb-3">
-            <input type="password" class="form-control" name="password" id="passwordInput" placeholder="Password" required>
+            <input type="password" class="form-control" name="password" id="passwordInput" placeholder="Password"
+              required>
             <div class="input-group-append">
               <div class="input-group-text">
                 <span class="fas fa-lock"></span>
@@ -112,7 +113,7 @@ require_once '../admin/database/dbcon.php';
   <script src="../admin/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
   <!-- AdminLTE App -->
   <script src="../admin/dist/js/adminlte.min.js"></script>
-  
+
 
 </body>
 
@@ -169,8 +170,8 @@ require 'phpmailer/src/SMTP.php';
 //   $verify = $_POST['verify'];
 //   $password = $_POST['password'];
 
-  
-    
+
+
 
 //     $errors = []; // Array to store validation errors
 
@@ -214,7 +215,7 @@ require 'phpmailer/src/SMTP.php';
 //     $enc_pass = password_hash($password, PASSWORD_DEFAULT);
 //     $sql = mysqli_query($con, "update seller_login set mobile='$mobile',password='$enc_pass',email_verified_at= NOW() where email='$email' and 
 //         verification_code='$verify'");
-    
+
 //         if(mysqli_affected_rows($con) ==0){
 //           die('verification code failed.');
 //       }
@@ -223,103 +224,43 @@ require 'phpmailer/src/SMTP.php';
 //       exit();
 
 
-    // if ($sql) {
-    //   header('location: res.php');
-    //   exit(); // Terminate the script to prevent further execution
-    // } else {
-    //   header('location: index.php');
-    //   echo '<script>alert("* Password must be 6 characters");</script>';
-    //   exit(); // Terminate the script to prevent further execution
-    // }
-  // }
-  
+// if ($sql) {
+//   header('location: res.php');
+//   exit(); // Terminate the script to prevent further execution
+// } else {
+//   header('location: index.php');
+//   echo '<script>alert("* Password must be 6 characters");</script>';
+//   exit(); // Terminate the script to prevent further execution
+// }
+// }
 
-  
+
+
 // }
 ?>
 <!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> -->
 <script>
-function sendOTP() {
-  // alert('haa');
-  event.preventDefault();
-  // Retrieve the email input
+  function sendOTP() {
+    // alert('haa');
+    event.preventDefault();
+    // Retrieve the email input
 
-  var email = $("#emailInput").val();
-  if (email != '' ) {
-  // Perform the AJAX request
-  $.ajax({
-    url: "insert.php", // Replace with the correct path to the PHP file
-    type: "POST",
-    data: { email: email },
-    success: function(response) {
-  // console.log(response);
-   
-    
-   
- 
-    Swal.fire({
-      title: 'Success',
-      text: response,
-      icon: 'success',
-      showClass: {
-        popup: 'animate__animated animate__fadeInDown'
-      },
-      hideClass: {
-        popup: 'animate__animated animate__fadeOutUp'
-      }
-    });
-  
-},
+    var email = $("#emailInput").val();
+    if (email != '') {
+      // Perform the AJAX request
+      $.ajax({
+        url: "insert.php", // Replace with the correct path to the PHP file
+        type: "POST",
+        data: { email: email },
+        success: function (response) {
+          // console.log(response);
 
 
 
 
-    error: function(xhr, status, error) {
-      // Handle errors, if any
-      alert("Error sending OTP: " + error);
-    }
-  });
-}else{
-  Swal.fire({
-      title: 'Error',
-      text: 'Please write email',
-      icon: 'error',
-      showClass: {
-        popup: 'animate__animated animate__fadeInDown'
-      },
-      hideClass: {
-        popup: 'animate__animated animate__fadeOutUp'
-      }
-    });
-}
-} 
-
-function insertdata() {
-  event.preventDefault();
-
-  var mobile = $('#mobileInput').val();
-  var email = $('#emailInput').val();
-  var verify = $('#verifyInput').val();
-  var password = $('#passwordInput').val();
-
-  if (mobile !== '' && email !== '' && verify !== '' && password !== '') {
-    $.ajax({
-      type: "post",
-      url: "insertseller.php",
-      data: {
-        'checking': true,
-        mobile: mobile,
-        email: email,
-        verify: verify,
-        password: password
-      },
-      success: function (response) {
-        var errorMessage = response.errorMessage; // Assuming the response contains an "errorMessage" property
-    $('#elementId').append(errorMessage);
-        if (response === 'success') {
           Swal.fire({
             title: 'Success',
-            text: 'Your data has been successfully inserted.',
+            text: response,
             icon: 'success',
             showClass: {
               popup: 'animate__animated animate__fadeInDown'
@@ -327,14 +268,103 @@ function insertdata() {
             hideClass: {
               popup: 'animate__animated animate__fadeOutUp'
             }
-          }).then(function () {
-            // Redirect to another page
-            window.location.href = 'res.php';
           });
-        } else {
+
+        },
+
+
+
+
+        error: function (xhr, status, error) {
+          // Handle errors, if any
+          alert("Error sending OTP: " + error);
+        }
+      });
+    } else {
+      Swal.fire({
+        title: 'Error',
+        text: 'Please write email',
+        icon: 'error',
+        showClass: {
+          popup: 'animate__animated animate__fadeInDown'
+        },
+        hideClass: {
+          popup: 'animate__animated animate__fadeOutUp'
+        }
+      });
+    }
+  }
+
+  function insertdata() {
+    event.preventDefault();
+
+    var mobile = $('#mobileInput').val();
+    var email = $('#emailInput').val();
+    var verify = $('#verifyInput').val();
+    var password = $('#passwordInput').val();
+
+    if (mobile !== '' && email !== '' && verify !== '' && password !== '') {
+      $.ajax({
+        type: "post",
+        url: "insertseller.php",
+        data: {
+          'checking': true,
+          mobile: mobile,
+          email: email,
+          verify: verify,
+          password: password
+        },
+        success: function (response) {
+          var errorMessage = response.errorMessage; // Assuming the response contains an "errorMessage" property
+          $('#elementId').append(errorMessage);
+
+          if (response === 'Successfully logged in') {
+            Swal.fire({
+              title: 'Success',
+              text: response,
+              icon: 'success',
+              showClass: {
+                popup: 'animate__animated animate__fadeInDown'
+              },
+              hideClass: {
+                popup: 'animate__animated animate__fadeOutUp'
+              }
+            }).then(function () {
+              // Redirect to another page
+              window.location.href = 'res.php';
+            });
+          } else if (response === 'Please enter valid') {
+            Swal.fire({
+              title: 'Error',
+              text: response,
+              icon: 'error',
+              showClass: {
+                popup: 'animate__animated animate__fadeInDown'
+              },
+              hideClass: {
+                popup: 'animate__animated animate__fadeOutUp'
+              }
+            });
+          } else {
+            Swal.fire({
+              title: 'Error',
+              text: 'password wrong',
+              icon: 'error',
+              showClass: {
+                popup: 'animate__animated animate__fadeInDown'
+              },
+              hideClass: {
+                popup: 'animate__animated animate__fadeOutUp'
+              }
+            });
+          }
+        },
+
+        error: function (xhr, status, error) {
+          // Handle errors, if any
           Swal.fire({
             title: 'Error',
-            text: response,
+            text: 'Error sending OTP: ' + error,
             icon: 'error',
             showClass: {
               popup: 'animate__animated animate__fadeInDown'
@@ -344,36 +374,21 @@ function insertdata() {
             }
           });
         }
-      },
-      error: function (xhr, status, error) {
-        // Handle errors, if any
-        Swal.fire({
-          title: 'Error',
-          text: 'Error sending OTP: ' + error,
-          icon: 'error',
-          showClass: {
-            popup: 'animate__animated animate__fadeInDown'
-          },
-          hideClass: {
-            popup: 'animate__animated animate__fadeOutUp'
-          }
-        });
-      }
-    });
-  } else {
-    Swal.fire({
-      title: 'Error',
-      text: 'Please fill in all fields',
-      icon: 'error',
-      showClass: {
-        popup: 'animate__animated animate__fadeInDown'
-      },
-      hideClass: {
-        popup: 'animate__animated animate__fadeOutUp'
-      }
-    });
+      });
+    } else {
+      Swal.fire({
+        title: 'Error',
+        text: 'Please fill in all fields',
+        icon: 'error',
+        showClass: {
+          popup: 'animate__animated animate__fadeInDown'
+        },
+        hideClass: {
+          popup: 'animate__animated animate__fadeOutUp'
+        }
+      });
+    }
   }
-}
 
 
 </script>
