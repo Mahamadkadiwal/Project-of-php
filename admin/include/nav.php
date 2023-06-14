@@ -137,18 +137,25 @@
                     <i class="fas fa-expand-arrows-alt"></i>
                 </a>
             </li>
-            <li class="nav-item">
+            <!-- <li class="nav-item">
                 <a href="logout.php" class="nav-link btn btn-light btn-sm" role=" button">
                     <i class='fas fa-sign-out-alt'></i>
                 </a>
 
-            </li>
+            </li> -->
 
-            <!-- <li class="nav-item">
-       <a href="logout.php" class="nav-link btn btn-light btn-sm" role=" button">
-         logout <i class="bi bi-box-arrow-right"></i>
-       </a>
-     </li> -->
+            <li class="nav-item nav-profile dropdown">
+                <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" id="profileDropdown">
+                    <span class="nav-profile-name"> Admin</span>
+                </a>
+                <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item " href="logout.php">
+                        <i class='fas fa-sign-out-alt m-2 '></i>
+                        Logout
+                    </a>
+                </div>
+            </li>
 
 
         </ul>
