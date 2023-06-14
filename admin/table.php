@@ -1,11 +1,7 @@
 <?php
-<<<<<<< Updated upstream
-=======
-<<<<<<< HEAD
 $page = $_SERVER['PHP_SELF'];
 $sec = "5";
-=======
->>>>>>> Stashed changes
+
 session_start();
 if (!isset($_SESSION['adminemail'])) {
     header("location:login.php");
@@ -13,10 +9,7 @@ if (!isset($_SESSION['adminemail'])) {
 
 ?>
 <?php
-<<<<<<< Updated upstream
-=======
->>>>>>> 1e12e83d1a4ba836f047ac9fb218d87929ef28fe
->>>>>>> Stashed changes
+
 require_once 'database/dbcon.php';
 // session_start();
 if (isset($_SESSION['id'])) {
