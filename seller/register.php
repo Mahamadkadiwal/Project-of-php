@@ -241,7 +241,12 @@ require 'phpmailer/src/SMTP.php';
 <!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> -->
 <script>
   function sendOTP() {
-    // alert('haa');
+    Swal.fire({
+  icon: 'warning',
+  title: 'Wait.. for the OTP',
+  text: 'Please check your email'
+  
+})
     event.preventDefault();
     // Retrieve the email input
 

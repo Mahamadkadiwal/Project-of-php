@@ -1,4 +1,11 @@
 <?php
+<<<<<<< Updated upstream
+=======
+<<<<<<< HEAD
+$page = $_SERVER['PHP_SELF'];
+$sec = "5";
+=======
+>>>>>>> Stashed changes
 session_start();
 if (!isset($_SESSION['adminemail'])) {
     header("location:login.php");
@@ -6,13 +13,17 @@ if (!isset($_SESSION['adminemail'])) {
 
 ?>
 <?php
+<<<<<<< Updated upstream
+=======
+>>>>>>> 1e12e83d1a4ba836f047ac9fb218d87929ef28fe
+>>>>>>> Stashed changes
 require_once 'database/dbcon.php';
 // session_start();
 if (isset($_SESSION['id'])) {
     $seller_id = $_SESSION['id'];
 }
-if (isset($_GET['type'])) {
-    $type = mysqli_real_escape_string($con, $_GET['type']);
+if (isset($_GET['permission'])) {
+    $type = mysqli_real_escape_string($con, $_GET['permission']);
     if ($type == 'status') {
         $operation = mysqli_real_escape_string($con, $_GET['operation']);
         $id = mysqli_real_escape_string($con, $_GET['id']);
@@ -35,8 +46,9 @@ if (isset($_GET['type'])) {
 
 <head>
     <meta charset="utf-8">
+    <meta http-equiv="refresh" content="<?php echo $sec?>;URL='<?php echo $page?>'">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>AdminLTE 3 | DataTables</title>
+    <title>Dashboard Seller</title>
 
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -48,6 +60,7 @@ if (isset($_GET['type'])) {
     <link rel="stylesheet" href="plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
     <!-- Theme style -->
     <link rel="stylesheet" href="dist/css/adminlte.min.css">
+    <link rel="stylesheet" href="dist/css/adminlte.css">
     <style></style>
 </head>
 
@@ -138,12 +151,12 @@ if (isset($_GET['type'])) {
                                                         <td class="status">
                                                             <?php
                                                             if ($row['status'] == 1) {
-                                                                echo "<span class='badge active'><a href='?type=status&operation=deactive&id=" . $row['id'] . "'><i class='fa fa-toggle-on'></i></a></span>&nbsp;&nbsp;";
+                                                                echo "<span class='operate active'><a href='?permission=status&operation=deactive&id=" . $row['id'] . "'><i class='fa fa-toggle-on'></i></a></span>&nbsp;&nbsp;";
                                                             } else {
-                                                                echo "<span class='badge deactive'><a href='?type=status&operation=active&id=" . $row['id'] . "'><i class='fa fa-toggle-off'></i></a></span>&nbsp;&nbsp;";
+                                                                echo "<span class='operate deactive'><a href='?permission=status&operation=active&id=" . $row['id'] . "'><i class='fa fa-toggle-off'></i></a></span>&nbsp;&nbsp;";
                                                             }
                                                             // echo "<span class='badge edit'><a href='" . $row['id'] . "'><i class='fa fa-pen-to-square'></i></a></span>&nbsp;&nbsp;";
-                                                            echo "<span class='badge delete'><a href='?type=delete&id=" . $row['id'] . "'><i class='fas fa-trash-alt' onclick ='return checkdelete()'></i></a></span>";
+                                                            echo "<span class='operate delete'><a href='?permission=delete&id=" . $row['id'] . "'><i class='fas fa-trash-alt' onclick ='return checkdelete()'></i></a></span>";
                                                             ?>
                                                         </td>
 
@@ -241,6 +254,11 @@ if (isset($_GET['type'])) {
                 "responsive": true,
             });
         });
+    //     $(document).ready(function() {
+    //   setInterval(function() {
+    //     $('.status').load('');
+    //   }, 5000); // 5 seconds
+    // });
     </script>
 </body>
 

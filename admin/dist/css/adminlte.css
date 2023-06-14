@@ -35102,6 +35102,32 @@ a.close.disabled, a.disabled.mailbox-attachment-close {
   }
 }
 
+.operate{
+	padding: 2px 3px;
+	border-radius: 3px;
+	font-weight: 700;
+	font-size: 1.5rem;
+}
+.operate.active{
+	background: #00c292;;
+    padding: 7px 10px;
+    font-size: 1.5rem;
+}
+.operate.deactive{
+	background: #fb9678;
+    padding: 7px 10px;
+    font-size: 1.5rem;
+}
+.badge .edit{
+	background: blue;
+    padding: 10px 15px;
+    font-size: 15px;
+}
+.operate .delete{
+	background: red;
+    padding: 10px 15px;
+    font-size: 15px;
+}
 .error-page > .headline {
   float: left;
   font-size: 100px;

@@ -230,9 +230,9 @@ if(isset($_POST['submit'])){
   $seller_name = $_POST['seller_name'];
 
   $sql = mysqli_query($con, "INSERT INTO `seller_detail`( `seller_id`, `floor`, `street`, `landmark`, `city`, `state`, 
-  `pincode`, `account_number`, `confirm_account_number`, `ifsc_code`, `store_name`, `seller_name`) 
+  `pincode`, `account_number`, `confirm_account_number`, `ifsc_code`, `store_name`, `seller_name`,`status`) 
   VALUES ('$seller_id','$floor','$street','$landmark','$city','$state','$pincode','$bank','$bankcom',
-  '$ifsc','$store','$seller_name')");
+  '$ifsc','$store','$seller_name','0')");
   
 
 }
