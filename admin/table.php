@@ -1,6 +1,13 @@
 <?php
-require_once 'database/dbcon.php';
 session_start();
+if (!isset($_SESSION['adminemail'])) {
+    header("location:../login.php");
+}
+
+?>
+<?php
+require_once 'database/dbcon.php';
+// session_start();
 if (isset($_SESSION['id'])) {
     $seller_id = $_SESSION['id'];
 }

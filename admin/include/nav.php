@@ -150,7 +150,7 @@
                 </a>
                 <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item " href="logout.php">
+                    <a class="dropdown-item " name="logoutbtn" href="logout.php">
                         <i class='fas fa-sign-out-alt m-2 '></i>
                         Logout
                     </a>

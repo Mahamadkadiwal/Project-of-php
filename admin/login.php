@@ -12,6 +12,12 @@ if (isset($_POST['submit'])) {
     session_start();
     echo 'sucess';
     $_SESSION['adminemail'] = $_POST['email'];
+?>
+    <script>
+      alert($_SESSION['adminemail']);
+    </script>
+<?php
+    echo $_SESSION['adminemail'];
     header("location:home.php");
   } else {
     // alert('error', 'worng password');
