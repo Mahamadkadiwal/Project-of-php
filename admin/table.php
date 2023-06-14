@@ -32,8 +32,7 @@ if (isset($_GET['type'])) {
     <title>AdminLTE 3 | DataTables</title>
 
     <!-- Google Font: Source Sans Pro -->
-    <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
     <!-- DataTables -->
@@ -102,7 +101,7 @@ if (isset($_GET['type'])) {
                                         <?php
                                         $sql = mysqli_query($con, "SELECT * FROM seller_detail ");
                                         if (mysqli_num_rows($sql) > 0) {
-                                            ?>
+                                        ?>
                                             <thead>
                                                 <tr>
                                                     <th>Name</th>
@@ -115,7 +114,7 @@ if (isset($_GET['type'])) {
                                             <tbody>
                                                 <?php
                                                 while ($row = mysqli_fetch_assoc($sql)) {
-                                                    ?>
+                                                ?>
                                                     <tr>
                                                         <td>
                                                             <?php echo $row['seller_name']; ?>
@@ -127,7 +126,7 @@ if (isset($_GET['type'])) {
                                                             <?php echo $row['seller_name']; ?>
                                                         </td>
                                                         <td>
-                                                            
+
                                                         </td>
                                                         <td class="status">
                                                             <?php
@@ -142,11 +141,11 @@ if (isset($_GET['type'])) {
                                                         </td>
 
                                                     </tr>
-                                                    <?php
+                                                <?php
                                                 }
                                                 ?>
                                             </tbody>
-                                            <?php
+                                        <?php
                                         }
                                         ?>
 
@@ -179,13 +178,13 @@ if (isset($_GET['type'])) {
             <!-- /.content -->
         </div>
         <!-- /.content-wrapper -->
-        <footer class="main-footer">
+        <!-- <footer class="main-footer">
             <div class="float-right d-none d-sm-block">
                 <b>Version</b> 3.2.0
             </div>
             <strong>Copyright &copy; 2014-2021 <a href="https://adminlte.io">AdminLTE.io</a>.</strong> All rights
             reserved.
-        </footer>
+        </footer> -->
 
         <!-- Control Sidebar -->
         <aside class="control-sidebar control-sidebar-dark">
@@ -218,9 +217,11 @@ if (isset($_GET['type'])) {
     <script src="dist/js/demo.js"></script>
     <!-- Page specific script -->
     <script>
-        $(function () {
+        $(function() {
             $("#example1").DataTable({
-                "responsive": true, "lengthChange": false, "autoWidth": false,
+                "responsive": true,
+                "lengthChange": false,
+                "autoWidth": false,
                 "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
             }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
             $('#example2').DataTable({

@@ -46,7 +46,7 @@
                     <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
                     <li class="nav-item menu-open">
-                        <a href="../home.php" class="nav-link active">
+                        <a href="././home.php" class="nav-link active">
                             <i class="nav-icon fas fa-tachometer-alt"></i>
                             <p>
                                 Dashboard
@@ -57,7 +57,7 @@
                     </li>
 
                     <li class="nav-item">
-                        <a href="../order.php" class="nav-link">
+                        <a href="././order.php" class="nav-link">
                             <i class='nav-icon fas fa-cart-plus'></i>
                             <p>
                                 Order
@@ -75,17 +75,25 @@
 
                     </li>
                     <li class="nav-item">
-                        <a href="../form.php" class="nav-link">
+                        <a href="././form.php" class="nav-link">
                             <i class="nav-icon fas fa-edit"></i>
                             <p>
                                 Forms
 
                             </p>
                         </a>
+                    <li class="nav-item">
+                        <a href="././table.php" class="nav-link">
+                            <i class="nav-icon fas fa-table"></i>
+                            <p>
+
+                                Tables
+                            </p>
+                        </a>
 
                     </li>
-                    <li class="nav-item">
-                        <a href="#" class="nav-link">
+                    <!--   <li class="nav-item">
+                        <a href="../table.php" class="nav-link">
                             <i class="nav-icon fas fa-table"></i>
                             <p>
                                 Tables
@@ -112,7 +120,7 @@
                                 </a>
                             </li>
                         </ul>
-                    </li>
+                    </li> -->
 
 
                 </ul>
