@@ -3,8 +3,7 @@ require_once '../admin/database/dbcon.php';
 session_start();
 
 if (isset($_SESSION["id"])) {
-    $id = $_SESSION["id"];
-   
+  $id = $_SESSION["id"];
 }
 
 ?>
@@ -18,8 +17,7 @@ if (isset($_SESSION["id"])) {
   <title>Seller Registration</title>
 
   <!-- Google Font: Source Sans Pro -->
-  <link rel="stylesheet"
-    href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
   <!-- Font Awesome -->
   <link rel="stylesheet" href="../admin/plugins/fontawesome-free/css/all.min.css">
   <!-- daterange picker -->
@@ -43,134 +41,126 @@ if (isset($_SESSION["id"])) {
   <link rel="stylesheet" href="../admin/dist/css/adminlte.min.css">
 </head>
 
-<body class="hold-transition register-page" >
-     <div class="res-box">
-     
-     <div class="card-header text-center">
+<body class="hold-transition register-page">
+  <div class="res-box">
+
+    <div class="card-header text-center">
       <a href="#" class="h1"><b>Inspire</b>Seller</a>
     </div>
-          <!-- /.row -->
-          <div class="row">
-            <div class="col-md-12">
-              <div class="card card-default">
-                <div class="card-header">
-                  <h3 class="card-title">Registration</h3>
+    <!-- /.row -->
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card card-default">
+          <div class="card-header">
+            <h3 class="card-title">Registration</h3>
+          </div>
+          <div class="card-body p-0">
+            <form action="" method="post">  
+              <div class="bs-stepper">
+                <div class="bs-stepper-header" role="tablist">
+                  <!-- your steps here -->
+                  <div class="step" data-target="#logins-part">
+                    <button type="button" class="step-trigger" role="tab" aria-controls="address-part" id="logins-part-trigger">
+                      <span class="bs-stepper-circle">1</span>
+                      <span class="bs-stepper-label">Address</span>
+                    </button>
+                  </div>
+                  <div class="line"></div>
+                  <div class="step" data-target="#information-part">
+                    <button type="button" class="step-trigger" role="tab" aria-controls="bankinfo-part" id="information-part-trigger">
+                      <span class="bs-stepper-circle">2</span>
+                      <span class="bs-stepper-label">Bank Details</span>
+                    </button>
+                  </div>
+                  <div class="line"></div>
+                  <div class="step" data-target="#storeinfo-part">
+                    <button type="button" class="step-trigger" role="tab" aria-controls="storeinfo-part" id="information-part-trigger">
+                      <span class="bs-stepper-circle">3</span>
+                      <span class="bs-stepper-label">Store Details</span>
+                    </button>
+                  </div>
                 </div>
-                <div class="card-body p-0">
-                <form action="" method="post">
-                  <div class="bs-stepper">
-                    <div class="bs-stepper-header" role="tablist">
-                      <!-- your steps here -->
-                      <div class="step" data-target="#logins-part">
-                        <button type="button" class="step-trigger" role="tab" aria-controls="address-part"
-                          id="logins-part-trigger">
-                          <span class="bs-stepper-circle">1</span>
-                          <span class="bs-stepper-label">Address</span>
-                        </button>
-                      </div>
-                      <div class="line"></div>
-                      <div class="step" data-target="#information-part">
-                        <button type="button" class="step-trigger" role="tab" aria-controls="bankinfo-part"
-                          id="information-part-trigger">
-                          <span class="bs-stepper-circle">2</span>
-                          <span class="bs-stepper-label">Bank Details</span>
-                        </button>
-                      </div>
-                      <div class="line"></div>
-                      <div class="step" data-target="#storeinfo-part">
-                        <button type="button" class="step-trigger" role="tab" aria-controls="storeinfo-part"
-                          id="information-part-trigger">
-                          <span class="bs-stepper-circle">3</span>
-                          <span class="bs-stepper-label">Store Details</span>
-                        </button>
-                      </div>
+                <div class="bs-stepper-content">
+                  <!-- your steps content here -->
+                  <div id="logins-part" class="content" role="tabpanel" aria-labelledby="logins-part-trigger">
+                    <div class="form-group">
+                      <label for="exampleInputEmail1">Floor/ Appartment/ Office</label>
+                      <input type="text" class="form-control" name="floor" id="exampleInputEmail1" placeholder="Write Floor/ Appartment/ Office">
                     </div>
-                    <div class="bs-stepper-content">
-                      <!-- your steps content here -->
-                      <div id="logins-part" class="content" role="tabpanel" aria-labelledby="logins-part-trigger" >
-                        <div class="form-group">
-                          <label for="exampleInputEmail1">Floor/ Appartment/ Office</label>
-                          <input type="text" class="form-control" name="floor" id="exampleInputEmail1"
-                            placeholder="Write Floor/ Appartment/ Office">
-                        </div>
-                        <div class="form-group">
-                          <label for="exampleInputPassword1">Street</label>
-                          <input type="text" class="form-control" name="street" id="exampleInputPassword1" placeholder="Enter street">
-                        </div>
-                        <div class="form-group">
-                          <label for="exampleInputPassword1">Landmark</label>
-                          <input type="text" class="form-control" name="landmark" id="exampleInputPassword1"
-                            placeholder="Enter landmark">
-                        </div>
-                        <div class="form-group">
-                          <label for="exampleInputPassword1">City/ Postal</label>
-                          <input type="text" class="form-control" name="city" id="exampleInputPassword1" placeholder="Enter city">
-                        </div>
-                        <div class="form-group">
-                          <label>State</label>
-                          <select class="form-control select2" name="state" style="width: 100%;">
-                            <option selected="selected">Selected</option>
-                            <option>Gujarat</option>
-                            <option>Rajasthan</option>
-                            <option>Punjab</option>
-                            <option>Maharashtra</option>
-                            <option>Madhya pradesh</option>
-                            <option>Andra Pradesh</option>
-                          </select>
-                        </div>
-                        <div class="form-group">
-                          <label for="exampleInputPassword1">Pincode</label>
-                          <input type="number" class="form-control" name="pincode" id="exampleInputPassword1"
-                            placeholder="Enter street">
-                        </div>
+                    <div class="form-group">
+                      <label for="exampleInputPassword1">Street</label>
+                      <input type="text" class="form-control" name="street" id="exampleInputPassword1" placeholder="Enter street">
+                    </div>
+                    <div class="form-group">
+                      <label for="exampleInputPassword1">Landmark</label>
+                      <input type="text" class="form-control" name="landmark" id="exampleInputPassword1" placeholder="Enter landmark">
+                    </div>
+                    <div class="form-group">
+                      <label for="exampleInputPassword1">City/ Postal</label>
+                      <input type="text" class="form-control" name="city" id="exampleInputPassword1" placeholder="Enter city">
+                    </div>
+                    <div class="form-group">
+                      <label>State</label>
+                      <select class="form-control select2" name="state" style="width: 100%;">
+                        <option selected="selected">Selected</option>
+                        <option>Gujarat</option>
+                        <option>Rajasthan</option>
+                        <option>Punjab</option>
+                        <option>Maharashtra</option>
+                        <option>Madhya pradesh</option>
+                        <option>Andra Pradesh</option>
+                      </select>
+                    </div>
+                    <div class="form-group">
+                      <label for="exampleInputPassword1">Pincode</label>
+                      <input type="number" class="form-control" name="pincode" id="exampleInputPassword1" placeholder="Enter street">
+                    </div>
 
-                        <button class="btn btn-primary" type="button" onclick="stepper.next()">Next</button>
-                      </div>
-                      <div id="information-part" class="content" role="tabpanel"
-                        aria-labelledby="information-part-trigger">
-                        <div class="form-group">
-                          <label for="exampleInputPassword1">Bank Account Number</label>
-                          <input type="number" class="form-control" name="bank" id="exampleInputPassword1" placeholder="Enter account number">
-                        </div>
-                        <div class="form-group">
-                          <label for="exampleInputPassword1">Confirm Account Number</label>
-                          <input type="number" class="form-control" name="bankcom" id="exampleInputPassword1" placeholder="Enter city">
-                        </div>
-                        <div class="form-group">
-                          <label for="exampleInputPassword1">Bank IFSC code</label>
-                          <input type="text" class="form-control"name="ifsc" id="exampleInputPassword1" placeholder="Please write valid IFSC code">
-                        </div>
-                        <button class="btn btn-primary" type="button" onclick="stepper.previous()">Previous</button>
-                        <button class="btn btn-primary" type="button" onclick="stepper.next()">Next</button>
-                        <!-- <button type="submit" class="btn btn-primary">Submit</button> -->
-                      </div>
-                      <div id="storeinfo-part" class="content" role="tabpanel"
-                        aria-labelledby="information-part-trigger">
-                        <div class="form-group">
-                          <label for="exampleInputPassword1">Store Name</label>
-                          <input type="text" class="form-control" name="store" id="exampleInputPassword1" placeholder="Enter Store Name">
-                        </div>
-                        <div class="form-group">
-                          <label for="exampleInputPassword1">Full Name</label>
-                          <input type="text" class="form-control" name="seller_name" id="exampleInputPassword1" placeholder="Enter your name">
-                        </div>
-                        
-                        <button class="btn btn-primary" type="button" onclick="stepper.previous()">Previous</button>
-                        
-                        <button type="submit" class="btn btn-primary" name="submit">Submit</button>
-                      </div>
-                      
-                 </form>   
-                </div>
-                <!-- /.card-body -->
+                    <button class="btn btn-primary" type="button" onclick="stepper.next()">Next</button>
+                  </div>
+                  <div id="information-part" class="content" role="tabpanel" aria-labelledby="information-part-trigger">
+                    <div class="form-group">
+                      <label for="exampleInputPassword1">Bank Account Number</label>
+                      <input type="number" class="form-control" name="bank" id="exampleInputPassword1" placeholder="Enter account number">
+                    </div>
+                    <div class="form-group">
+                      <label for="exampleInputPassword1">Confirm Account Number</label>
+                      <input type="number" class="form-control" name="bankcom" id="exampleInputPassword1" placeholder="Enter city">
+                    </div>
+                    <div class="form-group">
+                      <label for="exampleInputPassword1">Bank IFSC code</label>
+                      <input type="text" class="form-control" name="ifsc" id="exampleInputPassword1" placeholder="Please write valid IFSC code">
+                    </div>
+                    <button class="btn btn-primary" type="button" onclick="stepper.previous()">Previous</button>
+                    <button class="btn btn-primary" type="button" onclick="stepper.next()">Next</button>
+                    <!-- <button type="submit" class="btn btn-primary">Submit</button> -->
+                  </div>
+                  <div id="storeinfo-part" class="content" role="tabpanel" aria-labelledby="information-part-trigger">
+                    <div class="form-group">
+                      <label for="exampleInputPassword1">Store Name</label>
+                      <input type="text" class="form-control" name="store" id="exampleInputPassword1" placeholder="Enter Store Name">
+                    </div>
+                    <div class="form-group">
+                      <label for="exampleInputPassword1">Full Name</label>
+                      <input type="text" class="form-control" name="seller_name" id="exampleInputPassword1" placeholder="Enter your name">
+                    </div>
 
-              </div>
-              <!-- /.card -->
-            </div>
+                    <button class="btn btn-primary" type="button" onclick="stepper.previous()">Previous</button>
+
+                    <button type="submit" class="btn btn-primary" name="submit">Submit</button>
+                  </div>
+
+            </form>
           </div>
-          <!-- /.row -->
-          </div>
-       
+          <!-- /.card-body -->
+
+        </div>
+        <!-- /.card -->
+      </div>
+    </div>
+    <!-- /.row -->
+  </div>
+
 
   <!-- jQuery -->
   <script src="../admin/plugins/jquery/jquery.min.js"></script>
@@ -201,22 +191,20 @@ if (isset($_SESSION["id"])) {
   <script src="../admin/dist/js/demo.js"></script>
   <!-- Page specific script -->
   <script>
-
-  // BS-Stepper Init
-  document.addEventListener('DOMContentLoaded', function () {
+    // BS-Stepper Init
+    document.addEventListener('DOMContentLoaded', function() {
       window.stepper = new Stepper(document.querySelector('.bs-stepper'))
     })
+  </script>
 
-    </script>
-   
 </body>
 
 </html>
 
 
 <?php
-if(isset($_POST['submit'])){
-  $seller_id= $_SESSION['id'];
+if (isset($_POST['submit'])) {
+  $seller_id = $_SESSION['id'];
   $floor = $_POST['floor'];
   $street = $_POST['street'];
   $landmark = $_POST['landmark'];
@@ -233,7 +221,5 @@ if(isset($_POST['submit'])){
   `pincode`, `account_number`, `confirm_account_number`, `ifsc_code`, `store_name`, `seller_name`,`status`) 
   VALUES ('$seller_id','$floor','$street','$landmark','$city','$state','$pincode','$bank','$bankcom',
   '$ifsc','$store','$seller_name','0')");
-  
-
 }
 ?>

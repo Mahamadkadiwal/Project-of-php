@@ -348,12 +348,13 @@ if (!isset($_SESSION['adminemail'])) {
                                 <div class="card-body row">
                                     <div class="col-md-6">
                                         <a href="addsinglecatlog.php">
-                                            <button type="button" class="btn btn-primary btn-block">Add Single Catalog</button>
+                                            <button type="button" class="btn btn-default btn-block">Add Single Catalog</button>
+                                            <!-- <button type="button" class="btn btn-primary btn-block">Add Single Catalog</button> -->
                                         </a>
                                     </div>
                                     <div class="col-md-6">
-
-                                        <button type="button" class="btn btn-outline-primary btn-block">Add Catalog in Bulk</button>
+                                        <!-- <button type="button" class="btn btn-default btn-block">Add Catalog in Bulk</button> -->
+                                        <button type="button" class="btn btn-primary btn-block">Add Catalog in Bulk</button>
                                     </div>
                                 </div>
                             </div>
