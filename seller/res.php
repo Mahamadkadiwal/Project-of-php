@@ -1,12 +1,9 @@
 <?php
 require_once '../admin/database/dbcon.php';
 session_start();
-
 if (isset($_SESSION["id"])) {
     $id = $_SESSION["id"];
-   
 }
-
 ?>
 
 <!DOCTYPE html>
@@ -228,12 +225,35 @@ if(isset($_POST['submit'])){
   $ifsc = $_POST['ifsc'];
   $store = $_POST['store'];
   $seller_name = $_POST['seller_name'];
-
+  $status;
   $sql = mysqli_query($con, "INSERT INTO `seller_detail`( `seller_id`, `floor`, `street`, `landmark`, `city`, `state`, 
   `pincode`, `account_number`, `confirm_account_number`, `ifsc_code`, `store_name`, `seller_name`,`status`) 
   VALUES ('$seller_id','$floor','$street','$landmark','$city','$state','$pincode','$bank','$bankcom',
   '$ifsc','$store','$seller_name','0')");
+ 
   
-
+  $query = mysqli_query($con, "select * from seller_detail where seller_id='$seller_id'");
+  if(mysqli_num_rows($query) > 0){
+    while($row= mysqli_fetch_assoc($query)){
+      $status = $row['status'];
+    }
+  }
+  if($status == 1){
+    ?>
+    <script>
+      alert('your request is accept by the admin');
+      window.location.href= '../admin/home.php';
+    </script>
+    <?php
+  }
+  else{
+    ?>
+    <script>
+      // alert('Waiting for confirmation');
+      window.location.href= 'comfirm.php';
+    </script>
+    <?php
+   
+  }
 }
 ?>
