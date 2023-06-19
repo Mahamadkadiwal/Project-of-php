@@ -1,3 +1,6 @@
+<?php
+// session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -56,13 +59,19 @@
 
                     </li>
 
-                    <li class="nav-item">
-                        <a href="././order.php" class="nav-link">
-                            <i class='nav-icon fas fa-cart-plus'></i>
+                  <li class="nav-item">
+                        <?php 
+                        if($_SESSION['admin_role']==1){
+                          echo  '<a href="././order.php" class="nav-link">
+                            <i class="nav-icon fas fa-cart-plus"></i>
                             <p>
                                 Order
                             </p>
-                        </a>
+                        </a>';
+                            }
+                          
+                                ?>
+                        
 
                     </li>
                     <li class="nav-item">
@@ -74,7 +83,9 @@
                         </a>
 
                     </li>
+                    <?php if(!$_SESSION['admin_role']==1){?>
                     <li class="nav-item">
+                       
                         <a href="././form.php" class="nav-link">
                             <i class="nav-icon fas fa-edit"></i>
                             <p>
@@ -90,8 +101,9 @@
                                 Tables
                             </p>
                         </a>
-
+                   
                     </li>
+                    <?php  } ?>
                     <!--   <li class="nav-item">
                         <a href="../table.php" class="nav-link">
                             <i class="nav-icon fas fa-table"></i>

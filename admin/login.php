@@ -1,7 +1,7 @@
 <?php
 include 'database/dbcon.php';
 include 'alert.php';
-
+session_start();
 ?>
 
 <?php
@@ -9,15 +9,16 @@ if (isset($_POST['submit'])) {
   $quary = "SELECT * FROM `admin_login` WHERE `email`='$_POST[email]' AND `password`='$_POST[password]'";
   $res = mysqli_query($con, $quary);
   if (mysqli_num_rows($res) == 1) {
-    session_start();
+    $row= mysqli_fetch_assoc($res);
     echo 'sucess';
     $_SESSION['adminemail'] = $_POST['email'];
+    $_SESSION['admin_role']= $row['role'];
+    echo '<script>alert('.$_SESSION['admin_role'].')</script>';
+
 ?>
-    <script>
-      alert($_SESSION['adminemail']);
-    </script>
+    
 <?php
-    echo $_SESSION['adminemail'];
+    // echo $_SESSION['adminemail'];
     header("location:home.php");
   } else {
     // alert('error', 'worng password');
