@@ -61,7 +61,7 @@
 
                   <li class="nav-item">
                         <?php 
-                        if($_SESSION['admin_role']==1){
+                        if($_SESSION['adminrole']==1){
                           echo  '<a href="././order.php" class="nav-link">
                             <i class="nav-icon fas fa-cart-plus"></i>
                             <p>
@@ -83,7 +83,7 @@
                         </a>
 
                     </li>
-                    <?php if(!$_SESSION['admin_role']==1){?>
+                    <?php if(!$_SESSION['adminrole']==1){?>
                     <li class="nav-item">
                        
                         <a href="././form.php" class="nav-link">

@@ -1,7 +1,8 @@
 <?php
+include_once '../database/dbcon.php';
 session_start();
 
-if (!isset($_SESSION['adminemail'])) {
+if (!isset($_SESSION['admin_email'])) {
     header("location:login.php");
 }
 
@@ -55,7 +56,7 @@ if (isset($_SESSION["id"])) {
                 <!-- header  -->
                 <div class="header">
                 </div>
-
+                
                 <!-- body  -->
                 <div class="body m-5">
                     <div class="row">
@@ -65,6 +66,7 @@ if (isset($_SESSION["id"])) {
                                     <h2 class="card-title">ADD Single Category</h2>
                                 </div>
                                 <div class="card-body p-0">
+                                    <form action="" method="post"></form>
                                     <div class="bs-stepper">
                                         <div class="bs-stepper-header" role="tablist">
                                             <!-- your steps here -->
@@ -85,57 +87,25 @@ if (isset($_SESSION["id"])) {
                                         <div class="bs-stepper-content">
                                             <!-- your steps content here -->
                                             <div id="logins-part" class="content" role="tabpanel" aria-labelledby="logins-part-trigger">
-                                                <a href="#" onclick="showData()">Men Fashion</a>
-                                                <div id="dataContainer"></div>
-                                                <script>
-                                                    function showData() {
-                                                        for (var j = 0; j < 4; j++) {
-                                                            var cell = document.createElement("td");
-                                                            var cellText = document.createTextNode("Row " + (i + 1) + ", Cell " + (j + 1));
-                                                            cell.appendChild(cellText);
-                                                            row.appendChild(cell);
-                                                        }
+                                                
 
-                                                        table.appendChild(row);
-                                                    }
-
-                                                    // Append the table to the document body
-                                                    document.body.appendChild(table);
-
-                                                    // Retrieve the data you want to display
-                                                    var data = "This is the data you want to show.";
-
-                                                    // Get the reference to the data container element
-                                                    var dataContainer = document.getElementById("dataContainer");
-
-
-                                                    // Update the content of the data container
-                                                    dataContainer.innerHTML = data;
-                                                </script>
-
-                                                <!-- <div class="form-group">
+                                                 <div class="form-group">
                                                     <label>Men fashion</label>
                                                     <select class="form-control select2" name="state" style="width: 100%;">
-                                                        <option selected="selected">T-shirts</option>
-                                                        <option>shirts</option>
-                                                        <option>Polo shirts</option>
-                                                        <option>Sweaters</option>
-                                                        <option>Hoodies</option>
-                                                        <option>Jackets</option>
-                                                        <option>Blazers</option>
-                                                        <option>Suits</option>
-                                                        <option>Dress pants</option>
-                                                        <option>Jeans</option>
-                                                        <option>Chinos</option>
-                                                        <option>Shorts</option>
-                                                        <option>Accessories </option>
-                                                        <option>Underwear</option>
-                                                        <option>Swimwear</option>
-                                                        <option>Activewear</option>
-                                                        <option>Bags</option>
+                                                        <option>select</option>
+                                                        <?php
+                                                          $sql = mysqli_query($con, "SELECT * from categories where status='1'");
+
+                                                          while ($row = mysqli_fetch_assoc($sql)) {
+                                                              ?>
+                                                              <!-- <option value="<?php echo $row['name']; ?>"></option> -->
+                                                              <option value="clothes"><?php echo $row['name']; ?></option>
+                                                              <?php
+                                                          }
+                                                        ?>
 
                                                     </select>
-                                                </div> -->
+                                                </div> 
                                                 <div class="form-group">
                                                     <label>State</label>
                                                     <select class="form-control select2" name="state" style="width: 100%;">
@@ -151,7 +121,7 @@ if (isset($_SESSION["id"])) {
                                                 <button class="btn btn-primary" onclick="stepper.next()">Next</button>
                                             </div>
                                             <div id="information-part" class="content" role="tabpanel" aria-labelledby="information-part-trigger">
-                                                <!-- <div class="form-group">
+                                                <div class="form-group">
                                                     <label for="exampleInputFile">File input</label>
                                                     <div class="input-group">
                                                         <div class="custom-file">
@@ -162,12 +132,13 @@ if (isset($_SESSION["id"])) {
                                                             <span class="input-group-text">Upload</span>
                                                         </div>
                                                     </div>
-                                                </div> -->
+                                                </div>
                                                 <button class="btn btn-primary" onclick="stepper.previous()">Previous</button>
                                                 <button type="submit" class="btn btn-primary">Submit</button>
                                             </div>
                                         </div>
                                     </div>
+                               </form>
                                 </div>
                                 <!-- /.card-body -->
 

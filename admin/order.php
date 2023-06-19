@@ -1,6 +1,6 @@
 <?php
 session_start();
-if (!isset($_SESSION['adminemail'])) {
+if (!isset($_SESSION['admin_email'])) {
     header("location:login.php");
 }
 

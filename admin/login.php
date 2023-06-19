@@ -11,9 +11,9 @@ if (isset($_POST['submit'])) {
   if (mysqli_num_rows($res) == 1) {
     $row= mysqli_fetch_assoc($res);
     echo 'sucess';
-    $_SESSION['adminemail'] = $_POST['email'];
-    $_SESSION['admin_role']= $row['role'];
-    echo '<script>alert('.$_SESSION['admin_role'].')</script>';
+    $_SESSION['admin_email'] = $_POST['email'];
+    $_SESSION['adminrole']= $row['role'];
+    // echo '<script>alert('.$_SESSION['adminrole'].')</script>';
 
 ?>
     
