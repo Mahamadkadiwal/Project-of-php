@@ -238,43 +238,50 @@ if (!isset($_SESSION['adminemail'])) {
                         </li>
 
                         <li class="nav-item">
-                            <a href="../order.php" class="nav-link">
-                                <i class='nav-icon fas fa-cart-plus'></i>
-                                <p>
-                                    Order
-                                </p>
-                            </a>
+                        <?php 
+                        if($_SESSION['admin_role']==1){
+                          echo  '<a href="../order.php" class="nav-link">
+                            <i class="nav-icon fas fa-cart-plus"></i>
+                            <p>
+                                Order
+                            </p>
+                        </a>';
+                            }
+                          
+                                ?>
+                        
 
-                        </li>
-                        <li class="nav-item">
-                            <a href="../productcatalog/cat.php" class="nav-link">
-                                <i class='nav-icon fas fa-upload'></i>
-                                <p>
-                                    Catalog UPload
-                                </p>
-                            </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="../productcatalog/cat.php" class="nav-link">
+                            <i class='nav-icon fas fa-upload'></i>
+                            <p>
+                                Catalog UPload
+                            </p>
+                        </a>
 
-                        </li>
-                        <li class="nav-item">
-                            <a href="../form.php" class="nav-link">
-                                <i class="nav-icon fas fa-edit"></i>
-                                <p>
-                                    Forms
+                    </li>
+                    <?php if(!$_SESSION['admin_role']==1){?>
+                    <li class="nav-item">
+                       
+                        <a href="../form.php" class="nav-link">
+                            <i class="nav-icon fas fa-edit"></i>
+                            <p>
+                                Forms
 
-                                </p>
-                            </a>
+                            </p>
+                        </a>
+                    <li class="nav-item">
+                        <a href="../table.php" class="nav-link">
+                            <i class="nav-icon fas fa-table"></i>
+                            <p>
 
-                        </li>
-                        <li class="nav-item">
-                            <a href="../table.php" class="nav-link">
-                                <i class="nav-icon fas fa-table"></i>
-                                <p>
-
-                                    Tables
-                                </p>
-                            </a>
-
-                        </li>
+                                Tables
+                            </p>
+                        </a>
+                   
+                    </li>
+                    <?php  } ?>
                         <!-- <li class="nav-item">
                         <a href="#" class="nav-link">
                             <i class="nav-icon fas fa-table"></i>

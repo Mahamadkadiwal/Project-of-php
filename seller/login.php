@@ -108,7 +108,11 @@
           $verify = password_verify($pass, $row['password']);
 
           if($verify==1){
-              
+              $_SESSION['seller_name']= $row['email'];
+              $_SESSION['seller_role']= $row['role'];
+              // echo '<script>alert('.$_SESSION['seller_role'].')</script>';
+              $_SESSION['seller_id']= $row['id'];
+              // echo '<script>alert('.$_SESSION['seller_id'].')</script>';
               header('location:../admin/home.php');
               die();
               

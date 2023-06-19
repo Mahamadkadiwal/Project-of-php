@@ -242,11 +242,11 @@ require 'phpmailer/src/SMTP.php';
 <script>
   function sendOTP() {
     Swal.fire({
-  icon: 'warning',
-  title: 'Wait.. for the OTP',
-  text: 'Please check your email'
-  
-})
+      icon: 'warning',
+      title: 'Wait.. for the OTP',
+      text: 'Please check your email'
+
+    })
     event.preventDefault();
     // Retrieve the email input
 
@@ -350,10 +350,22 @@ require 'phpmailer/src/SMTP.php';
                 popup: 'animate__animated animate__fadeOutUp'
               }
             });
+          } else if (errorMessage) { // Check if there is a password error message
+            Swal.fire({
+              title: 'Error',
+              text: errorMessage,
+              icon: 'error',
+              showClass: {
+                popup: 'animate__animated animate__fadeInDown'
+              },
+              hideClass: {
+                popup: 'animate__animated animate__fadeOutUp'
+              }
+            });
           } else {
             Swal.fire({
               title: 'Error',
-              text: 'password wrong',
+              text: 'Incorrect password',
               icon: 'error',
               showClass: {
                 popup: 'animate__animated animate__fadeInDown'

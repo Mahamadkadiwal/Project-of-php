@@ -36,15 +36,27 @@ if (isset($_POST['checking'])) {
 
     // Output the JavaScript code to display the error message
     $return= '<script>';
-    $return.= 'document.addEventListener("DOMContentLoaded", function() {';
-    $return.= '    var errorMessage = ' . $errorMessage . ';';
-    $return.= '    if (errorMessage) {';
-    $return.= '        alert(errorMessage);';
-    $return.= '    }';
-    $return.= '});';
+    $return.= 'var errorMessage = ' . $errorMessage . ';';
+    $return.= 'if (errorMessage) {';
+    $return.= '    Swal.fire({';
+    $return.= '        title: "Error",';
+    $return.= '        text: errorMessage,';
+    $return.= '        icon: "error",';
+    $return.= '        showClass: {';
+    $return.= '            popup: "animate__animated animate__fadeInDown"';
+    $return.= '        },';
+    $return.= '        hideClass: {';
+    $return.= '            popup: "animate__animated animate__fadeOutUp"';
+    $return.= '        }';
+    $return.= '    }).then(function () {';
+    $return.= '        // Redirect to another page';
+    $return.= '        window.location.href = "res.php";';
+    $return.= '    });';
+    $return.= '}';
     $return.= '</script>';
     echo $return;
-  } else {
+}
+ else {
 
     $enc_pass = password_hash($password, PASSWORD_DEFAULT);
     $query = mysqli_query($con, "UPDATE seller_login SET mobile='$mobile', password='$enc_pass', email_verified_at=NOW() WHERE email='$email' AND verification_code='$verify'");
