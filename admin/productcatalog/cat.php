@@ -354,7 +354,9 @@ if (!isset($_SESSION['adminemail'])) {
                                     </div>
                                     <div class="col-md-6">
                                         <!-- <button type="button" class="btn btn-default btn-block">Add Catalog in Bulk</button> -->
-                                        <button type="button" class="btn btn-primary btn-block">Add Catalog in Bulk</button>
+                                        <a href="addbulkcatlog.php">
+                                            <button type="button" class="btn btn-primary btn-block">Add Catalog in Bulk</button>
+                                        </a>
                                     </div>
                                 </div>
                             </div>

@@ -85,18 +85,57 @@ if (isset($_SESSION["id"])) {
                                         <div class="bs-stepper-content">
                                             <!-- your steps content here -->
                                             <div id="logins-part" class="content" role="tabpanel" aria-labelledby="logins-part-trigger">
-                                                <div class="form-group">
-                                                    <label>State</label>
+                                                <a href="#" onclick="showData()">Men Fashion</a>
+                                                <div id="dataContainer"></div>
+                                                <script>
+                                                    function showData() {
+                                                        for (var j = 0; j < 4; j++) {
+                                                            var cell = document.createElement("td");
+                                                            var cellText = document.createTextNode("Row " + (i + 1) + ", Cell " + (j + 1));
+                                                            cell.appendChild(cellText);
+                                                            row.appendChild(cell);
+                                                        }
+
+                                                        table.appendChild(row);
+                                                    }
+
+                                                    // Append the table to the document body
+                                                    document.body.appendChild(table);
+
+                                                    // Retrieve the data you want to display
+                                                    var data = "This is the data you want to show.";
+
+                                                    // Get the reference to the data container element
+                                                    var dataContainer = document.getElementById("dataContainer");
+
+
+                                                    // Update the content of the data container
+                                                    dataContainer.innerHTML = data;
+                                                </script>
+
+                                                <!-- <div class="form-group">
+                                                    <label>Men fashion</label>
                                                     <select class="form-control select2" name="state" style="width: 100%;">
-                                                        <option selected="selected">Selected</option>
-                                                        <option>Gujarat</option>
-                                                        <option>Rajasthan</option>
-                                                        <option>Punjab</option>
-                                                        <option>Maharashtra</option>
-                                                        <option>Madhya pradesh</option>
-                                                        <option>Andra Pradesh</option>
+                                                        <option selected="selected">T-shirts</option>
+                                                        <option>shirts</option>
+                                                        <option>Polo shirts</option>
+                                                        <option>Sweaters</option>
+                                                        <option>Hoodies</option>
+                                                        <option>Jackets</option>
+                                                        <option>Blazers</option>
+                                                        <option>Suits</option>
+                                                        <option>Dress pants</option>
+                                                        <option>Jeans</option>
+                                                        <option>Chinos</option>
+                                                        <option>Shorts</option>
+                                                        <option>Accessories </option>
+                                                        <option>Underwear</option>
+                                                        <option>Swimwear</option>
+                                                        <option>Activewear</option>
+                                                        <option>Bags</option>
+
                                                     </select>
-                                                </div>
+                                                </div> -->
                                                 <div class="form-group">
                                                     <label>State</label>
                                                     <select class="form-control select2" name="state" style="width: 100%;">
