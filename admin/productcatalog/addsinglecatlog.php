@@ -233,7 +233,7 @@ if (isset($_SESSION["id"])) {
                                                                     <div class="col-sm-6">
                                                                         <div class="form-group">
                                                                             <label>Multiple</label>
-                                                                            <select class="select2" multiple="multiple" name="sizes" data-placeholder="Select a State" style="width: 100%;">
+                                                                            <select class="select2" multiple="multiple" name="sizes[]" data-placeholder="Select a State" style="width: 100%;">
                                                                                 <option>xs</option>
                                                                                 <option>S</option>
                                                                                 <option>M</option>
@@ -330,6 +330,7 @@ if (isset($_SESSION["id"])) {
     <script src="../dist/js/adminlte.min.js"></script>
     <!-- AdminLTE for demo purposes -->
     <script src="../dist/js/demo.js"></script>
+
     <!-- Page specific script -->
     <script>
         $(function() {
@@ -368,7 +369,7 @@ if (isset($_POST['submit'])) {
     $return_price = $_POST['return_price'];
     $product_name = $_POST['product_name'];
     $product_weight = $_POST['product_weight'];
-    $sizes = $_POST['sizes'];
+    $sizes = implode(",", $_POST['sizes']);
     $product_details = $_POST['product_details'];
     $manufacturer_details = $_POST['manufacturer_details'];
     $product_quantity = $_POST['product_quantity'];
