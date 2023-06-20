@@ -16,4 +16,3 @@ while ($row = mysqli_fetch_assoc($sql)) {
 
 // Convert the subcategories array to JSON format
 echo json_encode($subcategories);
-?>
