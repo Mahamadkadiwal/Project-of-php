@@ -1,6 +1,10 @@
 <?php 
     require_once '../admin/database/dbcon.php';
 
+    if(isset($_SESSION['user_name'])){
+      header('location: ../admin/home.php');
+    }
+
 ?>
 
 <!DOCTYPE html>

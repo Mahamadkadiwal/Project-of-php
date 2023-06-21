@@ -37,7 +37,7 @@ require_once '../admin/database/dbcon.php';
         <form action="" method="post">
 
           <div class="input-group mb-3">
-            <input type="number" class="form-control" name="mobile" id="mobileInput" placeholder="Mobile number">
+            <input type="text" class="form-control" name="mobile" id="mobileInput" placeholder="Mobile number" data-inputmask="'mask': '999 999-9999'">
             <div class="input-group-append">
               <div class="input-group-text">
                 <span class="fas fa-mobile"></span>
@@ -113,6 +113,7 @@ require_once '../admin/database/dbcon.php';
   <script src="../admin/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
   <!-- AdminLTE App -->
   <script src="../admin/dist/js/adminlte.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/5.0.6/jquery.inputmask.min.js"></script>
 
 
 </body>
@@ -238,8 +239,13 @@ require 'phpmailer/src/SMTP.php';
 
 // }
 ?>
-<!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> -->
+
 <script>
+
+    $(":input").inputmask();
+
+  $("#mobileInput").inputmask({"mask": "999 999-9999"});
+
   function sendOTP() {
     Swal.fire({
       icon: 'warning',
@@ -299,6 +305,8 @@ require 'phpmailer/src/SMTP.php';
       });
     }
   }
+
+    
 
   function insertdata() {
     event.preventDefault();
