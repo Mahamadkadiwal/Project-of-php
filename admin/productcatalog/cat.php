@@ -7,15 +7,16 @@ if (!isset($_SESSION['admin_email'])) {
 }
 
 
-
-if (isset($_GET['type']) && $_GET['type'] !== '' && isset($_GET['id']) && $_GET['id'] > 0) {
-    // $type = get_safe_value($_GET['type']);
-    // $id = get_safe_value($_GET['id']);
+if (isset($_GET['type']) && $_GET['type'] === 'delete' && isset($_GET['id']) && $_GET['id'] > 0) {
+    $type = ($_GET['type']);
+    $id = ($_GET['id']);
     if ($type == 'delete') {
         mysqli_query($con, "delete from addsinglecategory where id='$id'");
-        redirect('addsinglecategory.php');
+        // redirect('addsinglecategory.php');
     }
 }
+mysqli_query($con, "update addsinglecategory set where id='$id'");
+// redirect('category.php');
 $res = mysqli_query($con, "select * from addsinglecategory where id");
 ?>
 
@@ -434,7 +435,7 @@ $res = mysqli_query($con, "select * from addsinglecategory where id");
                                                 <td><?php echo $row['product_quantity'] ?><br>
 
                                                 <td style="cursor: pointer;">
-                                                    <a href="manage_category.php?id=<?php echo $row['id'] ?>"><label class="badge badge-success hand_cursor">Edit</label></a>&nbsp;
+                                                    <a href="addsinglecatlog.php"><label class="badge badge-success hand_cursor">Edit</label></a>&nbsp;
 
                                                     &nbsp;
                                                     <a href="?id=<?php echo $row['id'] ?>&type=delete"><label class="badge badge-danger delete_red">Delete</label></a>
