@@ -129,7 +129,7 @@ if (isset($_SESSION["id"])) {
 
                                                         </select>
                                                     </div>
-                                                    <div id="subcategoryBox" style="display: none;" class="form-group">
+                                                    <div id="subcategoryBox" style="display: no;" class="form-group">
                                                         <label>Select Sub Category</label>
                                                         <select class="form-control select2" name="subcategory" style="width: 100%;" id="subcategorySelect">
                                                             <!-- Subcategory options will be dynamically added here -->
@@ -232,7 +232,7 @@ if (isset($_SESSION["id"])) {
                                                                     </div>
                                                                     <div class="col-sm-6">
                                                                         <div class="form-group">
-                                                                            <label>Multiple</label>
+                                                                            <label>Sizes (maltipal select )</label>
                                                                             <select class="select2" multiple="multiple" name="sizes[]" data-placeholder="Select a State" style="width: 100%;">
                                                                                 <option>xs</option>
                                                                                 <option>S</option>

@@ -1,10 +1,26 @@
 <?php
+include_once '../database/dbcon.php';
+
 session_start();
 if (!isset($_SESSION['admin_email'])) {
     header("location:../login.php");
 }
 
+
+
+if (isset($_GET['type']) && $_GET['type'] !== '' && isset($_GET['id']) && $_GET['id'] > 0) {
+    // $type = get_safe_value($_GET['type']);
+    // $id = get_safe_value($_GET['id']);
+    if ($type == 'delete') {
+        mysqli_query($con, "delete from addsinglecategory where id='$id'");
+        redirect('addsinglecategory.php');
+    }
+}
+$res = mysqli_query($con, "select * from addsinglecategory where id");
 ?>
+
+
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -33,6 +49,11 @@ if (!isset($_SESSION['admin_email'])) {
     <link rel="stylesheet" href="../plugins/daterangepicker/daterangepicker.css">
     <!-- summernote -->
     <link rel="stylesheet" href="../plugins/summernote/summernote-bs4.min.css">
+    <!-- datatable  -->
+    <!-- <link rel="stylesheet" href="../plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="../plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
+    <link rel="stylesheet" href="../plugins/datatables-buttons/css/buttons.bootstrap4.min.css"> -->
+
 </head>
 
 <body>
@@ -190,6 +211,7 @@ if (!isset($_SESSION['admin_email'])) {
             </ul>
         </nav>
 
+        <!-- aside bar  -->
         <aside class="main-sidebar sidebar-dark-primary elevation-4">
             <!-- Brand Logo -->
             <a href="index3.html" class="brand-link">
@@ -238,50 +260,50 @@ if (!isset($_SESSION['admin_email'])) {
                         </li>
 
                         <li class="nav-item">
-                        <?php 
-                        if($_SESSION['adminrole']==1){
-                          echo  '<a href="../order.php" class="nav-link">
+                            <?php
+                            if ($_SESSION['adminrole'] == 1) {
+                                echo  '<a href="../order.php" class="nav-link">
                             <i class="nav-icon fas fa-cart-plus"></i>
                             <p>
                                 Order
                             </p>
                         </a>';
                             }
-                          
-                                ?>
-                        
 
-                    </li>
-                    <li class="nav-item">
-                        <a href="../productcatalog/cat.php" class="nav-link">
-                            <i class='nav-icon fas fa-upload'></i>
-                            <p>
-                                Catalog UPload
-                            </p>
-                        </a>
+                            ?>
 
-                    </li>
-                    <?php if(!$_SESSION['adminrole']==1){?>
-                    <li class="nav-item">
-                       
-                        <a href="../form.php" class="nav-link">
-                            <i class="nav-icon fas fa-edit"></i>
-                            <p>
-                                Forms
 
-                            </p>
-                        </a>
-                    <li class="nav-item">
-                        <a href="../table.php" class="nav-link">
-                            <i class="nav-icon fas fa-table"></i>
-                            <p>
+                        </li>
+                        <li class="nav-item">
+                            <a href="../productcatalog/cat.php" class="nav-link">
+                                <i class='nav-icon fas fa-upload'></i>
+                                <p>
+                                    Catalog UPload
+                                </p>
+                            </a>
 
-                                Tables
-                            </p>
-                        </a>
-                   
-                    </li>
-                    <?php  } ?>
+                        </li>
+                        <?php if (!$_SESSION['adminrole'] == 1) { ?>
+                            <li class="nav-item">
+
+                                <a href="../form.php" class="nav-link">
+                                    <i class="nav-icon fas fa-edit"></i>
+                                    <p>
+                                        Forms
+
+                                    </p>
+                                </a>
+                            <li class="nav-item">
+                                <a href="../table.php" class="nav-link">
+                                    <i class="nav-icon fas fa-table"></i>
+                                    <p>
+
+                                        Tables
+                                    </p>
+                                </a>
+
+                            </li>
+                        <?php  } ?>
                         <!-- <li class="nav-item">
                         <a href="#" class="nav-link">
                             <i class="nav-icon fas fa-table"></i>
@@ -367,97 +389,160 @@ if (!isset($_SESSION['admin_email'])) {
                                     </div>
                                 </div>
                             </div>
-
-
-                            <!-- /.card -->
-
-                            <!-- Block buttons -->
-
-                            <!-- /.card -->
-
-                            <!-- Horizontal grouping -->
-
-                            <!-- /.card -->
-
-
-                            <!-- /.card -->
-                            <!-- split buttons box -->
-
-                            <!-- end split buttons box -->
                         </div>
-                        <!-- /.col -->
-                        <div class="col-md-6">
-                            <!-- Application buttons -->
-
-                            <!-- /.card -->
-
-                            <!-- Vertical grouping -->
-
-                            <!-- /.card -->
-
-                            <!-- Radio Buttons -->
-
-                            <!-- /.card -->
-                        </div>
-                        <!-- /.col -->
                     </div>
+
 
                     <!-- /.row -->
                 </div>
                 <!-- /.container-fluid -->
             </section>
-            <!-- /.content -->
-        </div>
-        <!-- /.content-wrapper -->
-        <!-- <footer class="main-footer">
+            <!-- /.table  -->
+            <section class="content">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="card col-md-12">
+                            <div class="card-header">
+                                <h3 class="card-title">DataTable with default features</h3>
+                            </div>
+                            <!-- /.card-header -->
+                            <div class="card-body">
+                                <table id="example1" class="table table-bordered table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th width="10%">ID</th>
+                                            <th width="10%">CATEGORIES</th>
+                                            <th width="10%">SUB_SCATEGORIES</th>
+                                            <th width="10%">NAME</th>
+                                            <th width="10%">IMAGE</th>
+                                            <th width="10%">PRICE</th>
+                                            <th width="10%">QTY</th>
+                                            <th width="20%">STATUS</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php
+                                        while ($row = mysqli_fetch_assoc($res)) {
+                                        ?>
+                                            <tr>
+                                                <td><?php echo $row['id'] ?></td>
+                                                <td><?php echo $row['category'] ?></td>
+                                                <td><?php echo $row['subcategory'] ?></td>
+                                                <td><?php echo $row['product_name'] ?></td>
+                                                <td class="img"><img src="media/product/<?php echo $row['image'] ?>"></td>
+                                                <td><?php echo $row['seller_price'] ?></td>
+                                                <td><?php echo $row['product_quantity'] ?><br>
+
+                                                <td style="cursor: pointer;">
+                                                    <a href="manage_category.php?id=<?php echo $row['id'] ?>"><label class="badge badge-success hand_cursor">Edit</label></a>&nbsp;
+
+                                                    &nbsp;
+                                                    <a href="?id=<?php echo $row['id'] ?>&type=delete"><label class="badge badge-danger delete_red">Delete</label></a>
+                                                </td>
+                                            </tr>
+                                        <?php } ?>
+                                    </tbody>
+
+                                </table>
+                            </div>
+                            <!-- /.card-body -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!-- /.content-wrapper -->
+            <!-- <footer class="main-footer">
             <div class="float-right d-none d-sm-block">
                 <b>Version</b> 3.2.0
             </div>
             <strong>Copyright &copy; 2014-2021 <a href="https://adminlte.io">AdminLTE.io</a>.</strong> All rights reserved.
         </footer> -->
 
-        <!-- Control Sidebar -->
-        <aside class="control-sidebar control-sidebar-dark">
-            <!-- Control sidebar content goes here -->
-        </aside>
-        <!-- /.control-sidebar -->
-    </div>
-    <!-- ./wrapper -->
+            <!-- Control Sidebar -->
+            <aside class="control-sidebar control-sidebar-dark">
+                <!-- Control sidebar content goes here -->
+            </aside>
+            <!-- /.control-sidebar -->
+        </div>
 
-    <!-- jQuery -->
-    <script src="../plugins/jquery/jquery.min.js"></script>
-    <!-- jQuery UI 1.11.4 -->
-    <script src="../plugins/jquery-ui/jquery-ui.min.js"></script>
-    <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
-    <script>
-        $.widget.bridge('uibutton', $.ui.button)
-    </script>
-    <!-- Bootstrap 4 -->
-    <script src="../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <!-- ChartJS -->
-    <script src="../plugins/chart.js/Chart.min.js"></script>
-    <!-- Sparkline -->
-    <script src="../plugins/sparklines/sparkline.js"></script>
-    <!-- JQVMap -->
-    <script src="../plugins/jqvmap/jquery.vmap.min.js"></script>
-    <script src="../plugins/jqvmap/maps/jquery.vmap.usa.js"></script>
-    <!-- jQuery Knob Chart -->
-    <script src="../plugins/jquery-knob/jquery.knob.min.js"></script>
-    <!-- daterangepicker -->
-    <script src="../plugins/moment/moment.min.js"></script>
-    <script src="../plugins/daterangepicker/daterangepicker.js"></script>
-    <!-- Tempusdominus Bootstrap 4 -->
-    <script src="../plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
-    <!-- Summernote -->
-    <script src="../plugins/summernote/summernote-bs4.min.js"></script>
-    <!-- overlayScrollbars -->
-    <script src="../plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
-    <!-- AdminLTE App -->
-    <script src="../dist/js/adminlte.js"></script>
-    <!-- AdminLTE for demo purposes -->
-    <script src="../dist/js/demo.js"></script>
-    <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-    <script src="../dist/js/pages/dashboard.js"></script>
+        <!-- ./wrapper -->
+
+        <!-- jQuery -->
+        <script src="../plugins/jquery/jquery.min.js"></script>
+        <!-- jQuery UI 1.11.4 -->
+        <script src="../plugins/jquery-ui/jquery-ui.min.js"></script>
+        <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+        <script>
+            $.widget.bridge('uibutton', $.ui.button)
+        </script>
+        <!-- Bootstrap 4 -->
+        <script src="../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+        <!-- ChartJS -->
+        <script src="../plugins/chart.js/Chart.min.js"></script>
+        <!-- Sparkline -->
+        <script src="../plugins/sparklines/sparkline.js"></script>
+        <!-- JQVMap -->
+        <script src="../plugins/jqvmap/jquery.vmap.min.js"></script>
+        <script src="../plugins/jqvmap/maps/jquery.vmap.usa.js"></script>
+        <!-- jQuery Knob Chart -->
+        <script src="../plugins/jquery-knob/jquery.knob.min.js"></script>
+        <!-- daterangepicker -->
+        <script src="../plugins/moment/moment.min.js"></script>
+        <script src="../plugins/daterangepicker/daterangepicker.js"></script>
+        <!-- Tempusdominus Bootstrap 4 -->
+        <script src="../plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
+        <!-- Summernote -->
+        <script src="../plugins/summernote/summernote-bs4.min.js"></script>
+        <!-- overlayScrollbars -->
+        <script src="../plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
+        <!-- AdminLTE App -->
+        <script src="../dist/js/adminlte.js"></script>
+        <!-- AdminLTE for demo purposes -->
+        <script src="../dist/js/demo.js"></script>
+        <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
+        <script src="../dist/js/pages/dashboard.js"></script>
+
+        <!-- jQuery -->
+        <script src="../plugins/jquery/jquery.min.js"></script>
+        <!-- Bootstrap 4 -->
+        <script src="../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+        <!-- DataTables  & ../Plugins -->
+        <!-- <script src="../plugins/datatables/jquery.dataTables.min.js"></script>
+        <script src="../plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+        <script src="../plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+        <script src="../plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+        <script src="../plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
+        <script src="../plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
+        <script src="../plugins/jszip/jszip.min.js"></script>
+        <script src="../plugins/pdfmake/pdfmake.min.js"></script>
+        <script src="../plugins/pdfmake/vfs_fonts.js"></script>
+        <script src="../plugins/datatables-buttons/js/buttons.html5.min.js"></script>
+        <script src="../plugins/datatables-buttons/js/buttons.print.min.js"></script>
+        <script src="../plugins/datatables-buttons/js/buttons.colVis.min.js"></script> -->
+        <!-- AdminLTE App -->
+        <script src="dist/js/adminlte.min.js"></script>
+        <!-- AdminLTE for demo purposes -->
+        <script src="dist/js/demo.js"></script>
+        <!-- Page specific script -->
+        <!-- <script>
+            $(function() {
+                $("#example1").DataTable({
+                    "responsive": true,
+                    "lengthChange": false,
+                    "autoWidth": false,
+                    "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+                }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+                $('#example2').DataTable({
+                    "paging": true,
+                    "lengthChange": false,
+                    "searching": false,
+                    "ordering": true,
+                    "info": true,
+                    "autoWidth": false,
+                    "responsive": true,
+                });
+            })
+        </script> -->
 </body>
 
 </html>
