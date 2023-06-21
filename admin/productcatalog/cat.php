@@ -15,8 +15,7 @@ if (isset($_GET['type']) && $_GET['type'] === 'delete' && isset($_GET['id']) && 
         // redirect('addsinglecategory.php');
     }
 }
-mysqli_query($con, "update addsinglecategory set where id='$id'");
-// redirect('category.php');
+// Execute the update query
 $res = mysqli_query($con, "select * from addsinglecategory where id");
 ?>
 
@@ -435,7 +434,7 @@ $res = mysqli_query($con, "select * from addsinglecategory where id");
                                                 <td><?php echo $row['product_quantity'] ?><br>
 
                                                 <td style="cursor: pointer;">
-                                                    <a href="addsinglecatlog.php"><label class="badge badge-success hand_cursor">Edit</label></a>&nbsp;
+                                                    <a href="addsinglecatlog_edit.php?id=<?= $row['id']; ?>"><label class="badge badge-success hand_cursor">Edit</label></a>&nbsp;
 
                                                     &nbsp;
                                                     <a href="?id=<?php echo $row['id'] ?>&type=delete"><label class="badge badge-danger delete_red">Delete</label></a>

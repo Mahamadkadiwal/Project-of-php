@@ -87,11 +87,13 @@ if (isset($_SESSION["id"])) {
                         <div class="col-md-12">
                             <div class="card card-default">
                                 <div class="card-header">
+
                                     <h2 class="card-title">ADD Single Category</h2>
                                 </div>
                                 <div class="card-body p-0">
                                     <form action="" method="post">
                                         <div class="bs-stepper">
+
                                             <div class="bs-stepper-header" role="tablist">
                                                 <!-- your steps here -->
                                                 <div class="step" data-target="#logins-part">
