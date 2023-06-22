@@ -39,10 +39,11 @@ if (isset($_GET['permission'])) {
 
 <head>
     <meta charset="utf-8">
-    <meta http-equiv="refresh" content="<?php echo $sec?>;URL='<?php echo $page?>'">
+    <meta http-equiv="refresh" content="<?php echo $sec ?>;URL='<?php echo $page ?>'">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Dashboard Seller</title>
-
+    <!-- favicon -->
+    <link rel="icon" type="image/png" href="image/favicon.jpg">
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     <!-- Font Awesome -->
@@ -247,11 +248,11 @@ if (isset($_GET['permission'])) {
                 "responsive": true,
             });
         });
-    //     $(document).ready(function() {
-    //   setInterval(function() {
-    //     $('.status').load('');
-    //   }, 5000); // 5 seconds
-    // });
+        //     $(document).ready(function() {
+        //   setInterval(function() {
+        //     $('.status').load('');
+        //   }, 5000); // 5 seconds
+        // });
     </script>
 </body>
 

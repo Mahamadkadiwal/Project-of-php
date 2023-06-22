@@ -1,6 +1,7 @@
 <?php
 include_once '../database/dbcon.php';
 
+
 session_start();
 if (!isset($_SESSION['admin_email'])) {
     header("location:../login.php");
@@ -15,7 +16,6 @@ if (isset($_GET['type']) && $_GET['type'] === 'delete' && isset($_GET['id']) && 
         // redirect('addsinglecategory.php');
     }
 }
-// Execute the update query
 $res = mysqli_query($con, "select * from addsinglecategory where id");
 ?>
 
@@ -28,7 +28,9 @@ $res = mysqli_query($con, "select * from addsinglecategory where id");
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>cetegory</title>
+    <!-- favicon -->
+    <link rel="icon" type="image/png" href="../image/favicon.jpg">
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet" href="../https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     <!-- Font Awesome -->
@@ -50,9 +52,9 @@ $res = mysqli_query($con, "select * from addsinglecategory where id");
     <!-- summernote -->
     <link rel="stylesheet" href="../plugins/summernote/summernote-bs4.min.css">
     <!-- datatable  -->
-    <!-- <link rel="stylesheet" href="../plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="../plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
     <link rel="stylesheet" href="../plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
-    <link rel="stylesheet" href="../plugins/datatables-buttons/css/buttons.bootstrap4.min.css"> -->
+    <link rel="stylesheet" href="../plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
 
 </head>
 
@@ -412,11 +414,12 @@ $res = mysqli_query($con, "select * from addsinglecategory where id");
                                         <tr>
                                             <th width="10%">ID</th>
                                             <th width="10%">CATEGORIES</th>
-                                            <th width="10%">SUB_SCATEGORIES</th>
+                                            <th width="10%">SUB_CATEGORY</th>
                                             <th width="10%">NAME</th>
                                             <th width="10%">IMAGE</th>
                                             <th width="10%">PRICE</th>
                                             <th width="10%">QTY</th>
+                                            <!-- <th width="10%">SIZE</th> -->
                                             <th width="20%">STATUS</th>
                                         </tr>
                                     </thead>
@@ -432,9 +435,16 @@ $res = mysqli_query($con, "select * from addsinglecategory where id");
                                                 <td class="img"><img src="media/product/<?php echo $row['image'] ?>"></td>
                                                 <td><?php echo $row['seller_price'] ?></td>
                                                 <td><?php echo $row['product_quantity'] ?><br>
+                                                    <!-- <?php
+                                                            $sizes = explode(", ", $row['sizes']);
+                                                            foreach ($sizes as $size) {
+                                                                echo '<td>' . $size . '</td>';
+                                                            }
+                                                            ?> -->
+
 
                                                 <td style="cursor: pointer;">
-                                                    <a href="addsinglecatlog_edit.php?id=<?= $row['id']; ?>"><label class="badge badge-success hand_cursor">Edit</label></a>&nbsp;
+                                                    <a href="addsinglecatlog_edit.php?id=<?php echo $row['id']; ?>"><label class="badge badge-success hand_cursor">Edit</label></a>&nbsp;
 
                                                     &nbsp;
                                                     <a href="?id=<?php echo $row['id'] ?>&type=delete"><label class="badge badge-danger delete_red">Delete</label></a>
@@ -450,13 +460,7 @@ $res = mysqli_query($con, "select * from addsinglecategory where id");
                     </div>
                 </div>
             </section>
-            <!-- /.content-wrapper -->
-            <!-- <footer class="main-footer">
-            <div class="float-right d-none d-sm-block">
-                <b>Version</b> 3.2.0
-            </div>
-            <strong>Copyright &copy; 2014-2021 <a href="https://adminlte.io">AdminLTE.io</a>.</strong> All rights reserved.
-        </footer> -->
+
 
             <!-- Control Sidebar -->
             <aside class="control-sidebar control-sidebar-dark">
@@ -507,7 +511,7 @@ $res = mysqli_query($con, "select * from addsinglecategory where id");
         <!-- Bootstrap 4 -->
         <script src="../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
         <!-- DataTables  & ../Plugins -->
-        <!-- <script src="../plugins/datatables/jquery.dataTables.min.js"></script>
+        <script src="../plugins/datatables/jquery.dataTables.min.js"></script>
         <script src="../plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
         <script src="../plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
         <script src="../plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
@@ -518,13 +522,13 @@ $res = mysqli_query($con, "select * from addsinglecategory where id");
         <script src="../plugins/pdfmake/vfs_fonts.js"></script>
         <script src="../plugins/datatables-buttons/js/buttons.html5.min.js"></script>
         <script src="../plugins/datatables-buttons/js/buttons.print.min.js"></script>
-        <script src="../plugins/datatables-buttons/js/buttons.colVis.min.js"></script> -->
+        <script src="../plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
         <!-- AdminLTE App -->
         <script src="dist/js/adminlte.min.js"></script>
         <!-- AdminLTE for demo purposes -->
         <script src="dist/js/demo.js"></script>
         <!-- Page specific script -->
-        <!-- <script>
+        <script>
             $(function() {
                 $("#example1").DataTable({
                     "responsive": true,
@@ -542,7 +546,7 @@ $res = mysqli_query($con, "select * from addsinglecategory where id");
                     "responsive": true,
                 });
             })
-        </script> -->
+        </script>
 </body>
 
 </html>
