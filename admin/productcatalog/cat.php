@@ -48,7 +48,6 @@ $res = mysqli_query($con, "select * from addsinglecategory AS adsc INNER JOIN ca
     <link rel="stylesheet" href="../plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
     <link rel="stylesheet" href="../plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
     <link rel="stylesheet" href="../plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
-
 </head>
 
 <body>
@@ -441,8 +440,7 @@ $res = mysqli_query($con, "select * from addsinglecategory AS adsc INNER JOIN ca
                                                     <a href="addsinglecatlog_edit.php?id=<?php echo $row['id']; ?>"><label class="badge badge-success hand_cursor">Edit</label></a>&nbsp;
 
                                                     &nbsp;
-                                                    <a href="?id=<?php echo $i ?>&type=delete"><label class="badge badge-danger delete_red">Delete</label></a>
-
+                                                    <a href="?id=<?php echo $row['p_id'] ?>&type=delete"><label class="badge badge-danger delete_red">Delete</label></a>
                                                 </td>
                                             </tr>
                                         <?php $i++;
@@ -524,6 +522,7 @@ $res = mysqli_query($con, "select * from addsinglecategory AS adsc INNER JOIN ca
         <!-- AdminLTE for demo purposes -->
         <script src="dist/js/demo.js"></script>
         <!-- Page specific script -->
+
         <script>
             $(function() {
                 $("#example1").DataTable({
@@ -543,6 +542,40 @@ $res = mysqli_query($con, "select * from addsinglecategory AS adsc INNER JOIN ca
                 });
             })
         </script>
+        <!-- sweetalert -->
+
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </body>
 
 </html>
+<?php
+
+if (isset($_GET['id']) && isset($_GET['type']) && $_GET['type'] === 'delete') {
+    $id = $_GET['id'];
+    $deleteQuery = "DELETE FROM addsinglecategory WHERE p_id = '$id'";
+
+    // Step 3: Execute the DELETE query
+    $result = mysqli_query($con, $deleteQuery);
+
+    if ($result) {
+?>
+        <script>
+            Swal.fire({
+                position: 'top-end',
+                icon: 'success',
+                title: 'Data deleted successfully',
+                showConfirmButton: false,
+                timer: 1500
+            })
+        </script>
+        <?php
+        ?>
+        <script>
+            window.location.href = "cat.php";
+        </script>
+
+<?php
+    } else {
+        echo "Error deleting data: " . mysqli_error($connection);
+    }
+}
