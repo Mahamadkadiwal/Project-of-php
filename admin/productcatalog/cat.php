@@ -8,15 +8,8 @@ if (!isset($_SESSION['admin_email'])) {
 }
 
 
-if (isset($_GET['type']) && $_GET['type'] === 'delete' && isset($_GET['id']) && $_GET['id'] > 0) {
-    $type = ($_GET['type']);
-    $id = ($_GET['id']);
-    if ($type == 'delete') {
-        mysqli_query($con, "delete from addsinglecategory where id='$id'");
-        // redirect('addsinglecategory.php');
-    }
-}
-$res = mysqli_query($con, "select * from addsinglecategory where id");
+$res = mysqli_query($con, "select * from addsinglecategory AS adsc INNER JOIN categories AS cat ON adsc.category=cat.id INNER JOIN sub_categories AS suc ON suc.id = adsc.subcategory");
+
 ?>
 
 
@@ -425,12 +418,13 @@ $res = mysqli_query($con, "select * from addsinglecategory where id");
                                     </thead>
                                     <tbody>
                                         <?php
+                                        $i = 1;
                                         while ($row = mysqli_fetch_assoc($res)) {
                                         ?>
                                             <tr>
-                                                <td><?php echo $row['id'] ?></td>
-                                                <td><?php echo $row['category'] ?></td>
-                                                <td><?php echo $row['subcategory'] ?></td>
+                                                <td><?php echo $i; ?></td>
+                                                <td><?php echo $row['category_name'] ?></td>
+                                                <td><?php echo $row['subcategory_name'] ?></td>
                                                 <td><?php echo $row['product_name'] ?></td>
                                                 <td class="img"><img src="media/product/<?php echo $row['image'] ?>"></td>
                                                 <td><?php echo $row['seller_price'] ?></td>
@@ -447,10 +441,12 @@ $res = mysqli_query($con, "select * from addsinglecategory where id");
                                                     <a href="addsinglecatlog_edit.php?id=<?php echo $row['id']; ?>"><label class="badge badge-success hand_cursor">Edit</label></a>&nbsp;
 
                                                     &nbsp;
-                                                    <a href="?id=<?php echo $row['id'] ?>&type=delete"><label class="badge badge-danger delete_red">Delete</label></a>
+                                                    <a href="?id=<?php echo $i ?>&type=delete"><label class="badge badge-danger delete_red">Delete</label></a>
+
                                                 </td>
                                             </tr>
-                                        <?php } ?>
+                                        <?php $i++;
+                                        } ?>
                                     </tbody>
 
                                 </table>

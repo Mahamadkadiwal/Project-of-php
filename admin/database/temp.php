@@ -1038,3 +1038,6 @@
          </div>
      </div>
  </section>
+
+ <a href="addsinglecatlog_edit.php?id=<?php echo $row['id']; ?>"><label class="badge badge-success hand_cursor">Edit</label></a>&nbsp;
+ <a href="?id=<?php echo $i ?>&type=delete"><label class="badge badge-danger delete_red">Delete</label></a>

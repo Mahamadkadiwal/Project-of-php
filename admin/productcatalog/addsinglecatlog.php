@@ -119,14 +119,14 @@ if (isset($_SESSION["id"])) {
 
                                                     while ($row = mysqli_fetch_assoc($sql)) {
                                                     ?>
-                                                        <option value="<?php echo $row['id']; ?>"><?php echo $row['name']; ?></option>
+                                                        <option value="<?php echo $row['id']; ?>"><?php echo $row['category_name']; ?></option>
                                                     <?php
                                                     }
                                                     ?>
 
                                                 </select>
                                             </div>
-                                            <div id="subcategoryBox" style="display: no;" class="form-group">
+                                            <div id="subcategoryBox" style="display: none;" class="form-group">
                                                 <label>Select Sub Category</label>
                                                 <select class="form-control select2" name="subcategory" style="width: 100%;" id="subcategorySelect">
                                                     <!-- Subcategory options will be dynamically added here -->
