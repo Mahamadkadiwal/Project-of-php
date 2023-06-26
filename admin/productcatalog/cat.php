@@ -8,6 +8,14 @@ if (!isset($_SESSION['admin_email'])) {
 }
 
 
+if (isset($_GET['type']) && $_GET['type'] === 'delete' && isset($_GET['id']) && $_GET['id'] > 0) {
+    $type = ($_GET['type']);
+    $p_id = ($_GET['id']);
+    if ($type == 'delete') {
+        mysqli_query($con, "delete from addsinglecategory where p_id='$p_id'");
+        // redirect('addsinglecategory.php');
+    }
+}
 $res = mysqli_query($con, "select * from addsinglecategory AS adsc INNER JOIN categories AS cat ON adsc.category=cat.id INNER JOIN sub_categories AS suc ON suc.id = adsc.subcategory");
 
 ?>
@@ -47,7 +55,7 @@ $res = mysqli_query($con, "select * from addsinglecategory AS adsc INNER JOIN ca
     <!-- datatable  -->
     <link rel="stylesheet" href="../plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
     <link rel="stylesheet" href="../plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
-    <link rel="stylesheet" href="../plugins/datatables-buttons/css/buttons.bootstrap4.min.css"> -->
+    <link rel="stylesheet" href="../plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
 
 </head>
 
@@ -193,7 +201,7 @@ $res = mysqli_query($con, "select * from addsinglecategory AS adsc INNER JOIN ca
 
                 <li class="nav-item nav-profile dropdown">
                     <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" id="profileDropdown">
-                        <span class="nav-profile-name"> <?php echo $_SESSION['admin_name'];?></span>
+                        <span class="nav-profile-name"> Admin</span>
                     </a>
                     <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
                         <div class="dropdown-divider"></div>
@@ -412,7 +420,7 @@ $res = mysqli_query($con, "select * from addsinglecategory AS adsc INNER JOIN ca
                                             <th width="10%">IMAGE</th>
                                             <th width="10%">PRICE</th>
                                             <th width="10%">QTY</th>
-                                            <!-- <th width="10%">SIZE</th> -->
+                                            <th width="10%">SIZE</th>
                                             <th width="20%">STATUS</th>
                                         </tr>
                                     </thead>
@@ -429,16 +437,16 @@ $res = mysqli_query($con, "select * from addsinglecategory AS adsc INNER JOIN ca
                                                 <td class="img"><img src="media/product/<?php echo $row['image'] ?>"></td>
                                                 <td><?php echo $row['seller_price'] ?></td>
                                                 <td><?php echo $row['product_quantity'] ?><br>
-                                                    <!-- <?php
-                                                            $sizes = explode(", ", $row['sizes']);
-                                                            foreach ($sizes as $size) {
-                                                                echo '<td>' . $size . '</td>';
-                                                            }
-                                                            ?> -->
+                                                    <?php
+                                                    $sizes = explode(", ", $row['sizes']);
+                                                    foreach ($sizes as $size) {
+                                                        echo '<td>' . $size . '</td>';
+                                                    }
+                                                    ?>
 
 
                                                 <td style="cursor: pointer;">
-                                                    <a href="addsinglecatlog_edit.php?id=<?php echo $row['id']; ?>"><label class="badge badge-success hand_cursor">Edit</label></a>&nbsp;
+                                                    <a href="addsinglecatlog_edit.php?id=<?php echo $row['p_id']; ?>"><label class="badge badge-success hand_cursor">Edit</label></a>&nbsp;
 
                                                     &nbsp;
                                                     <a href="?id=<?php echo $row['p_id'] ?>&type=delete"><label class="badge badge-danger delete_red">Delete</label></a>
@@ -506,7 +514,7 @@ $res = mysqli_query($con, "select * from addsinglecategory AS adsc INNER JOIN ca
         <!-- Bootstrap 4 -->
         <script src="../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
         <!-- DataTables  & ../Plugins -->
-        <!-- <script src="../plugins/datatables/jquery.dataTables.min.js"></script>
+        <script src="../plugins/datatables/jquery.dataTables.min.js"></script>
         <script src="../plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
         <script src="../plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
         <script src="../plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
@@ -523,7 +531,7 @@ $res = mysqli_query($con, "select * from addsinglecategory AS adsc INNER JOIN ca
         <!-- AdminLTE for demo purposes -->
         <script src="dist/js/demo.js"></script>
         <!-- Page specific script -->
-        <!-- <script>
+        <script>
             $(function() {
                 $("#example1").DataTable({
                     "responsive": true,
@@ -541,38 +549,7 @@ $res = mysqli_query($con, "select * from addsinglecategory AS adsc INNER JOIN ca
                     "responsive": true,
                 });
             })
-        </script> -->
+        </script>
 </body>
 
 </html>
-<?php
-
-if (isset($_GET['id']) && isset($_GET['type']) && $_GET['type'] === 'delete') {
-    $id = $_GET['id'];
-    $deleteQuery = "DELETE FROM addsinglecategory WHERE p_id = '$id'";
-
-    // Step 3: Execute the DELETE query
-    $result = mysqli_query($con, $deleteQuery);
-
-    if ($result) {
-?>
-        <script>
-            Swal.fire({
-                position: 'top-end',
-                icon: 'success',
-                title: 'Data deleted successfully',
-                showConfirmButton: false,
-                timer: 1500
-            })
-        </script>
-        <?php
-        ?>
-        <script>
-            window.location.href = "cat.php";
-        </script>
-
-<?php
-    } else {
-        echo "Error deleting data: " . mysqli_error($connection);
-    }
-}

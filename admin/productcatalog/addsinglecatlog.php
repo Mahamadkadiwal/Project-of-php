@@ -112,7 +112,7 @@ if (isset($_SESSION["id"])) {
 
                                             <div class="form-group">
                                                 <label>Select Category</label>
-                                                <select class="form-control select2" name="category" style="width: 100%;" onchange="showSubcategoryBox(this.value)">
+                                                <select class="form-control select2" name="category_name" style="width: 100%;" onchange="showSubcategoryBox(this.value)">
                                                     <option>select</option>
                                                     <?php
                                                     $sql = mysqli_query($con, "SELECT * from categories where status='1'");
@@ -128,7 +128,7 @@ if (isset($_SESSION["id"])) {
                                             </div>
                                             <div id="subcategoryBox" style="display: none;" class="form-group">
                                                 <label>Select Sub Category</label>
-                                                <select class="form-control select2" name="subcategory" style="width: 100%;" id="subcategorySelect">
+                                                <select class="form-control select2" name="subcategory_name" style="width: 100%;" id="subcategorySelect">
                                                     <!-- Subcategory options will be dynamically added here -->
                                                 </select>
                                             </div>
@@ -143,6 +143,7 @@ if (isset($_SESSION["id"])) {
                                                         loadSubcategories(category_id);
                                                     }
                                                 }
+
 
                                                 function loadSubcategories(category_id) {
                                                     $.ajax({
@@ -182,93 +183,13 @@ if (isset($_SESSION["id"])) {
                                                     </div>
                                                 </div>
                                             </div>
-
-                                            <div class="bs-stepper-content">
-                                                <!-- your steps content here -->
-                                                <div id="logins-part" class="content" role="tabpanel" aria-labelledby="logins-part-trigger">
-
-
-                                                    <div class="form-group">
-                                                        <label>Select Category</label>
-                                                        <select class="form-control select2" name="category" style="width: 100%;" onchange="showSubcategoryBox(this.value)">
-                                                            <option>select</option>
-                                                            <?php
-                                                            $sql = mysqli_query($con, "SELECT * from categories where status='1'");
-
-                                                            while ($row = mysqli_fetch_assoc($sql)) {
-                                                            ?>
-                                                                <option value="<?php echo $row['id']; ?>"><?php echo $row['name']; ?></option>
-                                                            <?php
-                                                            }
-                                                            ?>
-
-                                                        </select>
-                                                    </div>
-                                                    <div id="subcategoryBox" style="display: none;" class="form-group">
-                                                        <label>Select Sub Category</label>
-                                                        <select class="form-control select2" name="subcategory" style="width: 100%;" id="subcategorySelect">
-                                                            <!-- Subcategory options will be dynamically added here -->
-                                                        </select>
-                                                    </div>
-                                                    <script>
-                                                        function showSubcategoryBox(category_id) {
-                                                            if (category_id === 'select') {
-                                                                // If the 'select' option is chosen, hide the subcategory box
-                                                                document.getElementById("subcategoryBox").style.display = "none";
-                                                            } else {
-                                                                // Show the subcategory box and load the subcategories for the selected category
-                                                                document.getElementById("subcategoryBox").style.display = "block";
-                                                                loadSubcategories(category_id);
-                                                            }
-                                                        }
-
-                                                        function loadSubcategories(category_id) {
-                                                            $.ajax({
-                                                                url: 'fetch_subcategories.php',
-                                                                method: 'POST',
-                                                                data: {
-                                                                    category_id: category_id
-                                                                },
-                                                                success: function(response) {
-                                                                    var subcategories = JSON.parse(response);
-
-                                                                    var subcategorySelect = document.getElementById("subcategorySelect");
-                                                                    subcategorySelect.innerHTML = '';
-
-                                                                    subcategories.forEach(function(subcategory) {
-                                                                        var option = document.createElement('option');
-                                                                        option.value = subcategory.id;
-                                                                        option.text = subcategory.name;
-                                                                        subcategorySelect.appendChild(option);
-                                                                    });
-                                                                },
-                                                                error: function() {
-                                                                    console.log('Error occurred while fetching subcategories.');
-                                                                }
-                                                            });
-                                                        }
-                                                    </script>
-                                                    <div class="form-group">
-                                                        <label for="exampleInputFile">File input</label>
-                                                        <div class="input-group">
-                                                            <div class="custom-file">
-                                                                <input type="file" name="image" class="custom-file-input" id="exampleInputFile">
-                                                                <label class="custom-file-label" for="exampleInputFile">Choose file</label>
-                                                            </div>
-                                                            <div class="input-group-append">
-                                                                <span class="input-group-text">Upload</span>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <!-- <button class="btn btn-primary" onclick="stepper.next()">Next</button> -->
-                                                    <button id="nextButtonStep1" class="btn btn-primary">Next</button
                                             <!-- <button class="btn btn-primary" onclick="stepper.next()">Next</button> -->
                                             <button id="nextButtonStep1" class="btn btn-primary">Next</button>
                                         </div>
                                         <div id="information-part" class="content" role="tabpanel" aria-labelledby="information-part-trigger">
                                             <div class=" card-warning">
                                                 <div class="card-header">
-                                                   <h3 class="card-title">Product Details</h3>
+                                                    <h3 class="card-title">Product Details</h3>
                                                 </div>
                                                 <!-- /.card-header -->
                                                 <div class="card-body">
@@ -437,8 +358,8 @@ if (isset($_SESSION["id"])) {
 
 <?php
 if (isset($_POST['submit'])) {
-    $cat = $_POST['category'];
-    $sub = $_POST['subcategory'];
+    $category_name = $_POST['category_name'];
+    $subcategory_name = $_POST['subcategory_name'];
     $image = $_POST['image'];
     $seller_price = $_POST['seller_price'];
     $return_price = $_POST['return_price'];
@@ -449,10 +370,11 @@ if (isset($_POST['submit'])) {
     $manufacturer_details = $_POST['manufacturer_details'];
     $product_quantity = $_POST['product_quantity'];
 
-    $sql = "INSERT INTO  addsinglecategory (category, subcategory, image, seller_price, return_price, product_name,product_weight,sizes,product_details, manufacturer_details,product_quantity) VALUES ('$cat', '$sub', '$image','$seller_price','$return_price','$product_name','$product_weight','$sizes','$product_details','$manufacturer_details','$product_quantity')";
+    $sql = "INSERT INTO  addsinglecategory (category, subcategory, image, seller_price, return_price, product_name,product_weight,sizes,product_details, manufacturer_details,product_quantity) VALUES ('$category_name', '$subcategory_name', '$image','$seller_price','$return_price','$product_name','$product_weight','$sizes','$product_details','$manufacturer_details','$product_quantity')";
 
     if ($con->query($sql) === TRUE) {
         echo "Record inserted successfully.";
+
 ?>
         <script>
             window.location.href = "cat.php";

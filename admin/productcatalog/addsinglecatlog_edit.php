@@ -11,52 +11,7 @@ if (!isset($_SESSION['admin_email'])) {
 if (isset($_SESSION["id"])) {
     $id = $_SESSION["id"];
 }
-
-if (isset($_GET['id'])) {
-    $id = mysqli_real_escape_string($con, $_GET['id']);
-    $query = "SELECT * FROM addsinglecategory WHERE id='$id'";
-    $query_run = mysqli_query($con, $query);
-
-    if (mysqli_num_rows($query_run) > 0) {
-        $row = mysqli_fetch_array($query_run);
-        // print_r($row);
-
-        if (isset($_POST['submit'])) {
-            // Retrieve form data
-            $seller_price = mysqli_real_escape_string($con, $_POST['seller_price']);
-            $return_price = mysqli_real_escape_string($con, $_POST['return_price']);
-            $product_name = mysqli_real_escape_string($con, $_POST['product_name']);
-            $product_weight = mysqli_real_escape_string($con, $_POST['product_weight']);
-            $sizes = $_POST['sizes'];
-            $sizesString = implode(',', $sizes);
-            $product_details = mysqli_real_escape_string($con, $_POST['product_details']);
-            $manufacturer_details = mysqli_real_escape_string($con, $_POST['manufacturer_details']);
-            $product_quantity = mysqli_real_escape_string($con, $_POST['product_quantity']);
-
-            // Update the database
-            $update_query = "UPDATE addsinglecategory SET seller_price='$seller_price', return_price='$return_price', product_name='$product_name', product_weight='$product_weight',  sizes='$sizesString', product_details='$product_details', manufacturer_details='$manufacturer_details', product_quantity='$product_quantity' WHERE id='$id'";
-            $update_result = mysqli_query($con, $update_query);
-
-            if ($update_result) {
-                echo "Data updated successfully!";
 ?>
-                <script>
-                    window.location.href = "cat.php";
-                </script>
-
-<?php
-            } else {
-                echo "Failed to update data.";
-                // Handle the update failure
-            }
-        }
-    } else {
-        echo "<h1>No record found</h1>";
-    }
-}
-?>
-
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -128,8 +83,8 @@ if (isset($_GET['id'])) {
                             <div class="card-body p-0">
                                 <?php
                                 if (isset($_GET['id'])) {
-                                    $id = mysqli_real_escape_string($con, $_GET['id']);
-                                    $quary = "SELECT * FROM addsinglecategory WHERE id='$id'";
+                                    $p_id = mysqli_real_escape_string($con, $_GET['id']);
+                                    $quary = "SELECT * FROM addsinglecategory WHERE p_id='$p_id'";
                                     $quary_run = mysqli_query($con, $quary);
 
                                     if (mysqli_num_rows($quary_run) > 0) {
@@ -164,14 +119,14 @@ if (isset($_GET['id'])) {
                                                                 $sql = mysqli_query($con, "SELECT * FROM categories WHERE status='1'");
                                                                 while ($category = mysqli_fetch_assoc($sql)) {
                                                                     $categoryID = $category['id'];
-                                                                    $categoryName = $category['name'];
+                                                                    $categoryName = $category['category_name'];
                                                                     $selected = ($categoryID == $row['category']) ? "selected" : ""; // Check if the option value matches the stored category value
                                                                     echo "<option value='$categoryID' $selected>$categoryName</option>";
                                                                 }
                                                                 ?>
                                                             </select>
                                                         </div>
-                                                        <div id="subcategoryBox" style="display: none;" class="form-group">
+                                                        <div id="subcategoryBox" class=" form-group">
                                                             <label>Select Sub Category</label>
                                                             <select class="form-control select2" name="subcategory" value="<?= $row['subcategory']; ?>" style="width: 100%;" id="subcategorySelect">
                                                                 <!-- Subcategory options will be dynamically added here -->
@@ -227,87 +182,6 @@ if (isset($_GET['id'])) {
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div class="bs-stepper-content">
-                                                            <!-- your steps content here -->
-                                                            <div id="logins-part" class="content" role="tabpanel" aria-labelledby="logins-part-trigger">
-
-
-                                                                <div class="form-group">
-                                                                    <label>Select Category</label>
-                                                                    <select class="form-control select2" name="category" value="<?= $row['category']; ?>" style="width: 100%;" onchange="showSubcategoryBox(this.value)">
-
-                                                                        <option>select</option>
-                                                                        <?php
-
-                                                                        $sql = mysqli_query($con, "SELECT * from categories where status='1'");
-
-                                                                        while ($row = mysqli_fetch_assoc($sql)) {
-                                                                        ?>
-                                                                            <option value="<?php echo $row['id']; ?>" <?php echo $row['name']; ?></option>
-                                                                            <?php
-                                                                        }
-                                                                            ?>
-
-                                                                    </select>
-                                                                </div>
-                                                                <div id="subcategoryBox" style="display: none;" class="form-group">
-                                                                    <label>Select Sub Category</label>
-                                                                    <select class="form-control select2" name="subcategory" style="width: 100%;" id="subcategorySelect">
-                                                                        <!-- Subcategory options will be dynamically added here -->
-                                                                    </select>
-                                                                </div>
-                                                                <script>
-                                                                    function showSubcategoryBox(category_id) {
-                                                                        if (category_id === 'select') {
-                                                                            // If the 'select' option is chosen, hide the subcategory box
-                                                                            document.getElementById("subcategoryBox").style.display = "none";
-                                                                        } else {
-                                                                            // Show the subcategory box and load the subcategories for the selected category
-                                                                            document.getElementById("subcategoryBox").style.display = "block";
-                                                                            loadSubcategories(category_id);
-                                                                        }
-                                                                    }
-
-                                                                    function loadSubcategories(category_id) {
-                                                                        $.ajax({
-                                                                            url: 'fetch_subcategories.php',
-                                                                            method: 'POST',
-                                                                            data: {
-                                                                                category_id: category_id
-                                                                            },
-                                                                            success: function(response) {
-                                                                                var subcategories = JSON.parse(response);
-
-                                                                                var subcategorySelect = document.getElementById("subcategorySelect");
-                                                                                subcategorySelect.innerHTML = '';
-
-                                                                                subcategories.forEach(function(subcategory) {
-                                                                                    var option = document.createElement('option');
-                                                                                    option.value = subcategory.id;
-                                                                                    option.text = subcategory.name;
-                                                                                    subcategorySelect.appendChild(option);
-                                                                                });
-                                                                            },
-                                                                            error: function() {
-                                                                                console.log('Error occurred while fetching subcategories.');
-                                                                            }
-                                                                        });
-                                                                    }
-                                                                </script>
-                                                                <div class="form-group">
-                                                                    <label for="exampleInputFile">File input</label>
-                                                                    <div class="input-group">
-                                                                        <div class="custom-file">
-                                                                            <input type="file" name="image" class="custom-file-input" id="exampleInputFile">
-                                                                            <label class="custom-file-label" for="exampleInputFile">Choose file</label>
-                                                                        </div>
-                                                                        <div class="input-group-append">
-                                                                            <span class="input-group-text">Upload</span>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <!-- <button class="btn btn-primary" onclick="stepper.next()">Next</button> -->
-                                                                <button id="nextButtonStep1" class="btn btn-primary">Next</button>
                                                         <button id="nextButtonStep1" class="btn btn-primary">Next</button>
                                                     </div>
                                                     <div id="information-part" class="content" role="tabpanel" aria-labelledby="information-part-trigger">
@@ -385,7 +259,7 @@ if (isset($_GET['id'])) {
                                                                     </div>
                                                                 </div>
                                                                 <button id="prevButtonStep2" class="btn btn-primary">Previous</button>
-                                                                <button type="submit" class="btn btn-primary" name="submit">UPDATE</button>
+                                                                <button type="submit" class="btn btn-primary" name="update">UPDATE</button>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -463,3 +337,52 @@ if (isset($_GET['id'])) {
 </body>
 
 </html>
+
+<?php
+
+if (isset($_GET['id'])) {
+    $p_id = mysqli_real_escape_string($con, $_GET['id']);
+    $query = "SELECT * FROM addsinglecategory WHERE p_id='$p_id'";
+    $query_run = mysqli_query($con, $query);
+
+    if (mysqli_num_rows($query_run) > 0) {
+        $row = mysqli_fetch_array($query_run);
+        // print_r($row);
+
+        if (isset($_POST['update'])) {
+            // Retrieve form data
+            $category = mysqli_real_escape_string($con, $_POST['category']);
+            $subcategory = mysqli_real_escape_string($con, $_POST['subcategory']);
+            $product_name = mysqli_real_escape_string($con, $_POST['product_name']);
+            $seller_price = mysqli_real_escape_string($con, $_POST['seller_price']);
+            $return_price = mysqli_real_escape_string($con, $_POST['return_price']);
+            $product_quantity = mysqli_real_escape_string($con, $_POST['product_quantity']);
+            $product_weight = mysqli_real_escape_string($con, $_POST['product_weight']);
+            $sizes = $_POST['sizes'];
+            $sizesString = implode(',', $sizes);
+            $product_details = mysqli_real_escape_string($con, $_POST['product_details']);
+            $manufacturer_details = mysqli_real_escape_string($con, $_POST['manufacturer_details']);
+
+            // Update the database
+            $update_query = "UPDATE addsinglecategory SET  category='$category', subcategory='$subcategory',  product_name='$product_name',seller_price='$seller_price', return_price='$return_price', product_weight='$product_weight',  sizes='$sizesString', product_details='$product_details', manufacturer_details='$manufacturer_details', product_quantity='$product_quantity' WHERE p_id='$p_id'";
+            $update_result = mysqli_query($con, $update_query);
+
+            if ($update_result) {
+                echo "Data updated successfully!";
+?>
+                <script>
+                    window.location.href = "cat.php";
+                </script>
+
+<?php
+
+            } else {
+                echo "Failed to update data.";
+                // Handle the update failure
+            }
+        }
+    } else {
+        echo "<h1>No record found</h1>";
+    }
+}
+?>
