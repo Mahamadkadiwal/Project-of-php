@@ -50,9 +50,9 @@ $res = mysqli_query($con, "select * from addsinglecategory where id");
     <!-- summernote -->
     <link rel="stylesheet" href="../plugins/summernote/summernote-bs4.min.css">
     <!-- datatable  -->
-    <!-- <link rel="stylesheet" href="../plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="../plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
     <link rel="stylesheet" href="../plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
-    <link rel="stylesheet" href="../plugins/datatables-buttons/css/buttons.bootstrap4.min.css"> -->
+    <link rel="stylesheet" href="../plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
 
 </head>
 
@@ -198,7 +198,7 @@ $res = mysqli_query($con, "select * from addsinglecategory where id");
 
                 <li class="nav-item nav-profile dropdown">
                     <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" id="profileDropdown">
-                        <span class="nav-profile-name"> Admin</span>
+                        <span class="nav-profile-name"> <?php echo $_SESSION['admin_name'];?></span>
                     </a>
                     <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
                         <div class="dropdown-divider"></div>
@@ -507,7 +507,7 @@ $res = mysqli_query($con, "select * from addsinglecategory where id");
         <!-- Bootstrap 4 -->
         <script src="../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
         <!-- DataTables  & ../Plugins -->
-        <!-- <script src="../plugins/datatables/jquery.dataTables.min.js"></script>
+         <script src="../plugins/datatables/jquery.dataTables.min.js"></script>
         <script src="../plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
         <script src="../plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
         <script src="../plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
@@ -518,13 +518,13 @@ $res = mysqli_query($con, "select * from addsinglecategory where id");
         <script src="../plugins/pdfmake/vfs_fonts.js"></script>
         <script src="../plugins/datatables-buttons/js/buttons.html5.min.js"></script>
         <script src="../plugins/datatables-buttons/js/buttons.print.min.js"></script>
-        <script src="../plugins/datatables-buttons/js/buttons.colVis.min.js"></script> -->
+        <script src="../plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
         <!-- AdminLTE App -->
         <script src="dist/js/adminlte.min.js"></script>
         <!-- AdminLTE for demo purposes -->
         <script src="dist/js/demo.js"></script>
         <!-- Page specific script -->
-        <!-- <script>
+        <script>
             $(function() {
                 $("#example1").DataTable({
                     "responsive": true,
@@ -542,7 +542,7 @@ $res = mysqli_query($con, "select * from addsinglecategory where id");
                     "responsive": true,
                 });
             })
-        </script> -->
+        </script>
 </body>
 
 </html>

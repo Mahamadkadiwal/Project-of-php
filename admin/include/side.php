@@ -74,6 +74,7 @@
 
 
                     </li>
+                    <?php if($_SESSION['adminrole']== 1 ) :?>
                     <li class="nav-item">
                         <a href="././productcatalog/cat.php" class="nav-link">
                             <i class='nav-icon fas fa-upload'></i>
@@ -83,6 +84,26 @@
                         </a>
 
                     </li>
+                    <?php else: ?>
+                        <li class="nav-item">
+                        <a href="././category.php" class="nav-link">
+                            <i class='nav-icon fas fa-upload'></i>
+                            <p>
+                                Category
+                            </p>
+                        </a>
+
+                    </li>
+                    <li class="nav-item">
+                        <a href="././subcategory.php" class="nav-link">
+                            <i class='nav-icon fas fa-upload'></i>
+                            <p>
+                                Sub Category
+                            </p>
+                        </a>
+
+                    </li>
+                    <?php endif; ?>
                     <?php if (!$_SESSION['adminrole'] == 1) { ?>
                         <li class="nav-item">
 
@@ -103,6 +124,7 @@
                             </a>
 
                         </li>
+                        
                     <?php  } ?>
                     <!--   <li class="nav-item">
                         <a href="../table.php" class="nav-link">

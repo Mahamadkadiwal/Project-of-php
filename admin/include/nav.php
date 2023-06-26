@@ -1,3 +1,8 @@
+<?php 
+
+    // session_start();
+    define ("ADMINURL", "http://localhost/php/Project-of-php/admin");
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -146,7 +151,7 @@
 
             <li class="nav-item nav-profile dropdown">
                 <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" id="profileDropdown">
-                    <span class="nav-profile-name"> Admin</span>
+                    <span class="nav-profile-name"> <?php echo $_SESSION['admin_name'];?></span>
                 </a>
                 <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
                     <div class="dropdown-divider"></div>
