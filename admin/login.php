@@ -16,7 +16,8 @@ if (isset($_POST['submit'])) {
     echo 'sucess';
     $_SESSION['admin_email'] = $_POST['email'];
     $_SESSION['adminrole'] = $row['role'];
-    // echo '<script>alert('.$_SESSION['adminrole'].')</script>';
+    $_SESSION['admin_name'] = $row['name'];
+        // echo '<script>alert('.$_SESSION['adminrole'].')</script>';
 
 ?>
 
