@@ -4,8 +4,30 @@ include 'alert.php';
 session_start();
 define ("ADMINURL", "http://localhost/php/Project-of-php/admin");
 
+
 if(isset($_SESSION['admin_name'])){
   header("location : ../home.php");
+}
+if (isset($_POST['submit'])) {
+  $quary = "SELECT * FROM `admin_login` WHERE `email`='$_POST[email]' AND `password`='$_POST[password]'";
+  $res = mysqli_query($con, $quary);
+  if (mysqli_num_rows($res) == 1) {
+    $row = mysqli_fetch_assoc($res);
+    echo 'sucess';
+    $_SESSION['admin_email'] = $_POST['email'];
+    $_SESSION['adminrole'] = $row['role'];
+    // echo '<script>alert('.$_SESSION['adminrole'].')</script>';
+
+?>
+
+<?php
+    // echo $_SESSION['adminemail'];
+    header("location:home.php");
+  } else {
+    // alert('error', 'worng password');
+    echo 'worng';
+  }
+
 }
 ?>
 
@@ -56,7 +78,8 @@ if(isset($_SESSION['admin_name'])){
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>AdminLTE 3 | Log in</title>
-
+  <!-- favicon -->
+  <link rel="icon" type="image/png" href="image/favicon.jpg">
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
   <!-- Font Awesome -->

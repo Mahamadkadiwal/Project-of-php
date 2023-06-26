@@ -19,6 +19,8 @@ if (!isset($_SESSION['admin_email'])) {
   <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="dist/css/adminlte.min.css">
+  <!-- favicon -->
+  <link rel="icon" type="image/png" href="image/favicon.jpg">
 </head>
 
 <body class="hold-transition sidebar-mini">

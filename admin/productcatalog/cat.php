@@ -1,22 +1,15 @@
 <?php
 include_once '../database/dbcon.php';
 
+
 session_start();
 if (!isset($_SESSION['admin_email'])) {
     header("location:../login.php");
 }
 
 
-if (isset($_GET['type']) && $_GET['type'] === 'delete' && isset($_GET['id']) && $_GET['id'] > 0) {
-    $type = ($_GET['type']);
-    $id = ($_GET['id']);
-    if ($type == 'delete') {
-        mysqli_query($con, "delete from addsinglecategory where id='$id'");
-        // redirect('addsinglecategory.php');
-    }
-}
-// Execute the update query
-$res = mysqli_query($con, "select * from addsinglecategory where id");
+$res = mysqli_query($con, "select * from addsinglecategory AS adsc INNER JOIN categories AS cat ON adsc.category=cat.id INNER JOIN sub_categories AS suc ON suc.id = adsc.subcategory");
+
 ?>
 
 
@@ -28,7 +21,9 @@ $res = mysqli_query($con, "select * from addsinglecategory where id");
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>cetegory</title>
+    <!-- favicon -->
+    <link rel="icon" type="image/png" href="../image/favicon.jpg">
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet" href="../https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     <!-- Font Awesome -->
@@ -52,7 +47,7 @@ $res = mysqli_query($con, "select * from addsinglecategory where id");
     <!-- datatable  -->
     <link rel="stylesheet" href="../plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
     <link rel="stylesheet" href="../plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
-    <link rel="stylesheet" href="../plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
+    <link rel="stylesheet" href="../plugins/datatables-buttons/css/buttons.bootstrap4.min.css"> -->
 
 </head>
 
@@ -412,35 +407,45 @@ $res = mysqli_query($con, "select * from addsinglecategory where id");
                                         <tr>
                                             <th width="10%">ID</th>
                                             <th width="10%">CATEGORIES</th>
-                                            <th width="10%">SUB_SCATEGORIES</th>
+                                            <th width="10%">SUB_CATEGORY</th>
                                             <th width="10%">NAME</th>
                                             <th width="10%">IMAGE</th>
                                             <th width="10%">PRICE</th>
                                             <th width="10%">QTY</th>
+                                            <!-- <th width="10%">SIZE</th> -->
                                             <th width="20%">STATUS</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <?php
+                                        $i = 1;
                                         while ($row = mysqli_fetch_assoc($res)) {
                                         ?>
                                             <tr>
-                                                <td><?php echo $row['id'] ?></td>
-                                                <td><?php echo $row['category'] ?></td>
-                                                <td><?php echo $row['subcategory'] ?></td>
+                                                <td><?php echo $i; ?></td>
+                                                <td><?php echo $row['category_name'] ?></td>
+                                                <td><?php echo $row['subcategory_name'] ?></td>
                                                 <td><?php echo $row['product_name'] ?></td>
                                                 <td class="img"><img src="media/product/<?php echo $row['image'] ?>"></td>
                                                 <td><?php echo $row['seller_price'] ?></td>
                                                 <td><?php echo $row['product_quantity'] ?><br>
+                                                    <!-- <?php
+                                                            $sizes = explode(", ", $row['sizes']);
+                                                            foreach ($sizes as $size) {
+                                                                echo '<td>' . $size . '</td>';
+                                                            }
+                                                            ?> -->
+
 
                                                 <td style="cursor: pointer;">
-                                                    <a href="addsinglecatlog_edit.php?id=<?= $row['id']; ?>"><label class="badge badge-success hand_cursor">Edit</label></a>&nbsp;
+                                                    <a href="addsinglecatlog_edit.php?id=<?php echo $row['id']; ?>"><label class="badge badge-success hand_cursor">Edit</label></a>&nbsp;
 
                                                     &nbsp;
-                                                    <a href="?id=<?php echo $row['id'] ?>&type=delete"><label class="badge badge-danger delete_red">Delete</label></a>
+                                                    <a href="?id=<?php echo $row['p_id'] ?>&type=delete"><label class="badge badge-danger delete_red">Delete</label></a>
                                                 </td>
                                             </tr>
-                                        <?php } ?>
+                                        <?php $i++;
+                                        } ?>
                                     </tbody>
 
                                 </table>
@@ -450,13 +455,7 @@ $res = mysqli_query($con, "select * from addsinglecategory where id");
                     </div>
                 </div>
             </section>
-            <!-- /.content-wrapper -->
-            <!-- <footer class="main-footer">
-            <div class="float-right d-none d-sm-block">
-                <b>Version</b> 3.2.0
-            </div>
-            <strong>Copyright &copy; 2014-2021 <a href="https://adminlte.io">AdminLTE.io</a>.</strong> All rights reserved.
-        </footer> -->
+
 
             <!-- Control Sidebar -->
             <aside class="control-sidebar control-sidebar-dark">
@@ -507,7 +506,7 @@ $res = mysqli_query($con, "select * from addsinglecategory where id");
         <!-- Bootstrap 4 -->
         <script src="../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
         <!-- DataTables  & ../Plugins -->
-         <script src="../plugins/datatables/jquery.dataTables.min.js"></script>
+        <!-- <script src="../plugins/datatables/jquery.dataTables.min.js"></script>
         <script src="../plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
         <script src="../plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
         <script src="../plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
@@ -524,7 +523,7 @@ $res = mysqli_query($con, "select * from addsinglecategory where id");
         <!-- AdminLTE for demo purposes -->
         <script src="dist/js/demo.js"></script>
         <!-- Page specific script -->
-        <script>
+        <!-- <script>
             $(function() {
                 $("#example1").DataTable({
                     "responsive": true,
@@ -542,7 +541,38 @@ $res = mysqli_query($con, "select * from addsinglecategory where id");
                     "responsive": true,
                 });
             })
-        </script>
+        </script> -->
 </body>
 
 </html>
+<?php
+
+if (isset($_GET['id']) && isset($_GET['type']) && $_GET['type'] === 'delete') {
+    $id = $_GET['id'];
+    $deleteQuery = "DELETE FROM addsinglecategory WHERE p_id = '$id'";
+
+    // Step 3: Execute the DELETE query
+    $result = mysqli_query($con, $deleteQuery);
+
+    if ($result) {
+?>
+        <script>
+            Swal.fire({
+                position: 'top-end',
+                icon: 'success',
+                title: 'Data deleted successfully',
+                showConfirmButton: false,
+                timer: 1500
+            })
+        </script>
+        <?php
+        ?>
+        <script>
+            window.location.href = "cat.php";
+        </script>
+
+<?php
+    } else {
+        echo "Error deleting data: " . mysqli_error($connection);
+    }
+}
