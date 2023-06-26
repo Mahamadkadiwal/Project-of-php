@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 22, 2023 at 06:15 AM
+-- Generation Time: Jun 26, 2023 at 11:44 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -49,8 +49,8 @@ CREATE TABLE `addsinglecategory` (
 --
 
 INSERT INTO `addsinglecategory` (`id`, `category`, `subcategory`, `image`, `date`, `seller_price`, `return_price`, `product_name`, `product_weight`, `sizes`, `product_details`, `manufacturer_details`, `product_quantity`, `status`) VALUES
-(1, '1', '2', 'Casual-Shirts-2.png', '2023-06-20', 350, 0, 'Casual Shirts', 1, 'M,X,L,XL,XXL', 'A long- or short-sleeved garment for the upper part of the body, usually lightweight and having a collar and a front opening', '', '', 1),
-(26, '1', '2', 'Casual-Shirts-2.png', '2023-06-21', 400, 0, 'Casual Shirts', 400, 'S,M,L,XL', 'A long- or short-sleeved garment for the upper part of the body, usually lightweight and having a collar and a front opening', '', '100', 1);
+(26, '1', '2', 'Casual-Shirts-2.png', '2023-06-21', 400, 0, 'Casual Shirts', 400, 'S,M,L,XL', 'A long- or short-sleeved garment for the upper part of the body, usually lightweight and having a collar and a front opening', '', '100', 1),
+(27, '1', '2', 'Casual-Shirts-2.png', '2023-06-23', 350, 300, 'Casual Shirts', 200, 'S,M,L,XL', 'A long- or short-sleeved garment for the upper part of the body, usually lightweight and having a collar and a front opening', 'dsds', '100', 1);
 
 -- --------------------------------------------------------
 
@@ -64,16 +64,17 @@ CREATE TABLE `admin_login` (
   `mobile` varchar(12) NOT NULL,
   `email` varchar(40) NOT NULL,
   `password` varchar(255) NOT NULL,
-  `role` int(11) NOT NULL
+  `role` int(11) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `admin_login`
 --
 
-INSERT INTO `admin_login` (`id`, `name`, `mobile`, `email`, `password`, `role`) VALUES
-(1, 'Zeel Patel', '8696059685', 'zeel@gmail.com', '1234', 0),
-(2, 'Mahamadali kadiwala ', '8696059685', 'mahamad@gmail.com', '5678', 1);
+INSERT INTO `admin_login` (`id`, `name`, `mobile`, `email`, `password`, `role`, `created_at`) VALUES
+(1, 'Zeel Patel', '8696059685', 'zeel@gmail.com', '$2y$10$/Fk8YB9rrX2ukG81T1ARE.z2eOEf6nhB0WskXkDdEgtOFLzHyERoi', 0, '2023-06-24 04:37:24'),
+(2, 'Mahamadali kadiwala ', '8696059685', 'mahamad@gmail.com', '$2y$10$6U3roXugSt5jsvHh2yLHj..2gPWJvYvZ0D.o9K79Kq/MG8dz2zSRK', 1, '2023-06-24 04:37:24');
 
 -- --------------------------------------------------------
 
@@ -101,18 +102,52 @@ CREATE TABLE `cart` (
 CREATE TABLE `categories` (
   `id` int(11) NOT NULL,
   `name` text NOT NULL,
-  `status` int(11) NOT NULL
+  `description` text NOT NULL,
+  `image` varchar(200) NOT NULL,
+  `status` int(11) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `categories`
 --
 
-INSERT INTO `categories` (`id`, `name`, `status`) VALUES
-(1, 'Clothes', 1),
-(2, 'Kitchen ', 1),
-(3, 'Shoes', 1),
-(4, 'Electronics', 1);
+INSERT INTO `categories` (`id`, `name`, `description`, `image`, `status`, `created_at`) VALUES
+(1, 'Clothes', 'Clothing (also known as clothes, garments, dress, apparel, or attire) is any item worn on the body. Typically, clothing is made of fabrics or textiles, but over time it has included garments made from animal skin and other thin sheets of materials and natural products found in the environment, put together.', 'Casual-Shirts-3.jpg', 1, '2023-06-23 11:15:18'),
+(12, 'Electronics', 'Electronic product means any manufactured product or device or component part of such a product or device that has an electronic circuit which during operation can generate or emit a physical field of radiation, such as, but not limited to microwave ovens, laser systems or diathermy machines.', 'electronics.jpg', 1, '2023-06-26 07:27:57');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `orders`
+--
+
+CREATE TABLE `orders` (
+  `id` int(3) NOT NULL,
+  `name` varchar(100) NOT NULL,
+  `email` varchar(200) NOT NULL,
+  `mobile` varchar(15) NOT NULL,
+  `price` int(10) NOT NULL,
+  `token` varchar(11) NOT NULL,
+  `floor` int(4) NOT NULL,
+  `street` varchar(20) NOT NULL,
+  `landmark` varchar(20) NOT NULL,
+  `city` varchar(20) NOT NULL,
+  `state` varchar(30) NOT NULL,
+  `pincode` varchar(30) NOT NULL,
+  `user_id` varchar(4) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `orders`
+--
+
+INSERT INTO `orders` (`id`, `name`, `email`, `mobile`, `price`, `token`, `floor`, `street`, `landmark`, `city`, `state`, `pincode`, `user_id`, `created_at`) VALUES
+(1, 'Mahamad ali kadiwal', 'zeel@gmail.com', '9876543256', 35000, 'tok_1NM2EAS', 101, 'Rangnagar', 'Kothi', 'Sidhpur', 'Gujarat', '384151', '2', '2023-06-23 05:08:14'),
+(3, 'Mahamad ali kadiwal', 'zeel@gmail.com', '89798479848', 400, 'tok_1NM2qvS', 101, 'Rangnagar', 'Kothi', 'Sidhpur', 'Gujarat', '385415', '2', '2023-06-23 05:48:17'),
+(4, 'Mahamad ali kadiwal', 'zeel@gmail.com', '7897879878', 400, 'tok_1NM2uJS', 101, 'Rangnagar', 'Kothi', 'Sidhpur', 'Gujarat', '398855', '2', '2023-06-23 05:51:47'),
+(5, 'Mahamad ali kadiwal', 'zakir@gmail.com', '879864763514', 400, 'tok_1NN9NNS', 101, 'Rangnagar', 'Kothi', 'Sidhpur', 'Gujarat', '384290', '2', '2023-06-26 06:58:21');
 
 -- --------------------------------------------------------
 
@@ -180,16 +215,18 @@ CREATE TABLE `sub_categories` (
   `id` int(11) NOT NULL,
   `category_id` int(11) NOT NULL,
   `name` text NOT NULL,
-  `status` int(11) NOT NULL
+  `image` varchar(255) NOT NULL,
+  `status` int(11) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `sub_categories`
 --
 
-INSERT INTO `sub_categories` (`id`, `category_id`, `name`, `status`) VALUES
-(1, 1, 'T-shirt', 1),
-(2, 1, 'Shirt', 1);
+INSERT INTO `sub_categories` (`id`, `category_id`, `name`, `image`, `status`, `created_at`) VALUES
+(1, 1, 'T-shirt', '', 1, '2023-06-26 08:33:53'),
+(2, 1, 'Shirt', '', 1, '2023-06-26 07:38:41');
 
 -- --------------------------------------------------------
 
@@ -212,7 +249,8 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id`, `email`, `mobile`, `password`, `verification_code`, `email_verified_at`) VALUES
 (1, 'mahamad@gmail.com', '987 486-5312', '$2y$10$PpvK2kCPej3K.2LNtZvJjuhSVVJRTZ2uScT1l5FoiJh1QdQOh2uKq', '196829', '2023-06-21 09:07:09'),
-(2, 'zeel@gmail.com', '897 986-5564', '$2y$10$6U3roXugSt5jsvHh2yLHj..2gPWJvYvZ0D.o9K79Kq/MG8dz2zSRK', '179979', '2023-06-21 08:49:17');
+(2, 'zeel@gmail.com', '897 986-5564', '$2y$10$6U3roXugSt5jsvHh2yLHj..2gPWJvYvZ0D.o9K79Kq/MG8dz2zSRK', '179979', '2023-06-21 08:49:17'),
+(3, 'zeel@gmail.com', '987 486-5312', '$2y$10$/Fk8YB9rrX2ukG81T1ARE.z2eOEf6nhB0WskXkDdEgtOFLzHyERoi', '228233', '2023-06-24 10:51:00');
 
 --
 -- Indexes for dumped tables
@@ -240,6 +278,12 @@ ALTER TABLE `cart`
 -- Indexes for table `categories`
 --
 ALTER TABLE `categories`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `orders`
+--
+ALTER TABLE `orders`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -276,7 +320,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `addsinglecategory`
 --
 ALTER TABLE `addsinglecategory`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- AUTO_INCREMENT for table `admin_login`
@@ -288,13 +332,19 @@ ALTER TABLE `admin_login`
 -- AUTO_INCREMENT for table `cart`
 --
 ALTER TABLE `cart`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `categories`
 --
 ALTER TABLE `categories`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+
+--
+-- AUTO_INCREMENT for table `orders`
+--
+ALTER TABLE `orders`
+  MODIFY `id` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `seller_detail`
@@ -318,7 +368,7 @@ ALTER TABLE `sub_categories`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- Constraints for dumped tables
