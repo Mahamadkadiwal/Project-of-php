@@ -2,10 +2,10 @@
 include 'database/dbcon.php';
 include 'alert.php';
 session_start();
-define ("ADMINURL", "http://localhost/php/Project-of-php/admin");
+define("ADMINURL", "http://localhost/php/Project-of-php/admin");
 
 
-if(isset($_SESSION['admin_name'])){
+if (isset($_SESSION['admin_name'])) {
   header("location : ../home.php");
 }
 if (isset($_POST['submit'])) {
@@ -17,7 +17,7 @@ if (isset($_POST['submit'])) {
     $_SESSION['admin_email'] = $_POST['email'];
     $_SESSION['adminrole'] = $row['role'];
     $_SESSION['admin_name'] = $row['name'];
-        // echo '<script>alert('.$_SESSION['adminrole'].')</script>';
+    // echo '<script>alert('.$_SESSION['adminrole'].')</script>';
 
 ?>
 
@@ -28,45 +28,43 @@ if (isset($_POST['submit'])) {
     // alert('error', 'worng password');
     echo 'worng';
   }
-
 }
 ?>
 
 <?php
-     if(isset($_POST['submit'])){
-      $email = $_POST['email'];
-      $pass= $_POST['password'];
-      
-      $sql = mysqli_query($con, "select * from admin_login where email='$email'");
-      
-      if($count= mysqli_num_rows($sql) > 0){
-          $row= mysqli_fetch_assoc($sql);
-          $verify = password_verify($pass, $row['password']);
+if (isset($_POST['submit'])) {
+  $email = $_POST['email'];
+  $pass = $_POST['password'];
 
-          if($verify==1){
-            $_SESSION['admin_email'] = $_POST['email'];
-            $_SESSION['admin_name'] = $row['name'];
-            $_SESSION['admin_id'] = $row['id'];
-            $_SESSION['adminrole']= $row['role'];
-              // echo '<script>alert('.$_SESSION['seller_id'].')</script>';
-              header("Location: " . ADMINURL . "/home.php");
-              die();
-              
-              
-          }
-          else{
-              ?>
-           <script>
-              alert( "please enter correct  password");</script>
-              <?php
-          }
-      }else{
-          ?>
-       <script>
-          alert( "please enter correct username & password");</script>
-          <?php
-      }
+  $sql = mysqli_query($con, "select * from admin_login where email='$email'");
+
+  if ($count = mysqli_num_rows($sql) > 0) {
+    $row = mysqli_fetch_assoc($sql);
+    $verify = password_verify($pass, $row['password']);
+
+    if ($verify == 1) {
+      $_SESSION['admin_email'] = $_POST['email'];
+      $_SESSION['admin_name'] = $row['name'];
+      $_SESSION['admin_id'] = $row['id'];
+      $_SESSION['adminrole'] = $row['role'];
+      // echo '<script>alert('.$_SESSION['seller_id'].')</script>';
+      header("Location: " . ADMINURL . "/home.php");
+      die();
+    } else {
+?>
+      <script>
+        alert("please enter correct  password");
+      </script>
+    <?php
+    }
+  } else {
+    ?>
+    <script>
+      alert("please enter correct username & password");
+    </script>
+<?php
   }
+}
 
 ?>
 

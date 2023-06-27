@@ -200,12 +200,12 @@ $res = mysqli_query($con, "select * from addsinglecategory AS adsc INNER JOIN ca
             </li> -->
 
                 <li class="nav-item nav-profile dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" id="profileDropdown">
-                        <span class="nav-profile-name"> Admin</span>
+                    <a class="nav-link dropdown-toggle" href="../logout.php" data-toggle="dropdown" id="profileDropdown">
+                        <span class="nav-profile-name"> <?php echo $_SESSION['admin_name']; ?></span>
                     </a>
                     <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item " href="../logout.php">
+                        <a class="dropdown-item " name="logoutbtn" href="../logout.php">
                             <i class='fas fa-sign-out-alt m-2 '></i>
                             Logout
                         </a>
@@ -431,32 +431,32 @@ $res = mysqli_query($con, "select * from addsinglecategory AS adsc INNER JOIN ca
                                         ?>
                                             <tr>
                                                 <td><?php echo $i; ?></td>
-                                                <td><?php echo $row['category_name'] ?></td>
-                                                <td><?php echo $row['subcategory_name'] ?></td>
-                                                <td><?php echo $row['product_name'] ?></td>
-                                                <td class="img"><img src="media/product/<?php echo $row['image'] ?>"></td>
-                                                <td><?php echo $row['seller_price'] ?></td>
-                                                <td><?php echo $row['product_quantity'] ?><br>
+                                                <td><?php echo $row['category_name']; ?></td>
+                                                <td><?php echo $row['subcategory_name']; ?></td>
+                                                <td><?php echo $row['product_name']; ?></td>
+                                                <td>
+                                                    <img src="upload/<?php echo $row['p_image']; ?>" width="29px" alt="image">
+                                                </td>
+                                                <td><?php echo $row['seller_price']; ?></td>
+                                                <td><?php echo $row['product_quantity']; ?></td>
+                                                <td>
                                                     <?php
                                                     $sizes = explode(", ", $row['sizes']);
                                                     foreach ($sizes as $size) {
-                                                        echo '<td>' . $size . '</td>';
+                                                        echo $size . '<br>';
                                                     }
                                                     ?>
-
-
+                                                </td>
                                                 <td style="cursor: pointer;">
-                                                    <a href="addsinglecatlog_edit.php?id=<?php echo $row['p_id']; ?>"><label class="badge badge-success hand_cursor">Edit</label></a>&nbsp;
-
-                                                    &nbsp;
+                                                    <a href="addsinglecatlog_edit.php?id=<?php echo $row['p_id']; ?>"><label class="badge badge-success hand_cursor">Edit</label></a>
                                                     <a href="?id=<?php echo $row['p_id'] ?>&type=delete"><label class="badge badge-danger delete_red">Delete</label></a>
                                                 </td>
                                             </tr>
                                         <?php $i++;
                                         } ?>
                                     </tbody>
-
                                 </table>
+
                             </div>
                             <!-- /.card-body -->
                         </div>

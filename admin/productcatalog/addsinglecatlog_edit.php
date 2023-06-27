@@ -90,7 +90,7 @@ if (isset($_SESSION["id"])) {
                                     if (mysqli_num_rows($quary_run) > 0) {
                                         $row = mysqli_fetch_array($quary_run);
                                 ?>
-                                        <form action="" method="POST">
+                                        <form action="" method="POST" enctype="multipart/form-data">
                                             <div class="bs-stepper">
                                                 <div class="bs-stepper-header" role="tablist">
                                                     <!-- your steps here -->
@@ -174,7 +174,8 @@ if (isset($_SESSION["id"])) {
                                                             <label for="exampleInputFile">File input</label>
                                                             <div class="input-group">
                                                                 <div class="custom-file">
-                                                                    <input type="file" name="image" class="custom-file-input" id="exampleInputFile">
+                                                                    <input type="file" name="imageupload" class="custom-file-input" id="exampleInputFile">
+                                                                    <input type="hidden" name="imageupload_old" class="custom-file-input" value="<?php echo $row['p_image']; ?>" id="exampleInputFile">
                                                                     <label class="custom-file-label" for="exampleInputFile">Choose file</label>
                                                                 </div>
                                                                 <div class="input-group-append">
