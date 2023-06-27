@@ -10,7 +10,8 @@ $subcategories = array();
 while ($row = mysqli_fetch_assoc($sql)) {
   $subcategories[] = array(
     'id' => $row['id'],
-    'name' => $row['name']
+    'image'=> $row['image'],
+    'name' => $row['subcategory_name']
   );
 }
 

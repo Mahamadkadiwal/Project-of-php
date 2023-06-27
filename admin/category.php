@@ -41,7 +41,7 @@ if (isset($_POST['category'])) {
     $image = $_FILES['image']['name'];
 
     $dir = "../img/" . basename($image);
-    $sql = mysqli_query($con, "INSERT INTO `categories`(`name`, `description`, `image`, `status`) VALUES ('$name','$desc','$image','1')");
+    $sql = mysqli_query($con, "INSERT INTO `categories`(`category_name`, `description`, `image`, `status`) VALUES ('$name','$desc','$image','1')");
 
     if (move_uploaded_file($_FILES['image']['tmp_name'], $dir)) {
         header('location: category.php');
@@ -217,7 +217,7 @@ if (isset($_GET['id'])) {
                                                             <?php echo $i ?>
                                                         </td>
                                                         <td>
-                                                            <?php echo $row['name']; ?>
+                                                            <?php echo $row['category_name']; ?>
                                                         </td>
                                                         <td>
                                                             <?php echo $row['image']; ?>

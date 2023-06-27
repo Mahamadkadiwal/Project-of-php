@@ -4,67 +4,8 @@ if (!isset($_SESSION['admin_email'])) {
     header("location:login.php");
 }
 
-?>
-<?php
-
 require_once 'database/dbcon.php';
-// session_start();
-if (isset($_SESSION['id'])) {
-    $seller_id = $_SESSION['id'];
-}
-
-if (isset($_GET['permission'])) {
-    $type = mysqli_real_escape_string($con, $_GET['permission']);
-    if ($type == 'status') {
-        $operation = mysqli_real_escape_string($con, $_GET['operation']);
-        $id = mysqli_real_escape_string($con, $_GET['id']);
-        if ($operation == 'active') {
-            $status = '1';
-        } else {
-            $status = '0';
-        }
-        mysqli_query($con, "update sub_categories set status='$status' where id='$id'");
-    }
-    if ($type == 'delete') {
-        $id = mysqli_real_escape_string($con, $_GET['id']);
-        $select = mysqli_query($con, "SELECT * FROM sub_categories WHERE id='$id'");
-        $sql = mysqli_fetch_assoc($select);
-
-        unlink("../img/" . $sql['image']);
-        mysqli_query($con, "delete from sub_categories where id='$id'");
-    }
-}
-
-if (isset($_POST['submit'])) {
-    // echo '<script>alert("jdkf")</script>';
-    $cat_id  = $_POST['category-sub'];
-    $name = $_POST['name-sub'];
-    
-    $image = $_FILES['image-sub']['name'];
-
-    $dir = "../img/" . basename($image);
-    $sql = mysqli_query($con, "INSERT INTO `sub_categories`(`category_id`,`subcategory_name`, `image`, `status`) VALUES ('$cat_id','$name','$image','1')");
-
-    if (move_uploaded_file($_FILES['image-sub']['tmp_name'], $dir)) {
-        header('location: subcategory.php');
-    }
-}
-
-// fetch_record.php
-
-// if (isset($_GET['id'])) {
-//     $id = $_GET['id'];
-
-//     // Perform necessary validations and sanitization for the $id variable
-
-//     // Perform your database query to fetch the record
-//     $select = mysqli_query($con, "SELECT * FROM sub_categories WHERE id='$id'");
-//     $sql = mysqli_fetch_assoc($select);
-
-// }
-
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -92,69 +33,7 @@ if (isset($_POST['submit'])) {
 </head>
 
 <body class="hold-transition sidebar-mini">
-    <div class="modal fade" id="subModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">New message</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <form method="post" action="subcategory.php" enctype="multipart/form-data">
-                        <div class="form-group">
-                            <label>Select Category</label>
-                            <select class="form-control select2" name="category-sub" value="<?= $row['category']; ?>"
-                                style="width: 100%;">
-
-                                <option>select</option>
-                                <?php
-
-                                $sql = mysqli_query($con, "SELECT * from categories where status='1'");
-
-                                while ($row = mysqli_fetch_assoc($sql)) {
-                                    ?>
-                                    <option value="<?php echo $row['id']; ?>"> <?php echo $row['category_name']; ?></option>
-                                        <?php
-                                }
-                                ?>
-
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="recipient-name" class="col-form-label">Sub-Category Name:</label>
-                            <input type="text" class="form-control" name="name-sub" id="recipient-name">
-                        </div>
-                        
-                        <!-- <div class="form-group">
-                            <label for="exampleInputFile">File input</label>
-                            <div class="input-group">
-                                <div class="custom-file">
-                                    <input type="file" name="image" class="custom-file-input" id="exampleInputFile">
-                                    <label class="custom-file-label" for="exampleInputFile">Choose file</label>
-                                </div>
-                                <div class="input-group-append">
-                                    <span class="input-group-text">Upload</span>
-                                </div>
-                            </div>
-                        </div> -->
-                        <div class="form-group">
-                            <label for="recipient-name" class="col-form-label">Sub-Category Image:</label>
-                            <input type="file" class="form-control" name="image-sub" id="recipient-name">
-                        </div>
-
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="submit" name="submit" class="btn btn-primary">Add Sub Category</button>
-                </div>
-                </form>
-            </div>
-        </div>
-    </div>
-
+   
     <div class="wrapper">
 
         <!-- nav bar  -->
@@ -213,15 +92,17 @@ if (isset($_POST['submit'])) {
                                 <div class="card-body">
                                     <table id="example1" class="table table-bordered table-striped">
                                         <?php
-                                        $sql = mysqli_query($con, "SELECT * FROM sub_categories ");
+                                        $sql = mysqli_query($con, "select * from addsinglecategory AS adsc INNER JOIN categories AS cat ON adsc.category=cat.id INNER JOIN sub_categories AS suc ON suc.id = adsc.subcategory");
                                         if (mysqli_num_rows($sql) > 0) {
                                             ?>
                                             <thead>
                                                 <tr>
                                                     <th>Id</th>
-                                                    <th>Name</th>
-                                                    <th>Image</th>
-
+                                                    <th>Category</th>
+                                                    <th>Sub category</th>
+                                                    <th>Product Image</th>
+                                                    <th>Product Image</th>
+                                                    <th>Sub category</th>
                                                     <th>Permission</th>
                                                 </tr>
                                             </thead>
@@ -235,10 +116,10 @@ if (isset($_POST['submit'])) {
                                                             <?php echo $i ?>
                                                         </td>
                                                         <td>
-                                                            <?php echo $row['subcategory_name']; ?>
+                                                            <?php echo $row['category_name']; ?>
                                                         </td>
                                                         <td>
-                                                            <?php echo $row['image']; ?>
+                                                            <?php echo $row['subcategory_name']; ?>
                                                         </td>
 
                                                         <td class="status">
@@ -249,12 +130,10 @@ if (isset($_POST['submit'])) {
                                                                 echo "<span class='operate deactive'><a href='?permission=status&operation=active&id=" . $row['id'] . "'><i class='fa fa-toggle-off'></i></a></span>&nbsp;&nbsp;";
                                                             }
                                                             // echo "<span class='badge edit'><a href='" . $row['id'] . "'><i class='fa fa-pen-to-square'></i></a></span>&nbsp;&nbsp;";
-                                                            echo "<span class='operate delete'><a href='?permission=delete&id=" . $row['id'] . "'><i class='fas fa-trash-alt' onclick ='return checkdelete()'></i></a></span>";
+                                                            
 
+                                                            
                                                             ?>
-                                                            <button type="button" class="btn btn-outline-warning">
-                                                                <i class="fas fa-pen-alt"></i>
-                                                            </button>
 
                                                         </td>
 

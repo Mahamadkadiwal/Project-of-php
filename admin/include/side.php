@@ -103,6 +103,17 @@
                         </a>
 
                     </li>
+                    
+                    <li class="nav-item">
+                        <a href="././allproduct.php" class="nav-link">
+                            <i class='nav-icon fas fa-upload'></i>
+                            <p>
+                                Lists of Product
+                            </p>
+                        </a>
+
+                    </li>
+                    
                     <?php endif; ?>
                     <?php if (!$_SESSION['adminrole'] == 1) { ?>
                         <li class="nav-item">

@@ -1,9 +1,8 @@
 <?php 
+    session_start();
     require_once '../admin/database/dbcon.php';
 
-    if(isset($_SESSION['user_name'])){
-      header('location: ../admin/home.php');
-    }
+    
 
 ?>
 
@@ -113,6 +112,8 @@
 
           if($verify==1){
               $_SESSION['seller_name']= $row['email'];
+              // echo '<script>alert("' . $_SESSION['seller_name'] . '")</script>';
+
               $_SESSION['seller_role']= $row['role'];
               // echo '<script>alert('.$_SESSION['seller_role'].')</script>';
               $_SESSION['seller_id']= $row['id'];

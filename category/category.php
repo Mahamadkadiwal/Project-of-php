@@ -27,7 +27,7 @@ if (mysqli_num_rows($sql) > 0) {
                         <img class="card-img-top img-fluid" src="../img/<?php echo $row['image']; ?>" alt="Card image cap">
                     </a>
                     <div class="card-body">
-                        <h3><b><?php echo $row['name']; ?></b></h3>
+                        <h3><b><?php echo $row['category_name']; ?></b></h3>
                         <div class="price"></div>
                         <button class="btn btn-primary" onclick="toggleSubcategory(this, <?php echo $row['id']; ?>)">More info..</button>
                     </div>

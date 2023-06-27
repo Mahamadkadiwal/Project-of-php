@@ -30,7 +30,7 @@
         // echo "<script>alert('$cat_id cat')</script>";
         $sub_id = $_GET['subcategory'];
         // echo "<script>alert('".$_GET['subcategory']."sub')</script>";
-        $sql = mysqli_query($con, "SELECT * from addsinglecategory where id='$id' and category='$cat_id' and subcategory='$sub_id'");
+        $sql = mysqli_query($con, "SELECT * from addsinglecategory where p_id='$id' and category='$cat_id' and subcategory='$sub_id'");
         $row= mysqli_fetch_assoc($sql);
     }
     else{
@@ -176,7 +176,7 @@
               </div>
               <form action="" method="post" id="form-data">
              <div class="">
-              <input type="hidden" name="prod_id" id="" value="<?php echo $row['id'];?>" class="form-control">
+              <input type="hidden" name="prod_id" id="" value="<?php echo $row['p_id'];?>" class="form-control">
              </div>
              <div class="">
               <input type="hidden" name="prod_name" id="" value="<?php echo $row['product_name'];?>" class="form-control">
