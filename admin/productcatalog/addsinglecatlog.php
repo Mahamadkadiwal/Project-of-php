@@ -86,13 +86,11 @@ if (isset($_SESSION["id"])) {
                                 <h2 class="card-title">ADD Single Category</h2>
                             </div>
                             <div class="card-body p-0">
-<<<<<<< Updated upstream
+
                                 <form action="" method="post" enctype="multipart/form-data">
                                     <div class=" bs-stepper">
-=======
-                                <form action="" method="post" >
-                                        <div class=" bs-stepper">
->>>>>>> Stashed changes
+
+                                
 
                                         <div class="bs-stepper-header" role="tablist">
                                             <!-- your steps here -->
@@ -196,14 +194,13 @@ if (isset($_SESSION["id"])) {
                                                     <div class="card-header">
                                                         <h3 class="card-title">Product Details</h3>
                                                     </div>
-<<<<<<< Updated upstream
+
                                                     <!-- /.card-header -->
                                                     <div class="card-body">
                                                         <!-- <form method="get" action="" id="myForm"> -->
                                                         <div class="row">
                                                             <div class="col-sm-6">
                                                                 <!-- text input -->
-=======
                                                     <div id="subcategoryBox" style="display: none;" class="form-group">
                                                         <label>Select Sub Category</label>
                                                         <select class="form-control select2" name="subcategory" style="width: 100%;" id="subcategorySelect">
@@ -292,7 +289,7 @@ if (isset($_SESSION["id"])) {
                                                         <div class="col-sm-3">
 
                                                             <div class="form-group">
->>>>>>> Stashed changes
+
                                                                 <div class="form-group">
                                                                     <label>Seller Price</label>
                                                                     <input type="number" name="seller_price" class="form-control no-spinner" placeholder=" Price Enter ...">
@@ -370,25 +367,23 @@ if (isset($_SESSION["id"])) {
                                                             </div>
                                                         </div>
 
-<<<<<<< Updated upstream
+
                                                         <!-- /.card-body -->
                                                         <!-- <button class="btn btn-primary"
                                                     onclick="stepper.previous()">Previous</button> -->
                                                         <button id="prevButtonStep2" class="btn btn-primary">Previous</button>
                                                         <button type="submit" class="btn btn-primary" name="submit">Submit</button>
                                                     </div>
-=======
 
                                                             </div>
                                                         </div>
                                                     </div>
 
                                                     <!-- /.card-body -->
-                                                    <button class="btn btn-primary"
-                                                    onclick="stepper.previous()">Previous</button>
+                                        
                                                     <button id="prevButtonStep2" class="btn btn-primary">Previous</button>
                                                     <button type="submit" class="btn btn-primary" name="submit">Submit</button>
->>>>>>> Stashed changes
+
                                                 </div>
                                             </div>
                                         </div>
@@ -507,11 +502,11 @@ if (isset($_POST['submit'])) {
             echo "Error: " . $sql . "<br>" . $con->error;
         }
     } else {
-<<<<<<< Updated upstream
+
         echo "Error uploading the image. Please try again.";
-=======
+
         echo "Error: " . $sql . "<br>" ;
->>>>>>> Stashed changes
+
     }
 }
 ?>
