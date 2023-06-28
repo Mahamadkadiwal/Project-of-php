@@ -7,17 +7,6 @@ if (!isset($_SESSION['admin_email'])) {
     header("location:../login.php");
 }
 
-
-if (isset($_GET['type']) && $_GET['type'] === 'delete' && isset($_GET['id']) && $_GET['id'] > 0) {
-    $type = ($_GET['type']);
-    $p_id = ($_GET['id']);
-    if ($type == 'delete') {
-        mysqli_query($con, "delete from addsinglecategory where p_id='$p_id'");
-        // redirect('addsinglecategory.php');
-    }
-}
-$res = mysqli_query($con, "select * from addsinglecategory AS adsc INNER JOIN categories AS cat ON adsc.category=cat.id INNER JOIN sub_categories AS suc ON suc.id = adsc.subcategory");
-
 ?>
 
 
@@ -29,7 +18,7 @@ $res = mysqli_query($con, "select * from addsinglecategory AS adsc INNER JOIN ca
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>cetegory</title>
+    <title>Orders</title>
     <!-- favicon -->
     <link rel="icon" type="image/png" href="../image/favicon.jpg">
     <!-- Google Font: Source Sans Pro -->
@@ -265,10 +254,10 @@ $res = mysqli_query($con, "select * from addsinglecategory AS adsc INNER JOIN ca
                         <li class="nav-item">
                             <?php
                             if ($_SESSION['adminrole'] == 1) {
-                                echo  '<a href="../order.php" class="nav-link">
+                                echo  '<a href="../order/orders.php" class="nav-link">
                             <i class="nav-icon fas fa-cart-plus"></i>
                             <p>
-                                Order
+                                Orders
                             </p>
                         </a>';
                             }
@@ -350,83 +339,37 @@ $res = mysqli_query($con, "select * from addsinglecategory AS adsc INNER JOIN ca
 
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
-            <!-- Content Header (Page header) -->
-            <section class="content-header">
-                <div class="container-fluid">
-                    <div class="row mb-2">
-                        <div class="col-sm-6">
-                            <h1><i class="fa fa-product-hunt" aria-hidden="true"> Upload Catalog</i></h1>
-                        </div>
-                        <div class="col-sm-6">
-                            <ol class="breadcrumb float-sm-right">
-                                <!-- <li class="breadcrumb-item"><a href="home.php">Home</a></li> -->
-                                <li class="breadcrumb-item active">Catalog Upload</li>
-                            </ol>
-                        </div>
-                    </div>
-                </div><!-- /.container-fluid -->
-            </section>
 
             <!-- Main content -->
-            <section class="content">
-                <div class="container-fluid">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <!-- Buttons with Icons -->
-                            <div class="card">
-                                <div class="card-header">
-                                    <h3 class="card-title">Have unique Product Sell ?</h3>
-                                </div>
-                                <div class="card-body row">
-                                    <div class="col-md-6">
-                                        <a href="addsinglecatlog.php">
-                                            <button type="button" class="btn btn-default btn-block">Add Single Catalog</button>
-                                            <!-- <button type="button" class="btn btn-primary btn-block">Add Single Catalog</button> -->
-                                        </a>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <!-- <button type="button" class="btn btn-default btn-block">Add Catalog in Bulk</button> -->
-                                        <a href="addbulkcatlog.php">
-                                            <button type="button" class="btn btn-primary btn-block">Add Catalog in Bulk</button>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
 
-
-                    <!-- /.row -->
-                </div>
-                <!-- /.container-fluid -->
-            </section>
             <!-- /.table  -->
             <section class="content">
                 <div class="container-fluid">
                     <div class="row">
-                        <div class="card col-md-12">
+                        <div class="card col-md-12 mt-2">
                             <div class="card-header">
-                                <h3 class="card-title">DataTable with default features</h3>
+                                <h3 class="card-title accent-dark "> ORDERS..</h3>
                             </div>
                             <!-- /.card-header -->
                             <div class="card-body">
                                 <table id="example1" class="table table-bordered table-striped">
                                     <thead>
                                         <tr>
-                                            <th width="10%">ID</th>
-                                            <th width="10%">CATEGORIES</th>
-                                            <th width="10%">SUB_CATEGORY</th>
-                                            <th width="10%">NAME</th>
-                                            <th width="10%">IMAGE</th>
-                                            <th width="10%">PRICE</th>
-                                            <th width="10%">QTY</th>
-                                            <th width="10%">SIZE</th>
-                                            <th width="20%">STATUS</th>
+                                            <th>ORDER ID</th>
+                                            <th>CUSTOMER DETAILS</th>
+                                            <th>CUSTOMER NAME</th>
+                                            <th>ORDER DATE</th>
+                                            <th>PAYMENT_STATUS</th>
+                                            <th width="20%">ORDER_STATUS</th>
+
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <?php
                                         $i = 1;
+                                        $res = mysqli_query($con, "select `orders`.*,order_status.name as 
+							                      order_status_str from `order`,order_status where order_status.id=
+							                     `order`.order_status order by `order`.id desc");
                                         while ($row = mysqli_fetch_assoc($res)) {
                                         ?>
                                             <tr>

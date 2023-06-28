@@ -62,10 +62,10 @@
                     <li class="nav-item">
                         <?php
                         if ($_SESSION['adminrole'] == 1) {
-                            echo  '<a href="././order.php" class="nav-link">
+                            echo  '<a href="././order/orders.php" class="nav-link">
                             <i class="nav-icon fas fa-cart-plus"></i>
                             <p>
-                                Order
+                                Orders
                             </p>
                         </a>';
                         }
@@ -74,46 +74,46 @@
 
 
                     </li>
-                    <?php if($_SESSION['adminrole']== 1 ) :?>
-                    <li class="nav-item">
-                        <a href="././productcatalog/cat.php" class="nav-link">
-                            <i class='nav-icon fas fa-upload'></i>
-                            <p>
-                                Catalog UPload
-                            </p>
-                        </a>
-
-                    </li>
-                    <?php else: ?>
+                    <?php if ($_SESSION['adminrole'] == 1) : ?>
                         <li class="nav-item">
-                        <a href="././category.php" class="nav-link">
-                            <i class='nav-icon fas fa-upload'></i>
-                            <p>
-                                Category
-                            </p>
-                        </a>
+                            <a href="././productcatalog/cat.php" class="nav-link">
+                                <i class='nav-icon fas fa-upload'></i>
+                                <p>
+                                    Catalog UPload
+                                </p>
+                            </a>
 
-                    </li>
-                    <li class="nav-item">
-                        <a href="././subcategory.php" class="nav-link">
-                            <i class='nav-icon fas fa-upload'></i>
-                            <p>
-                                Sub Category
-                            </p>
-                        </a>
+                        </li>
+                    <?php else : ?>
+                        <li class="nav-item">
+                            <a href="././category.php" class="nav-link">
+                                <i class='nav-icon fas fa-upload'></i>
+                                <p>
+                                    Category
+                                </p>
+                            </a>
 
-                    </li>
-                    
-                    <li class="nav-item">
-                        <a href="././allproduct.php" class="nav-link">
-                            <i class='nav-icon fas fa-upload'></i>
-                            <p>
-                                Lists of Product
-                            </p>
-                        </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="././subcategory.php" class="nav-link">
+                                <i class='nav-icon fas fa-upload'></i>
+                                <p>
+                                    Sub Category
+                                </p>
+                            </a>
 
-                    </li>
-                    
+                        </li>
+
+                        <li class="nav-item">
+                            <a href="././allproduct.php" class="nav-link">
+                                <i class='nav-icon fas fa-upload'></i>
+                                <p>
+                                    Lists of Product
+                                </p>
+                            </a>
+
+                        </li>
+
                     <?php endif; ?>
                     <?php if (!$_SESSION['adminrole'] == 1) { ?>
                         <li class="nav-item">
@@ -135,7 +135,7 @@
                             </a>
 
                         </li>
-                        
+
                     <?php  } ?>
                     <!--   <li class="nav-item">
                         <a href="../table.php" class="nav-link">

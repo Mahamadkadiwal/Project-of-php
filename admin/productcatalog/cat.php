@@ -265,7 +265,7 @@ $res = mysqli_query($con, "select * from addsinglecategory AS adsc INNER JOIN ca
                         <li class="nav-item">
                             <?php
                             if ($_SESSION['adminrole'] == 1) {
-                                echo  '<a href="../order.php" class="nav-link">
+                                echo  '<a href="../order/orders.php" class="nav-link">
                             <i class="nav-icon fas fa-cart-plus"></i>
                             <p>
                                 Order
