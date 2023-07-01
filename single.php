@@ -89,7 +89,7 @@
             <div class="col-12 col-sm-6">
               <h3 class="d-inline-block d-sm-none"></h3>
               <div class="col-12">
-                <img src="img/<?php echo $row['image'];?>" class="product-image" alt="Product Image">
+                <img src="img/<?php echo $row['p_image'];?>" class="product-image" alt="Product Image">
               </div>
               <!-- <div class="col-12 product-image-thumbs">
                 <div class="product-image-thumb active"><img src="admin/dist/img/prod-1.jpg" alt="Product Image"></div>
@@ -182,7 +182,7 @@
               <input type="hidden" name="prod_name" id="" value="<?php echo $row['product_name'];?>" class="form-control">
              </div>
              <div class="">
-              <input type="hidden" name="prod_image" id="" value="<?php echo $row['image'];?>" class="form-control">
+              <input type="hidden" name="prod_image" id="" value="<?php echo $row['p_image'];?>" class="form-control">
              </div>
              <div class="">
               <input type="hidden" name="prod_price" id="" value="<?php echo $row['seller_price'];?>" class="form-control">

@@ -5,6 +5,21 @@ if (!isset($_SESSION['admin_email'])) {
 }
 
 require_once 'database/dbcon.php';
+if (isset($_GET['permission'])) {
+    
+    $type = mysqli_real_escape_string($con, $_GET['permission']);
+    if ($type == 'status') {
+         $operation = mysqli_real_escape_string($con, $_GET['operation']);
+        $p_id = mysqli_real_escape_string($con, $_GET['p_id']);
+        if ($operation == 'active') {
+            $status = '1';
+        } else {
+            $status = '0';
+        }
+       mysqli_query($con, "update addsinglecategory set status='$status' where p_id='$p_id'");
+    }
+    
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -33,7 +48,7 @@ require_once 'database/dbcon.php';
 </head>
 
 <body class="hold-transition sidebar-mini">
-   
+
     <div class="wrapper">
 
         <!-- nav bar  -->
@@ -82,10 +97,8 @@ require_once 'database/dbcon.php';
 
                             <div class="card">
                                 <div class="card-header d-flex justify-content-between">
-                                    <h3 class="card-title">Sub Category for access the admin panel</h3>
-                                    <button type="button" class="btn btn-primary" data-toggle="modal"
-                                        data-target="#subModal" data-whatever="@getbootstrap">Add</button>
-
+                                    <h3 class="card-title">Product for access the admin panel</h3>
+                                    
                                 </div>
 
                                 <!-- /.card-header -->
@@ -100,9 +113,9 @@ require_once 'database/dbcon.php';
                                                     <th>Id</th>
                                                     <th>Category</th>
                                                     <th>Sub category</th>
+                                                    <th>Product Name</th>
                                                     <th>Product Image</th>
-                                                    <th>Product Image</th>
-                                                    <th>Sub category</th>
+                                                    <th>Price</th>
                                                     <th>Permission</th>
                                                 </tr>
                                             </thead>
@@ -121,19 +134,29 @@ require_once 'database/dbcon.php';
                                                         <td>
                                                             <?php echo $row['subcategory_name']; ?>
                                                         </td>
+                                                        <td>
+                                                            <?php echo $row['product_name']; ?>
+                                                        </td>
+                                                        <td>
+                                                            <img src="../img/<?php echo $row['p_image']; ?>" width="50px" height="60px"
+                                                                alt="image">
+                                                        </td>
+                                                        <td>
+                                                            <?php echo $row['seller_price']; ?>
+                                                        </td>
 
                                                         <td class="status">
                                                             <?php
                                                             if ($row['status'] == 1) {
-                                                                echo "<span class='operate active'><a href='?permission=status&operation=deactive&id=" . $row['id'] . "'><i class='fa fa-toggle-on'></i></a></span>&nbsp;&nbsp;";
+                                                                echo "<span class='operate active'><a href='?permission=status&operation=deactive&p_id=" . $row['p_id'] . "'><i class='fa fa-toggle-on'></i></a></span>&nbsp;&nbsp;";
                                                             } else {
-                                                                echo "<span class='operate deactive'><a href='?permission=status&operation=active&id=" . $row['id'] . "'><i class='fa fa-toggle-off'></i></a></span>&nbsp;&nbsp;";
+                                                                echo "<span class='operate deactive'><a href='?permission=status&operation=active&p_id=" . $row['p_id'] . "'><i class='fa fa-toggle-off'></i></a></span>&nbsp;&nbsp;";
                                                             }
                                                             // echo "<span class='badge edit'><a href='" . $row['id'] . "'><i class='fa fa-pen-to-square'></i></a></span>&nbsp;&nbsp;";
-                                                            
+                                                           // echo "<span class='operate delete'><a href='?permission=delete&id=" . $row['id'] . "'><i class='fas fa-trash-alt' onclick ='return checkdelete()'></i></a></span>";
 
-                                                            
                                                             ?>
+                                                            
 
                                                         </td>
 
@@ -156,9 +179,11 @@ require_once 'database/dbcon.php';
                                         <tfoot>
                                             <tr>
                                                 <th>Id</th>
-                                                <th>Name</th>
-                                                <th>Image</th>
-
+                                                <th>Category</th>
+                                                <th>Sub category</th>
+                                                <th>Product Name</th>
+                                                <th>Product Image</th>
+                                                <th>Price</th>
                                                 <th>Permission</th>
                                             </tr>
                                         </tfoot>

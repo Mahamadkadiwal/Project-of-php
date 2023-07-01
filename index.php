@@ -51,7 +51,7 @@
         <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 mb-5 products">            
             <div class="card bg-light w-100">
                 <a href="single.php?id=<?php echo $row['p_id'];?>&category=<?php echo $row['category'];?>&subcategory=<?php echo $row['subcategory'];?>">
-                    <img class="card-img-top img-fluid" src="img/<?php echo $row['image'];?>" alt="Card image cap">
+                    <img class="card-img-top img-fluid" src="img/<?php echo $row['p_image'];?>" alt="Card image cap">
                 </a>
                 <div class="card-body">
                     <h3><b><?php echo $row['product_name'];?></b></h3>

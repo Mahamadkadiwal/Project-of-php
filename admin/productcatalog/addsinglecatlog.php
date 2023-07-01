@@ -364,7 +364,7 @@ if (isset($_POST['submit'])) {
     $return_price = $_POST['return_price'];
     $product_name = $_POST['product_name'];
     $product_weight = $_POST['product_weight'];
-    $sizes = implode(",", $_POST['sizes']);
+    $sizes = implode(",", $_POST['sizes']);     
     $product_details = $_POST['product_details'];
     $manufacturer_details = $_POST['manufacturer_details'];
     $product_quantity = $_POST['product_quantity'];
@@ -391,12 +391,12 @@ if (isset($_POST['submit'])) {
 
         if ($con->query($sql) === TRUE) {
             echo "Record inserted successfully.";
-?>
-            <script>
-                window.location.href = "cat.php";
-            </script>
+// ?>
+//             <script>
+//                 window.location.href = "cat.php";
+//             </script>
 
-<?php
+// <?php
 
         } else {
             echo "Error: " . $sql . "<br>" . $con->error;

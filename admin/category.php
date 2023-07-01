@@ -16,14 +16,16 @@ if (isset($_SESSION['id'])) {
 if (isset($_GET['permission'])) {
     $type = mysqli_real_escape_string($con, $_GET['permission']);
     if ($type == 'status') {
+        // echo "<script>alert('".$type."')</script>";
         $operation = mysqli_real_escape_string($con, $_GET['operation']);
-        $id = mysqli_real_escape_string($con, $_GET['id']);
-        if ($operation == 'active') {
-            $status = '1';
-        } else {
-            $status = '0';
-        }
-        mysqli_query($con, "update categories set status='$status' where id='$id'");
+        echo "<script>alert('".$operation."')</script>";
+        // $id = mysqli_real_escape_string($con, $_GET['id']);
+        // if ($operation == 'active') {
+        //     $status = '1';
+        // } else {
+        //     $status = '0';
+        // }
+       // mysqli_query($con, "update categories set status='$status' where id='$id'");
     }
     if ($type == 'delete') {
         $id = mysqli_real_escape_string($con, $_GET['id']);

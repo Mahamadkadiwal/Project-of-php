@@ -18,10 +18,14 @@ include_once 'inc/header.php';
   //     die( header( 'location: index.php' ) );
 
   // }
+  if(!isset($_SERVER['HTTP_REFERER'])){
+    header('location: cart.php');
+    exit;
+  }
 
-  // if(!isset($_SESSION['user_name'])){
-  //   header('location: index.php');
-  // }
+  if(!isset($_SESSION['user_name'])){
+    header('location: index.php');
+  }
 ?>
 <!DOCTYPE html>
 <html lang="en">
