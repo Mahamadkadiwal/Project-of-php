@@ -1,7 +1,7 @@
-<?php 
+<?php
 
-    // session_start();
-    define ("ADMINURL", "http://localhost/php/Project-of-php/admin");
+// session_start();
+define("ADMINURL", "http://localhost/php/Project-of-php/admin");
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -113,7 +113,7 @@
                 </div>
             </li>
             <!-- Notifications Dropdown Menu -->
-            <li class="nav-item dropdown">
+            <!-- <li class="nav-item dropdown">
                 <a class="nav-link" data-toggle="dropdown" href="#">
                     <i class="far fa-bell"></i>
                     <span class="badge badge-warning navbar-badge">15</span>
@@ -138,7 +138,7 @@
                     <div class="dropdown-divider"></div>
                     <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a>
                 </div>
-            </li>
+            </li> -->
             <li class="nav-item">
                 <a class="nav-link" data-widget="fullscreen" href="#" role="button">
                     <i class="fas fa-expand-arrows-alt"></i>
@@ -152,17 +152,22 @@
             </li> -->
 
             <li class="nav-item nav-profile dropdown">
-                <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" id="profileDropdown">
-                    <span class="nav-profile-name"> <?php echo $_SESSION['admin_name'];?></span>
+                <a class="nav-link dropdown-toggle" href="../logout.php" data-toggle="dropdown" id="profileDropdown">
+                    <span class="nav-profile-name"> <?php echo $_SESSION['admin_name']; ?></span>
                 </a>
                 <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item " name="logoutbtn" href="logout.php">
+                    <a class="dropdown-item " name="logoutbtn" href="././logout.php">
                         <i class='fas fa-sign-out-alt m-2 '></i>
                         Logout
                     </a>
                 </div>
             </li>
+            <script>
+                $(document).ready(function() {
+                    $('.dropdown-toggle').dropdown();
+                });
+            </script>
 
 
         </ul>

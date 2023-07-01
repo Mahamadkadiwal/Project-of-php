@@ -8,27 +8,7 @@ define("ADMINURL", "http://localhost/php/Project-of-php/admin");
 if (isset($_SESSION['admin_name'])) {
   header("location : ../home.php");
 }
-if (isset($_POST['submit'])) {
-  $quary = "SELECT * FROM `admin_login` WHERE `email`='$_POST[email]' AND `password`='$_POST[password]'";
-  $res = mysqli_query($con, $quary);
-  if (mysqli_num_rows($res) == 1) {
-    $row = mysqli_fetch_assoc($res);
-    echo 'sucess';
-    $_SESSION['admin_email'] = $_POST['email'];
-    $_SESSION['adminrole'] = $row['role'];
-    $_SESSION['admin_name'] = $row['name'];
-    // echo '<script>alert('.$_SESSION['adminrole'].')</script>';
 
-?>
-
-<?php
-    // echo $_SESSION['adminemail'];
-    header("location:home.php");
-  } else {
-    // alert('error', 'worng password');
-    echo 'worng';
-  }
-}
 ?>
 
 <?php
@@ -48,7 +28,7 @@ if (isset($_POST['submit'])) {
       $_SESSION['admin_id'] = $row['id'];
       $_SESSION['adminrole'] = $row['role'];
       // echo '<script>alert('.$_SESSION['seller_id'].')</script>';
-      header("Location: " . ADMINURL . "/home.php");
+      header("Location: home.php");
       die();
     } else {
 ?>

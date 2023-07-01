@@ -2,7 +2,7 @@
 
 use Stripe\Terminal\Location;
 
-include_once '../database/dbcon.php';
+include_once 'database/dbcon.php';
 
 
 session_start();
@@ -23,30 +23,30 @@ if (isset($_SESSION["id"])) {
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>ADD Single Catlog Edit </title>
     <!-- favicon -->
-    <link rel="icon" type="image/png" href="../image/favicon.jpg">
+    <link rel="icon" type="image/png" href="image/favicon.jpg">
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     <!-- Font Awesome -->
-    <link rel="stylesheet" href="../plugins/fontawesome-free/css/all.min.css">
+    <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
     <!-- daterange picker -->
-    <link rel="stylesheet" href="../plugins/daterangepicker/daterangepicker.css">
+    <link rel="stylesheet" href="plugins/daterangepicker/daterangepicker.css">
     <!-- iCheck for checkboxes and radio inputs -->
-    <link rel="stylesheet" href="../plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+    <link rel="stylesheet" href="plugins/icheck-bootstrap/icheck-bootstrap.min.css">
     <!-- Bootstrap Color Picker -->
-    <link rel="stylesheet" href="../plugins/bootstrap-colorpicker/css/bootstrap-colorpicker.min.css">
+    <link rel="stylesheet" href="plugins/bootstrap-colorpicker/css/bootstrap-colorpicker.min.css">
     <!-- Tempusdominus Bootstrap 4 -->
-    <link rel="stylesheet" href="../plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
+    <link rel="stylesheet" href="plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
     <!-- Select2 -->
-    <link rel="stylesheet" href="../plugins/select2/css/select2.min.css">
-    <link rel="stylesheet" href="../plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
+    <link rel="stylesheet" href="plugins/select2/css/select2.min.css">
+    <link rel="stylesheet" href="plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
     <!-- Bootstrap4 Duallistbox -->
-    <link rel="stylesheet" href="../plugins/bootstrap4-duallistbox/bootstrap-duallistbox.min.css">
+    <link rel="stylesheet" href="plugins/bootstrap4-duallistbox/bootstrap-duallistbox.min.css">
     <!-- BS Stepper -->
-    <link rel="stylesheet" href="../plugins/bs-stepper/css/bs-stepper.min.css">
+    <link rel="stylesheet" href="plugins/bs-stepper/css/bs-stepper.min.css">
     <!-- dropzonejs -->
-    <link rel="stylesheet" href="../plugins/dropzone/min/dropzone.min.css">
+    <link rel="stylesheet" href="plugins/dropzone/min/dropzone.min.css">
     <!-- Theme style -->
-    <link rel="stylesheet" href="../dist/css/adminlte.min.css">
+    <link rel="stylesheet" href="dist/css/adminlte.min.css">
 </head>
 <!-- hold-transition register-page -->
 <style>
@@ -187,7 +187,7 @@ if (isset($_SESSION["id"])) {
                                                                     <span class="input-group-text">Upload</span>
                                                                 </div>
                                                             </div>
-                                                            <img src="upload/<?php echo $row['p_image']; ?>" width="100px" alt="image">
+                                                            <img src="image/upload/<?php echo $row['p_image']; ?>" width="100px" alt="image">
                                                         </div>
                                                         <button id="nextButtonStep1" class="btn btn-primary">Next</button>
                                                     </div>
@@ -290,32 +290,32 @@ if (isset($_SESSION["id"])) {
 
 
     <!-- jQuery -->
-    <script src="../plugins/jquery/jquery.min.js"></script>
+    <script src="plugins/jquery/jquery.min.js"></script>
     <!-- Bootstrap 4 -->
-    <script src="../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
     <!-- Select2 -->
-    <script src="../plugins/select2/js/select2.full.min.js"></script>
+    <script src="plugins/select2/js/select2.full.min.js"></script>
     <!-- Bootstrap4 Duallistbox -->
-    <script src="../plugins/bootstrap4-duallistbox/jquery.bootstrap-duallistbox.min.js"></script>
+    <script src="plugins/bootstrap4-duallistbox/jquery.bootstrap-duallistbox.min.js"></script>
     <!-- InputMask -->
-    <script src="../plugins/moment/moment.min.js"></script>
-    <script src="../plugins/inputmask/jquery.inputmask.min.js"></script>
+    <script src="plugins/moment/moment.min.js"></script>
+    <script src="plugins/inputmask/jquery.inputmask.min.js"></script>
     <!-- date-range-picker -->
-    <script src="../plugins/daterangepicker/daterangepicker.js"></script>
+    <script src="plugins/daterangepicker/daterangepicker.js"></script>
     <!-- bootstrap color picker -->
-    <script src="../plugins/bootstrap-colorpicker/js/bootstrap-colorpicker.min.js"></script>
+    <script src="plugins/bootstrap-colorpicker/js/bootstrap-colorpicker.min.js"></script>
     <!-- Tempusdominus Bootstrap 4 -->
-    <script src="../plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
+    <script src="plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
     <!-- Bootstrap Switch -->
-    <script src="../plugins/bootstrap-switch/js/bootstrap-switch.min.js"></script>
+    <script src="plugins/bootstrap-switch/js/bootstrap-switch.min.js"></script>
     <!-- BS-Stepper -->
-    <script src="../plugins/bs-stepper/js/bs-stepper.min.js"></script>
+    <script src="plugins/bs-stepper/js/bs-stepper.min.js"></script>
     <!-- dropzonejs -->
-    <script src="../plugins/dropzone/min/dropzone.min.js"></script>
+    <script src="plugins/dropzone/min/dropzone.min.js"></script>
     <!-- AdminLTE App -->
-    <script src="../dist/js/adminlte.min.js"></script>
+    <script src="dist/js/adminlte.min.js"></script>
     <!-- AdminLTE for demo purposes -->
-    <script src="../dist/js/demo.js"></script>
+    <script src="dist/js/demo.js"></script>
 
     <!-- Page specific script -->
     <script>
@@ -395,10 +395,10 @@ if (isset($_GET['id'])) {
 
             if ($update_result) {
                 if ($imageupload != '') {
-                    // move_uploaded_file($image_tmp, "upload/" . $imageupload);
-                    move_uploaded_file($_FILES['imageupload']['tmp_name'], "upload/" . $update_filename);
-                    if (file_exists('upload/' . $old_upload)) {
-                        unlink('upload/' . $old_upload);
+                    // move_uploaded_file($image_tmp, "image/upload/" . $imageupload);
+                    move_uploaded_file($_FILES['imageupload']['tmp_name'], "image/upload/" . $update_filename);
+                    if (file_exists('image/upload/' . $old_upload)) {
+                        unlink('image/upload/' . $old_upload);
                     }
                 }
 
