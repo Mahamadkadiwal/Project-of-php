@@ -1,6 +1,7 @@
 <?php 
     include_once 'admin/database/dbcon.php';
-    include_once 'inc/header.php'; ?>
+    include_once 'inc/header.php';
+     ?>
         <div class="d-flex justify-content-center align-items-center vh-100">
             <div class="text-center">
                 <div class="image-fliud">

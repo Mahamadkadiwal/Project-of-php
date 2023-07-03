@@ -233,7 +233,7 @@ include_once 'inc/header.php';
         $select = mysqli_query($con, "DELETE from cart where user_id='$_SESSION[user_id]'");
 
         ?>
-        <script>window.location.href='index.php';</script>
+        <script>window.location.href='success.php';</script>
         <?php
       }
       

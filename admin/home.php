@@ -4,7 +4,7 @@ session_start();
 if (!isset($_SESSION['admin_email'])) {
   header("location:login.php");
 }
- 
+ require_once 'database/dbcon.php';
 // session_regenerate_id(true);
 ?>
 <!DOCTYPE html>
@@ -42,9 +42,7 @@ if (!isset($_SESSION['admin_email'])) {
   <div class="wrapper">
 
     <!-- Preloader -->
-    <div class="preloader flex-column justify-content-center align-items-center">
-      <img class="animation__shake" src="dist/img/AdminLTELogo.png" alt="AdminLTELogo" height="60" width="60">
-    </div>
+    
 
     <!-- nav bar  -->
     <?php

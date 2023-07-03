@@ -104,19 +104,19 @@
       $email = $_POST['email'];
       $pass= $_POST['password'];
       
-      $sql = mysqli_query($con, "select * from seller_login where email='$email'");
+      $sql = mysqli_query($con, "select * from admin_login where email='$email'");
       
       if($count= mysqli_num_rows($sql) > 0){
           $row= mysqli_fetch_assoc($sql);
           $verify = password_verify($pass, $row['password']);
 
           if($verify==1){
-              $_SESSION['seller_name']= $row['email'];
+              $_SESSION['admin_name']= $row['email'];
               // echo '<script>alert("' . $_SESSION['seller_name'] . '")</script>';
 
-              $_SESSION['seller_role']= $row['role'];
+              $_SESSION['adminrole']= $row['role'];
               // echo '<script>alert('.$_SESSION['seller_role'].')</script>';
-              $_SESSION['seller_id']= $row['id'];
+              $_SESSION['admin_id']= $row['id'];
               // echo '<script>alert('.$_SESSION['seller_id'].')</script>';
               header('location:../admin/home.php');
               die();
