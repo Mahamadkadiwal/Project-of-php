@@ -1,5 +1,8 @@
 <?php
-include_once '../database/dbcon.php';
+
+use Stripe\Terminal\Location;
+
+include_once 'database/dbcon.php';
 
 
 session_start();
@@ -20,30 +23,30 @@ if (isset($_SESSION["id"])) {
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>ADD Single Catlog Edit </title>
     <!-- favicon -->
-    <link rel="icon" type="image/png" href="../image/favicon.jpg">
+    <link rel="icon" type="image/png" href="image/favicon.jpg">
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     <!-- Font Awesome -->
-    <link rel="stylesheet" href="../plugins/fontawesome-free/css/all.min.css">
+    <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
     <!-- daterange picker -->
-    <link rel="stylesheet" href="../plugins/daterangepicker/daterangepicker.css">
+    <link rel="stylesheet" href="plugins/daterangepicker/daterangepicker.css">
     <!-- iCheck for checkboxes and radio inputs -->
-    <link rel="stylesheet" href="../plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+    <link rel="stylesheet" href="plugins/icheck-bootstrap/icheck-bootstrap.min.css">
     <!-- Bootstrap Color Picker -->
-    <link rel="stylesheet" href="../plugins/bootstrap-colorpicker/css/bootstrap-colorpicker.min.css">
+    <link rel="stylesheet" href="plugins/bootstrap-colorpicker/css/bootstrap-colorpicker.min.css">
     <!-- Tempusdominus Bootstrap 4 -->
-    <link rel="stylesheet" href="../plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
+    <link rel="stylesheet" href="plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
     <!-- Select2 -->
-    <link rel="stylesheet" href="../plugins/select2/css/select2.min.css">
-    <link rel="stylesheet" href="../plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
+    <link rel="stylesheet" href="plugins/select2/css/select2.min.css">
+    <link rel="stylesheet" href="plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
     <!-- Bootstrap4 Duallistbox -->
-    <link rel="stylesheet" href="../plugins/bootstrap4-duallistbox/bootstrap-duallistbox.min.css">
+    <link rel="stylesheet" href="plugins/bootstrap4-duallistbox/bootstrap-duallistbox.min.css">
     <!-- BS Stepper -->
-    <link rel="stylesheet" href="../plugins/bs-stepper/css/bs-stepper.min.css">
+    <link rel="stylesheet" href="plugins/bs-stepper/css/bs-stepper.min.css">
     <!-- dropzonejs -->
-    <link rel="stylesheet" href="../plugins/dropzone/min/dropzone.min.css">
+    <link rel="stylesheet" href="plugins/dropzone/min/dropzone.min.css">
     <!-- Theme style -->
-    <link rel="stylesheet" href="../dist/css/adminlte.min.css">
+    <link rel="stylesheet" href="dist/css/adminlte.min.css">
 </head>
 <!-- hold-transition register-page -->
 <style>
@@ -91,6 +94,8 @@ if (isset($_SESSION["id"])) {
                                         $row = mysqli_fetch_array($quary_run);
                                 ?>
                                         <form action="" method="POST" enctype="multipart/form-data">
+                                            <input type="hidden" name="product_id" value="<?= $row['p_id']; ?>">
+
                                             <div class="bs-stepper">
                                                 <div class="bs-stepper-header" role="tablist">
                                                     <!-- your steps here -->
@@ -175,13 +180,14 @@ if (isset($_SESSION["id"])) {
                                                             <div class="input-group">
                                                                 <div class="custom-file">
                                                                     <input type="file" name="imageupload" class="custom-file-input" id="exampleInputFile">
-                                                                    <input type="hidden" name="imageupload_old" class="custom-file-input" value="<?php echo $row['p_image']; ?>" id="exampleInputFile">
+                                                                    <input type="hidden" name="old_upload" value="<?= $row['p_image']; ?>">
                                                                     <label class="custom-file-label" for="exampleInputFile">Choose file</label>
                                                                 </div>
                                                                 <div class="input-group-append">
                                                                     <span class="input-group-text">Upload</span>
                                                                 </div>
                                                             </div>
+                                                            <img src="image/upload/<?php echo $row['p_image']; ?>" width="100px" alt="image">
                                                         </div>
                                                         <button id="nextButtonStep1" class="btn btn-primary">Next</button>
                                                     </div>
@@ -284,32 +290,32 @@ if (isset($_SESSION["id"])) {
 
 
     <!-- jQuery -->
-    <script src="../plugins/jquery/jquery.min.js"></script>
+    <script src="plugins/jquery/jquery.min.js"></script>
     <!-- Bootstrap 4 -->
-    <script src="../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
     <!-- Select2 -->
-    <script src="../plugins/select2/js/select2.full.min.js"></script>
+    <script src="plugins/select2/js/select2.full.min.js"></script>
     <!-- Bootstrap4 Duallistbox -->
-    <script src="../plugins/bootstrap4-duallistbox/jquery.bootstrap-duallistbox.min.js"></script>
+    <script src="plugins/bootstrap4-duallistbox/jquery.bootstrap-duallistbox.min.js"></script>
     <!-- InputMask -->
-    <script src="../plugins/moment/moment.min.js"></script>
-    <script src="../plugins/inputmask/jquery.inputmask.min.js"></script>
+    <script src="plugins/moment/moment.min.js"></script>
+    <script src="plugins/inputmask/jquery.inputmask.min.js"></script>
     <!-- date-range-picker -->
-    <script src="../plugins/daterangepicker/daterangepicker.js"></script>
+    <script src="plugins/daterangepicker/daterangepicker.js"></script>
     <!-- bootstrap color picker -->
-    <script src="../plugins/bootstrap-colorpicker/js/bootstrap-colorpicker.min.js"></script>
+    <script src="plugins/bootstrap-colorpicker/js/bootstrap-colorpicker.min.js"></script>
     <!-- Tempusdominus Bootstrap 4 -->
-    <script src="../plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
+    <script src="plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
     <!-- Bootstrap Switch -->
-    <script src="../plugins/bootstrap-switch/js/bootstrap-switch.min.js"></script>
+    <script src="plugins/bootstrap-switch/js/bootstrap-switch.min.js"></script>
     <!-- BS-Stepper -->
-    <script src="../plugins/bs-stepper/js/bs-stepper.min.js"></script>
+    <script src="plugins/bs-stepper/js/bs-stepper.min.js"></script>
     <!-- dropzonejs -->
-    <script src="../plugins/dropzone/min/dropzone.min.js"></script>
+    <script src="plugins/dropzone/min/dropzone.min.js"></script>
     <!-- AdminLTE App -->
-    <script src="../dist/js/adminlte.min.js"></script>
+    <script src="dist/js/adminlte.min.js"></script>
     <!-- AdminLTE for demo purposes -->
-    <script src="../dist/js/demo.js"></script>
+    <script src="dist/js/demo.js"></script>
 
     <!-- Page specific script -->
     <script>
@@ -352,33 +358,61 @@ if (isset($_GET['id'])) {
 
         if (isset($_POST['update'])) {
             // Retrieve form data
+            $product_id = mysqli_real_escape_string($con, $_POST['product_id']);
             $category = mysqli_real_escape_string($con, $_POST['category']);
             $subcategory = mysqli_real_escape_string($con, $_POST['subcategory']);
             $product_name = mysqli_real_escape_string($con, $_POST['product_name']);
+            $imageupload = $_FILES['imageupload']['name'];
+
             $seller_price = mysqli_real_escape_string($con, $_POST['seller_price']);
             $return_price = mysqli_real_escape_string($con, $_POST['return_price']);
-            $product_quantity = mysqli_real_escape_string($con, $_POST['product_quantity']);
             $product_weight = mysqli_real_escape_string($con, $_POST['product_weight']);
             $sizes = $_POST['sizes'];
             $sizesString = implode(',', $sizes);
             $product_details = mysqli_real_escape_string($con, $_POST['product_details']);
             $manufacturer_details = mysqli_real_escape_string($con, $_POST['manufacturer_details']);
+            $product_quantity = mysqli_real_escape_string($con, $_POST['product_quantity']);
+
+            $old_upload = mysqli_real_escape_string($con, $_POST['old_upload']);
+
+            if ($imageupload != '') {
+                $update_filename = $_FILES['imageupload']['name'];
+                $filepath = ['jpg', 'jpeg', 'png', 'ico'];
+
+                $fileExtension = strtolower(pathinfo($imageupload, PATHINFO_EXTENSION));
+                if (!in_array($fileExtension, $filepath)) {
+                    echo "Invalid image file. Only JPG, JPEG, and PNG files are allowed.";
+                    exit(0);
+                }
+            } else {
+                $update_filename = $old_upload;
+            }
 
             // Update the database
-            $update_query = "UPDATE addsinglecategory SET  category='$category', subcategory='$subcategory',  product_name='$product_name',seller_price='$seller_price', return_price='$return_price', product_weight='$product_weight',  sizes='$sizesString', product_details='$product_details', manufacturer_details='$manufacturer_details', product_quantity='$product_quantity' WHERE p_id='$p_id'";
+
+            $update_query = "UPDATE addsinglecategory SET category='$category', subcategory='$subcategory', product_name='$product_name', p_image='$update_filename', seller_price='$seller_price', return_price='$return_price', product_weight='$product_weight', sizes='$sizesString', product_details='$product_details', manufacturer_details='$manufacturer_details', product_quantity='$product_quantity' WHERE p_id='$p_id'";
             $update_result = mysqli_query($con, $update_query);
 
             if ($update_result) {
-                echo "Data updated successfully!";
+                if ($imageupload != '') {
+                    // move_uploaded_file($image_tmp, "image/upload/" . $imageupload);
+                    move_uploaded_file($_FILES['imageupload']['tmp_name'], "image/upload/" . $update_filename);
+                    if (file_exists('image/upload/' . $old_upload)) {
+                        unlink('image/upload/' . $old_upload);
+                    }
+                }
+
 ?>
                 <script>
                     window.location.href = "cat.php";
                 </script>
 
 <?php
-
+                // header('Location: cat.php?id=' . $product_id);
+                echo "Data updated  successfully!!";
             } else {
-                echo "Failed to update data.";
+                // header('Location: cat.php?id=' . $product_id);
+                echo "Failed to update data!!.";
                 // Handle the update failure
             }
         }

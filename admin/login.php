@@ -6,6 +6,12 @@ define("ADMINURL", "http://localhost/php/Project-of-php/admin");
 
 
 
+
+if (isset($_SESSION['admin_name'])) {
+  header("location : ../home.php");
+}
+
+
 ?>
 
 <?php
@@ -25,7 +31,7 @@ if (isset($_POST['submit'])) {
       $_SESSION['admin_id'] = $row['id'];
       $_SESSION['adminrole'] = $row['role'];
       // echo '<script>alert('.$_SESSION['seller_id'].')</script>';
-      header("Location: " . ADMINURL . "/home.php");
+      header("Location: home.php");
       die();
     } else {
 ?>

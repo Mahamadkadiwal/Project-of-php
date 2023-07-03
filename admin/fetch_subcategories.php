@@ -1,5 +1,5 @@
 <?php
-include_once '../database/dbcon.php';
+include_once 'database/dbcon.php';
 // Fetch subcategories based on the provided category ID
 $category_id = $_POST['category_id'];
 
