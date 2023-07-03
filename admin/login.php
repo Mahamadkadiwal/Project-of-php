@@ -5,9 +5,12 @@ session_start();
 define("ADMINURL", "http://localhost/php/Project-of-php/admin");
 
 
+
+
 if (isset($_SESSION['admin_name'])) {
   header("location : ../home.php");
 }
+
 
 ?>
 

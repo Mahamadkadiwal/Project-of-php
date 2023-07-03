@@ -1,5 +1,6 @@
 <?php
     require_once 'admin/database/dbcon.php';
+    require_once 'inc/header.php';
     $sql = mysqli_query($con, "SELECT * from addsinglecategory where status='1'");
     if(mysqli_num_rows($sql) >0):
 ?>
@@ -23,7 +24,7 @@
 </head>
 
 <body>
-    <?php require('inc/header.php'); ?>
+    
 
     <section class="category_section layout_padding-bottom">
     <div class="container">
@@ -66,4 +67,6 @@
 </body>
 
 </html>
+<?php else:?>
+    <h1>No more product</h1>
 <?php endif; ?>

@@ -59,7 +59,7 @@ if (isset($_POST['checking'])) {
  else {
 
     $enc_pass = password_hash($password, PASSWORD_DEFAULT);
-    $query = mysqli_query($con, "UPDATE seller_login SET mobile='$mobile', password='$enc_pass', email_verified_at=NOW() WHERE email='$email' AND verification_code='$verify'");
+    $query = mysqli_query($con, "UPDATE admin_login SET mobile='$mobile', password='$enc_pass', email_verified_at=NOW() WHERE email='$email' AND verification_code='$verify'");
 
     if ($query) {
       if (mysqli_affected_rows($con) > 0) {
