@@ -35,6 +35,103 @@
                         <a href="#" class="d-block">jeel</a>
                     </div>
                 </div>
+<<<<<<< Updated upstream
+=======
+            </div>
+
+            <!-- Sidebar Menu -->
+            <nav class="mt-2">
+
+    <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+        <li class="nav-item menu-open">
+            <a href="./home.php" class="nav-link active">
+                <i class="nav-icon fas fa-tachometer-alt"></i>
+                <p>
+                    Dashboard
+                </p>
+            </a>
+        </li>
+        <li class="nav-item">
+            <?php if ($_SESSION['adminrole'] == 1): ?>
+                <a href="./order.php" class="nav-link">
+                    <i class="nav-icon fas fa-cart-plus"></i>
+                    <p>
+                        Order
+                    </p>
+                </a>
+            <?php endif; ?>
+        </li>
+        <?php if ($_SESSION['adminrole'] == 1): ?>
+            <li class="nav-item">
+                <a href="./productcatalog/cat.php" class="nav-link">
+                    <i class='nav-icon fas fa-upload'></i>
+                    <p>
+                        Catalog Upload
+                    </p>
+                </a>
+            </li>
+        <?php else: ?>
+            <li class="nav-item">
+                <a href="./category.php" class="nav-link">
+                    <i class='nav-icon fas fa-upload'></i>
+                    <p>
+                        Category
+                    </p>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="./subcategory.php" class="nav-link">
+                    <i class='nav-icon fas fa-upload'></i>
+                    <p>
+                        Sub Category
+                    </p>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="./allproduct.php" class="nav-link">
+                    <i class='nav-icon fas fa-upload'></i>
+                    <p>
+                        Lists of Product
+                    </p>
+                </a>
+            </li>
+            <?php
+$sqlCount = mysqli_query($con, "SELECT COUNT(*) AS total FROM admin_login WHERE role = 1");
+$sqlRows = mysqli_query($con, "SELECT id FROM admin_login WHERE role = 1");
+
+if (mysqli_num_rows($sqlCount) > 0 && mysqli_num_rows($sqlRows) > 0) {
+    $rowCount = mysqli_fetch_assoc($sqlCount);
+    $sellerCount = $rowCount['total'];
+    ?>
+    <li class="nav-item">
+        <a href="#" class="nav-link">
+            <i class="nav-icon fas fa-edit"></i>
+            <p>
+                List of sellers (<?php echo $sellerCount; ?>)
+                <i class="fas fa-angle-left right"></i>
+            </p>
+        </a>
+        <ul class="nav nav-treeview">
+            <?php
+            $i = 1;
+            while ($row = mysqli_fetch_assoc($sqlRows)) {
+                ?>
+                <li class="nav-item">
+                    <a href="./seller_pro.php?id=<?php echo $row['id']; ?>" class="nav-link">
+                        <i class="far fa-circle nav-icon"></i>
+                        <p>Seller <?php echo $i; ?></p>
+                    </a>
+                </li>
+                <?php
+                $i++;
+            }
+            ?>
+        </ul>
+    </li>
+<?php
+}
+?>
+>>>>>>> Stashed changes
 
 
                 <!-- SidebarSearch Form -->
