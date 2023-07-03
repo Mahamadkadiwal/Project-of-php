@@ -174,7 +174,7 @@ if (isset($_GET['permission'])) {
                                                 <th>Store Name</th>
                                                 <th>Mobile</th>
                                                 <th>Email</th>
-                                                <th>Permission</th>
+                                                    <th>Permission</th>
                                             </tr>
                                         </tfoot>
                                     </table>

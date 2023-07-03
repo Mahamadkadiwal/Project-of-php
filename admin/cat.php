@@ -16,7 +16,7 @@ if (isset($_GET['type']) && $_GET['type'] === 'delete' && isset($_GET['id']) && 
         // redirect('addsinglecategory.php');
     }
 }
-$res = mysqli_query($con, "select * from addsinglecategory AS adsc INNER JOIN categories AS cat ON adsc.category=cat.id INNER JOIN sub_categories AS suc ON suc.id = adsc.subcategory");
+$res = mysqli_query($con, "select * from addsinglecategory AS adsc INNER JOIN categories AS cat ON adsc.category=cat.id INNER JOIN sub_categories AS suc ON suc.id = adsc.subcategory where seller_id = '" . $_SESSION['admin_id'] . "'");
 
 ?>
 
@@ -39,20 +39,20 @@ $res = mysqli_query($con, "select * from addsinglecategory AS adsc INNER JOIN ca
     <div class="wrapper">
 
         <!-- nav bar  -->
-    <?php
-    include 'include/nav.php';
-    ?>
+        <?php
+        include 'include/nav.php';
+        ?>
 
-    <!-- nav bar  -->
+        <!-- nav bar  -->
 
-    <!-- sidebar -->
-    <?php
-    include 'include/side.php';
-    ?>
+        <!-- sidebar -->
+        <?php
+        include 'include/side.php';
+        ?>
 
-    <!-- / sidebar -->
+        <!-- / sidebar -->
 
-      
+
 
         <!-- Main Sidebar Container -->
 
@@ -145,7 +145,7 @@ $res = mysqli_query($con, "select * from addsinglecategory AS adsc INNER JOIN ca
                                                 <td><?php echo $row['product_name']; ?></td>
                                                 <td>
                                                     <img src="./image/upload/<?php echo $row['p_image']; ?>" width="29px" alt="image">
-                                                   
+
                                                 </td>
                                                 <td><?php echo $row['seller_price']; ?></td>
                                                 <td><?php echo $row['product_quantity']; ?></td>

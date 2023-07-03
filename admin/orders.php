@@ -69,27 +69,40 @@ if (!isset($_SESSION['admin_email'])) {
 
                                         </tr>
                                     </thead>
-
                                     <tbody>
                                         <?php
                                         // $i = 1;
                                         $res = mysqli_query($con, "select `orders`.*,order_status.name as 
-                                        order_status_str from `orders`,order_status where order_status.id=
-                                        `orders`.order_status orders by `orders`.id desc");
+							order_status_str from `orders`,order_status where order_status.id=
+							`orders`.order_status order by `orders`.id");
                                         while ($row = mysqli_fetch_assoc($res)) {
                                         ?>
                                             <tr>
                                                 <td><a class="text-dark text-decoration-none" style="background: #27ae60; padding: .3rem;" data-toggle="tooltip" data-placement="top" title="Clisk this" href="Orders_details.php?id=<?php echo $row['id'] ?>" class="text-dark">
                                                         <?php echo $row['id'] ?></a>
                                                 </td>
-                                               
-                                                <td style="cursor: pointer;">
-                                                    <a href="addsinglecatlog_edit.php?id=<?php echo $row['p_id']; ?>"><label class="badge badge-success hand_cursor">Edit</label></a>
-                                                    <a href="?id=<?php echo $row['p_id'] ?>&type=delete"><label class="badge badge-danger delete_red">Delete</label></a>
+                                                <td>
+                                                    <?php
+                                                    echo "<b>floor: </b>";
+                                                    echo $row['floor'] . "<br>";
+                                                    echo "<b>street: </b>";
+                                                    echo $row['street'] . "<br>";
+                                                    echo "<b>landmark: </b>";
+                                                    echo $row['landmark'] . "<br>";
+                                                    echo "<b>State: </b>";
+                                                    echo $row['state'] . "<br>";
+                                                    echo "<b>City: </b>";
+                                                    echo $row['city'];
+                                                    ?>
                                                 </td>
+                                                <td><?php echo $row['name'] ?></td>
+                                                <td><?php echo $row['created_at'] ?></td>
+                                                <td><?php echo $row['paymant_status'] ?></td>
+                                                <td><?php echo $row['order_status_str'] ?></td>
+
                                             </tr>
-                                        <?php 
-                                        // $i++;
+                                        <?php
+                                            // $i++;
                                         } ?>
                                     </tbody>
                                 </table>
