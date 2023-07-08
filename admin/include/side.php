@@ -131,7 +131,7 @@
                                         while ($row = mysqli_fetch_assoc($sqlRows)) {
                                         ?>
                                             <li class="nav-item">
-                                                <a href="../seller_pro.php?id=<?php echo $row['id']; ?>" class="nav-link">
+                                                <a href="./seller_pro.php?id=<?php echo $row['id']; ?>" class="nav-link">
                                                     <i class="far fa-circle nav-icon"></i>
                                                     <p>Seller <?php echo $i; ?></p>
                                                 </a>
