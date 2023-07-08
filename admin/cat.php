@@ -117,8 +117,10 @@ $res = mysqli_query($con, "select * from addsinglecategory AS adsc INNER JOIN ca
                             <div class="card-header">
                                 <h3 class="card-title">DataTable with default features</h3>
                             </div>
+                           
                             <!-- /.card-header -->
                             <div class="card-body">
+                           
                                 <table id="example1" class="table table-bordered table-striped">
                                     <thead>
                                         <tr>

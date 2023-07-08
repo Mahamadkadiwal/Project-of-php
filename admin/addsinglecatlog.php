@@ -70,6 +70,10 @@ if (isset($_SESSION["id"])) {
         border: 1px solid #ccc;
         border-top: none;
     }
+    .hidden {
+    display: none;
+}
+
 </style>
 
 <body>
@@ -137,16 +141,23 @@ if (isset($_SESSION["id"])) {
                                                 <script>
                                                     function showSubcategoryBox(category_id) {
                                                         if (category_id === 'select') {
-                                                            // If the 'select' option is chosen, hide the subcategory box
-                                                            document.getElementById("subcategoryBox").style.display =
-                                                                "none";
+                                                            document.getElementById("subcategoryBox").style.display = "none";
+                                                            document.getElementById("sizesBox").classList.add("hidden");
                                                         } else {
-                                                            // Show the subcategory box and load the subcategories for the selected category
-                                                            document.getElementById("subcategoryBox").style.display =
-                                                                "block";
+                                                            document.getElementById("subcategoryBox").style.display = "block";
                                                             loadSubcategories(category_id);
+
+                                                            var selectedCategory = document.querySelector(
+                                                                'select[name="category_name"] option:checked'
+                                                            ).text;
+                                                            if (selectedCategory === 'Clothes') {
+                                                                document.getElementById("sizesBox").classList.remove("hidden");
+                                                            } else {
+                                                                document.getElementById("sizesBox").classList.add("hidden");
+                                                            }
                                                         }
                                                     }
+
 
 
                                                     function loadSubcategories(category_id) {
@@ -238,7 +249,7 @@ if (isset($_SESSION["id"])) {
                                                                 </div>
                                                             </div>
                                                             <div class="col-sm-6">
-                                                                <div class="form-group">
+                                                                <div id="sizesBox"  class="form-group">
                                                                     <label>Sizes (maltipal select )</label>
                                                                     <select class="select2" multiple="multiple" name="sizes[]" data-placeholder="Select a State" style="width: 100%;">
                                                                         <option>xs</option>
@@ -373,7 +384,8 @@ if (isset($_POST['submit'])) {
     $return_price = $_POST['return_price'];
     $product_name = $_POST['product_name'];
     $product_weight = $_POST['product_weight'];
-    $sizes = implode(",", $_POST['sizes']);
+    // $sizes = implode(",", $_POST['sizes']);
+    $sizes = isset($_POST['sizes']) ? implode(",", $_POST['sizes']) : "N/A"; 
     $product_details = $_POST['product_details'];
     $manufacturer_details = $_POST['manufacturer_details'];
     $product_quantity = $_POST['product_quantity'];

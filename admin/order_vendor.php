@@ -58,28 +58,46 @@ if (!isset($_SESSION['admin_email'])) {
                             <!-- /.card-header -->
                             <div class="card-body">
                                 <table id="example1" class="table table-bordered table-striped">
+
                                     <thead>
                                         <tr>
                                             <th>ORDER ID</th>
-                                            <th>CUSTOMER DETAILS</th>
-                                            <th>CUSTOMER NAME</th>
-                                            <th>ORDER DATE</th>
+                                            <th>PRODUCT/QTY</th>
+                                            <th>ADDRESS</th>
+                                            <th>PAYMENT TYPE</th>
                                             <th>PAYMENT_STATUS</th>
-                                            <th width="20%">ORDER_STATUS</th>
-
+                                            <th>ORDER_STATUS</th>
                                         </tr>
+                                        <!-- select order_detail.qty, adsinlecatlog.name,
+                                                `orders`.*,order_status.name as order_status_str from order_detail,adsinlecatlog,
+                                                `orders`,order_status where order_status.id=`orders`.order_status and 
+                                                adsinlecatlog.id=order_detail.adsinlecatlog and `orders`.id=order_detail.order_id and 
+                                                product.added_by='" . $_SESSION['admin_id'] . "' order by `orders`.id desc 
+                                            
+                                            select order_detail.qty, addsinglecategory.product_name,
+                                        `orders`.*,order_status.name as order_status_str from order_detail,addsinglecategory,
+                                        `orders`,order_status where order_status.id=`orders`.order_status and 
+                                        addsinglecategory.p_id=order_detail.product_id and `orders`.id=order_detail.orders_id and 
+                                        addsinglecategory.seller_id='" . $_SESSION['admin_name'] . "' order by `orders`.id desc-->
                                     </thead>
                                     <tbody>
                                         <?php
-                                        // $i = 1;
-                                        $res = mysqli_query($con, "select `orders`.*,order_status.name as 
-							order_status_str from `orders`,order_status where order_status.id=
-							`orders`.order_status order by `orders`.id desc");
-                                        while ($row = mysqli_fetch_assoc($res)) {
+                                        $query = mysqli_query($con, "SELECT order_detail.qty, addsinglecategory.product_name, `orders`.*, order_status.name AS order_status_str
+                                        FROM order_detail, addsinglecategory, `orders`, order_status
+                                        WHERE order_status.id = `orders`.order_status
+                                          AND addsinglecategory.p_id = order_detail.product_id
+                                          AND `orders`.id = order_detail.orders_id
+                                          where  orders.seller_id = '".$_SESSION['admin_name']."'
+                                        ORDER BY `orders`.id DESC;
+                                        ");
+                                        while ($row = mysqli_fetch_assoc($query)) {
                                         ?>
                                             <tr>
-                                                <td><a class="text-dark text-decoration-none" style="background: #27ae60; padding: .3rem;" data-toggle="tooltip" data-placement="top" title="Clisk this" href="Orders_details.php?id=<?php echo $row['id'] ?>" class="text-dark">
-                                                        <?php echo $row['id'] ?></a>
+                                                <td><?php echo $row['id'] ?></td>
+                                                <td>
+                                                    <?php echo $row['name'] . "<br>";
+                                                    echo $row['qty'];
+                                                    ?>
                                                 </td>
                                                 <td>
                                                     <?php
@@ -95,16 +113,13 @@ if (!isset($_SESSION['admin_email'])) {
                                                     echo $row['city'];
                                                     ?>
                                                 </td>
-                                                <td><?php echo $row['name'] ?></td>
-                                                <td><?php echo $row['created_at'] ?></td>
+                                                <td><?php echo $row['payment_type'] ?></td>
                                                 <td><?php echo $row['payment_status'] ?></td>
-                                                <td><?php echo $row['order_status_str'] ?></td>
-
+                                                <!-- <td><?php echo $row['order_status_str'] ?></td> -->
                                             </tr>
-                                        <?php
-                                            // $i++;
-                                        } ?>
+                                        <?php } ?>
                                     </tbody>
+
                                 </table>
 
                             </div>

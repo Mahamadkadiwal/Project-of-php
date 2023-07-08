@@ -223,9 +223,9 @@ include_once 'inc/header.php';
       $state = $_POST['state'];
       $pincode = $_POST['pincode'];
       $user_id = $_SESSION['user_id'];
-      $sql = mysqli_query($con, "INSERT INTO `orders`( `name`,`email`,`mobile`,`price` ,`token`,`floor`, `street`, `landmark`, `city`, `state`, 
+      $sql = mysqli_query($con, "INSERT INTO `orders`( `name`,`email`,`mobile`,`price` ,`token`,`floor`, `street`, `order_status`,`landmark`, `city`, `state`, 
       `pincode`,`user_id`) 
-      VALUES ('$name','$email','$mobile','$price','$token','$floor','$street','$landmark','$city','$state','$pincode','$user_id')");
+      VALUES ('$name','$email','$mobile','$price','$token','$floor','$street','1','$landmark','$city','$state','$pincode','$user_id')");
       
       if($sql){
         echo "<script>alert('Ordered has been Placed');</script>";

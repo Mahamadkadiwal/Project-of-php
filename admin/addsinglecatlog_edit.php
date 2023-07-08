@@ -1,5 +1,6 @@
-<?php
 
+
+<?php
 use Stripe\Terminal\Location;
 
 include_once 'database/dbcon.php';
@@ -94,8 +95,6 @@ if (isset($_SESSION["id"])) {
                                         $row = mysqli_fetch_array($quary_run);
                                 ?>
                                         <form action="" method="POST" enctype="multipart/form-data">
-                                            <input type="hidden" name="product_id" value="<?= $row['p_id']; ?>">
-
                                             <div class="bs-stepper">
                                                 <div class="bs-stepper-header" role="tablist">
                                                     <!-- your steps here -->
@@ -175,7 +174,7 @@ if (isset($_SESSION["id"])) {
                                                                 });
                                                             }
                                                         </script>
-                                                        <div class="form-group">
+                                                         <div class="form-group">
                                                             <label for="exampleInputFile">File input</label>
                                                             <div class="input-group">
                                                                 <div class="custom-file">
@@ -229,7 +228,7 @@ if (isset($_SESSION["id"])) {
                                                                         </div>
                                                                     </div>
                                                                     <div class="col-sm-6">
-                                                                        <div class="form-group">
+                                                                        <div id="sizesBox" class="form-group">
                                                                             <label>Sizes (multiple select)</label>
                                                                             <select class="select2" multiple="multiple" name="sizes[]" data-placeholder="Select a State" style="width: 100%;">
                                                                                 <option value="xs" <?= (is_array($row['sizes']) && in_array('xs', $row['sizes'])) ? 'selected' : ''; ?>>xs</option>
@@ -369,6 +368,8 @@ if (isset($_GET['id'])) {
             $product_weight = mysqli_real_escape_string($con, $_POST['product_weight']);
             $sizes = $_POST['sizes'];
             $sizesString = implode(',', $sizes);
+            // $sizes = isset($_POST['sizes']) ? implode(",", $_POST['sizes']) : "N/A";
+
             $product_details = mysqli_real_escape_string($con, $_POST['product_details']);
             $manufacturer_details = mysqli_real_escape_string($con, $_POST['manufacturer_details']);
             $product_quantity = mysqli_real_escape_string($con, $_POST['product_quantity']);

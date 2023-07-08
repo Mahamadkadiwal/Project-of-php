@@ -2,7 +2,7 @@
 include 'database/dbcon.php';
 include 'alert.php';
 session_start();
-define("ADMINURL", "http://localhost/php/Project-of-php/admin");
+define("ADMINURL", "http://localhost/Project-of-php/admin");
 
 
 
@@ -18,13 +18,14 @@ if (isset($_SESSION['admin_name'])) {
 if (isset($_POST['submit'])) {
   $email = $_POST['email'];
   $pass = $_POST['password'];
-
+ 
   $sql = mysqli_query($con, "select * from admin_login where email='$email'");
 
   if ($count = mysqli_num_rows($sql) > 0) {
     $row = mysqli_fetch_assoc($sql);
     $verify = password_verify($pass, $row['password']);
-
+        // echo $pass;
+   
     if ($verify == 1) {
       $_SESSION['admin_email'] = $_POST['email'];
       $_SESSION['admin_name'] = $row['name'];
