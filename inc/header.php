@@ -71,7 +71,7 @@
             </a>
             <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                 <li><a class="dropdown-item" href="<?php echo APPURL;?>/user/order.php?id=<?php echo $_SESSION['user_id'];?>">Orders</a></li>
-                
+                <li><a class="dropdown-item" href="<?php echo APPURL;?>/user/wishlist-user.php?id=<?php echo $_SESSION['user_id'];?>">Wishlist</a></li>
                 <li><a class="dropdown-item" href="<?php echo APPURL?>/inc/logout.php">Logout</a></li>
             </ul>
         </li>
