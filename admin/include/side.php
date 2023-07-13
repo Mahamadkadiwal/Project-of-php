@@ -41,7 +41,6 @@
             <!-- Sidebar Menu -->
             <nav class="mt-2">
 
-<<<<<<< Updated upstream
                 <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                     <li class="nav-item menu-open">
                         <a href="./home.php" class="nav-link active">
@@ -51,87 +50,8 @@
                             </p>
                         </a>
                     </li>
-                    <li class="nav-item">
-                        <?php if ($_SESSION['adminrole'] == 1) : ?>
-                            <a href="././order_vendor.php" class="nav-link">
-                                <i class="nav-icon fas fa-cart-plus"></i>
-=======
+                    
 
-                <!-- SidebarSearch Form -->
-                <div class="form-inline">
-                    <div class="input-group" data-widget="sidebar-search">
-                        <input class="form-control form-control-sidebar" type="search" placeholder="Search" aria-label="Search">
-                        <div class="input-group-append">
-                            <button class="btn btn-sidebar">
-                                <i class="fas fa-search fa-fw"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Sidebar Menu -->
-                <nav class="mt-2">
-
-                    <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-                        <li class="nav-item menu-open">
-                            <a href="<?php echo ADMINURL?>" class="nav-link active">
-                                <i class="nav-icon fas fa-tachometer-alt"></i>
->>>>>>> Stashed changes
-                                <p>
-                                    Order
-                                </p>
-                            </a>
-                        <?php endif; ?>
-                    </li>
-                    <?php if ($_SESSION['adminrole'] == 1) : ?>
-                        <li class="nav-item">
-                            <a href="./cat.php" class="nav-link">
-                                <i class='nav-icon fas fa-upload'></i>
-                                <p>
-                                    Catalog Upload
-                                </p>
-                            </a>
-                        </li>
-
-                    <?php else : ?>
-
-                        <li class="nav-item">
-                            <a href="././orders.php" class="nav-link">
-                                <i class="nav-icon fas fa-table"></i>
-                                <p>
-
-                                    All Orders
-                                </p>
-                            </a>
-
-
-                        </li>
-                        <li class="nav-item">
-                            <a href="./category.php" class="nav-link">
-                                <i class='nav-icon fas fa-upload'></i>
-                                <p>
-                                    Category
-                                </p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-<<<<<<< Updated upstream
-                            <a href="./subcategory.php" class="nav-link">
-                                <i class='nav-icon fas fa-upload'></i>
-                                <p>
-                                    Sub Category
-                                </p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="./allproduct.php" class="nav-link">
-                                <i class='nav-icon fas fa-upload'></i>
-                                <p>
-                                    Lists of Product
-                                </p>
-                            </a>
-                        </li>
-=======
                             <?php if ($_SESSION['adminrole'] == 1) : ?>
                                 <a href="<?php echo ADMINURL?>/orders.php" class="nav-link">
                                     <i class="nav-icon fas fa-cart-plus"></i>
@@ -175,43 +95,8 @@
                                     </p>
                                 </a>
                             </li>
-                            <?php
-                            $sqlCount = mysqli_query($con, "SELECT COUNT(*) AS total FROM admin_login WHERE role = 1");
-                            $sqlRows = mysqli_query($con, "SELECT id FROM admin_login WHERE role = 1");
+                            
 
-                            if (mysqli_num_rows($sqlCount) > 0 && mysqli_num_rows($sqlRows) > 0) {
-                                $rowCount = mysqli_fetch_assoc($sqlCount);
-                                $sellerCount = $rowCount['total'];
-                            ?>
-                                <li class="nav-item">
-                                    <a href="#" class="nav-link">
-                                        <i class="nav-icon fas fa-edit"></i>
-                                        <p>
-                                            List of sellers (<?php echo $sellerCount; ?>)
-                                            <i class="fas fa-angle-left right"></i>
-                                        </p>
-                                    </a>
-                                    <ul class="nav nav-treeview">
-                                        <?php
-                                        $i = 1;
-                                        while ($row = mysqli_fetch_assoc($sqlRows)) {
-                                        ?>
-                                            <li class="nav-item">
-                                                <a href="<?php echo ADMINURL?>./seller_pro.php?id=<?php echo $row['id']; ?>" class="nav-link">
-                                                    <i class="far fa-circle nav-icon"></i>
-                                                    <p>Seller <?php echo $i; ?></p>
-                                                </a>
-                                            </li>
-                                        <?php
-                                            $i++;
-                                        }
-                                        ?>
-                                    </ul>
-                                </li>
-                            <?php
-                            }
-                            ?>
->>>>>>> Stashed changes
 
 
                         <?php
@@ -223,7 +108,7 @@
                             $sellerCount = $rowCount['total'];
                         ?>
                             <li class="nav-item">
-<<<<<<< Updated upstream
+
                                 <a href="#" class="nav-link">
                                     <i class="nav-icon fas fa-edit"></i>
                                     <p>
@@ -268,27 +153,15 @@
                     <?php if (!$_SESSION['adminrole'] == 1) : ?>
                         <!-- <li class="nav-item">
                                 <a href="./form.php" class="nav-link">
-=======
-                                <a href="<?php echo ADMINURL?>./form.php" class="nav-link">
->>>>>>> Stashed changes
+
                                     <i class="nav-icon fas fa-edit"></i>
                                     <p>
                                         Forms
                                     </p>
                                 </a>
-<<<<<<< Updated upstream
-                            </li> -->
-                        <li class="nav-item">
-                            <a href="./table.php" class="nav-link">
-                                <i class="nav-icon fas fa-table"></i>
-                                <p>
-                                    Tables
-                                </p>
-                            </a>
-                        </li>
 
-                     
-=======
+                            </li> -->
+                        
                             </li>
                             <li class="nav-item">
                                 <a href="<?php echo ADMINURL?>./table.php" class="nav-link">
@@ -310,7 +183,7 @@
 
 
                             </li>
->>>>>>> Stashed changes
+
 
 
 
