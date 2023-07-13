@@ -1,6 +1,5 @@
-
-
 <?php
+
 use Stripe\Terminal\Location;
 
 include_once 'database/dbcon.php';
@@ -118,7 +117,6 @@ if (isset($_SESSION["id"])) {
                                                         <div class="form-group">
                                                             <label>Select Category</label>
                                                             <select class="form-control select2" name="category" style="width: 100%;" onchange="showSubcategoryBox(this.value)">
-                                                                <option>select</option>
                                                                 <?php
                                                                 $sql = mysqli_query($con, "SELECT * FROM categories WHERE status='1'");
                                                                 while ($category = mysqli_fetch_assoc($sql)) {
@@ -130,11 +128,41 @@ if (isset($_SESSION["id"])) {
                                                                 ?>
                                                             </select>
                                                         </div>
-                                                        <div id="subcategoryBox" class=" form-group">
+                                                        <div id="subcategoryBox" class="form-group">
                                                             <label>Select Sub Category</label>
-                                                            <select class="form-control select2" name="subcategory" value="<?= $row['subcategory']; ?>" style="width: 100%;" id="subcategorySelect">
-                                                                <!-- Subcategory options will be dynamically added here -->
+                                                            <select class="form-control select2" name="subcategory" style="width: 100%;" id="subcategorySelect">
+                                                                <?php
+                                                                $subcategoryValue = $row['subcategory']; // Get the subcategory value from the database
+                                                                $sql = mysqli_query($con, "SELECT * FROM sub_categories WHERE status='1' AND category_id = '{$row['category']}'");
+                                                                while ($subcategory = mysqli_fetch_assoc($sql)) {
+                                                                    $subcategoryID = $subcategory['id'];
+                                                                    $subcategoryName = $subcategory['subcategory_name'];
+                                                                    $selected = ($subcategoryID == $subcategoryValue) ? "selected" : ""; // Check if the option value matches the stored subcategory value
+                                                                    echo "<option value='$subcategoryID' $selected>$subcategoryName</option>";
+                                                                }
+                                                                ?>
                                                             </select>
+
+
+                                                            <script>
+                                                                document.addEventListener("DOMContentLoaded", function() {
+                                                                    var subcategorySelect = document.getElementById('subcategorySelect');
+                                                                    var subcategoryValue = "<?php echo $row['subcategory']; ?>"; // Fetch the subcategory value from PHP
+
+                                                                    // Loop through the options in the subcategory select element
+                                                                    for (var i = 0; i < subcategorySelect.options.length; i++) {
+                                                                        var option = subcategorySelect.options[i];
+
+                                                                        // Check if the option value matches the fetched subcategory value
+                                                                        if (option.value === subcategoryValue) {
+                                                                            option.selected = true; // Set the option as selected
+                                                                            break; // Exit the loop once the matching option is found
+                                                                        }
+                                                                    }
+                                                                });
+                                                            </script>
+
+
                                                         </div>
                                                         <script>
                                                             function showSubcategoryBox(category_id) {
@@ -174,7 +202,7 @@ if (isset($_SESSION["id"])) {
                                                                 });
                                                             }
                                                         </script>
-                                                         <div class="form-group">
+                                                        <div class="form-group">
                                                             <label for="exampleInputFile">File input</label>
                                                             <div class="input-group">
                                                                 <div class="custom-file">
@@ -357,12 +385,11 @@ if (isset($_GET['id'])) {
 
         if (isset($_POST['update'])) {
             // Retrieve form data
-            $product_id = mysqli_real_escape_string($con, $_POST['product_id']);
+            // $product_id = mysqli_real_escape_string($con, $_POST['product_id']);
             $category = mysqli_real_escape_string($con, $_POST['category']);
             $subcategory = mysqli_real_escape_string($con, $_POST['subcategory']);
             $product_name = mysqli_real_escape_string($con, $_POST['product_name']);
             $imageupload = $_FILES['imageupload']['name'];
-
             $seller_price = mysqli_real_escape_string($con, $_POST['seller_price']);
             $return_price = mysqli_real_escape_string($con, $_POST['return_price']);
             $product_weight = mysqli_real_escape_string($con, $_POST['product_weight']);
