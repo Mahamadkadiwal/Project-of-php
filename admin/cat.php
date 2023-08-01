@@ -80,25 +80,24 @@ $res = mysqli_query($con, "select * from addsinglecategory AS adsc INNER JOIN ca
             <section class="content">
                 <div class="container-fluid">
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-12">
                             <!-- Buttons with Icons -->
                             <div class="card">
                                 <div class="card-header">
                                     <h3 class="card-title">Have unique Product Sell ?</h3>
                                 </div>
                                 <div class="card-body row">
-                                    <div class="col-md-6">
+                                    <div class="col-md-2">
                                         <a href="addsinglecatlog.php">
-                                            <button type="button" class="btn btn-default btn-block">Add Single Catalog</button>
+                                            <button type="button" class="btn btn-primary btn-block">Add Single Catalog</button>
                                             <!-- <button type="button" class="btn btn-primary btn-block">Add Single Catalog</button> -->
                                         </a>
                                     </div>
-                                    <div class="col-md-6">
-                                        <!-- <button type="button" class="btn btn-default btn-block">Add Catalog in Bulk</button> -->
+                                    <!-- <div class="col-md-6">
                                         <a href="addbulkcatlog.php">
                                             <button type="button" class="btn btn-primary btn-block">Add Catalog in Bulk</button>
                                         </a>
-                                    </div>
+                                    </div> -->
                                 </div>
                             </div>
                         </div>
@@ -114,8 +113,11 @@ $res = mysqli_query($con, "select * from addsinglecategory AS adsc INNER JOIN ca
                 <div class="container-fluid">
                     <div class="row">
                         <div class="card col-md-12">
+                            
                             <div class="card-header">
+                                
                                 <h3 class="card-title">DataTable with default features</h3>
+                                
                             </div>
                            
                             <!-- /.card-header -->

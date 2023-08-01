@@ -87,7 +87,7 @@ if (!isset($_SESSION['admin_email'])) {
                                         WHERE order_status.id = `orders`.order_status
                                           AND addsinglecategory.p_id = order_detail.product_id
                                           AND `orders`.id = order_detail.orders_id
-                                          where  orders.seller_id = '".$_SESSION['admin_name']."'
+                                            orders.user_id = '".$_SESSION['admin_id']."'
                                         ORDER BY `orders`.id DESC;
                                         ");
                                         while ($row = mysqli_fetch_assoc($query)) {

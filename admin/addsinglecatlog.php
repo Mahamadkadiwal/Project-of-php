@@ -246,7 +246,7 @@ if (isset($_SESSION["id"])) {
                                                             </div>
                                                         </div>
                                                         <div class="row">
-                                                            <div class="col-sm-3">
+                                                            <div class="col-sm-6">
 
                                                                 <div class="form-group">
                                                                     <div class="form-group">
@@ -260,13 +260,10 @@ if (isset($_SESSION["id"])) {
                                                             <div class="col-sm-3">
                                                                 <div class="form-group">
                                                                     <label>Net Weight(gms) </label>
-                                                                    <input type="number" name="product_weight"
-                                                                        class="form-control no-spinner"
-                                                                        placeholder=" Weight Enter ...">
+                                                                    <input type="number" name="product_weight" class="form-control no-spinner" placeholder=" Weight Enter ...">
 
                                                                 </div>
                                                             </div>
-
                                                             <div class="col-sm-6">
                                                                 <div id="sizesBox"  class="form-group">
                                                                     <label>Sizes (maltipal select )</label>
@@ -309,6 +306,13 @@ if (isset($_SESSION["id"])) {
 
                                                                 </div>
                                                             </div>
+                                                            <div class="col-sm-3">
+                                                                <div class="form-group">
+                                                                    <label>Net Weight(gms) </label>
+                                                                    <input type="number" name="product_weight" class="form-control no-spinner" placeholder=" Weight Enter ...">
+
+                                                                </div>
+                                                            </div>
 
                                                         </div>
                                                         <div class="row">
@@ -336,10 +340,8 @@ if (isset($_SESSION["id"])) {
                                                         <!-- /.card-body -->
                                                         <!-- <button class="btn btn-primary"
                                                     onclick="stepper.previous()">Previous</button> -->
-                                                        <button id="prevButtonStep2"
-                                                            class="btn btn-primary">Previous</button>
-                                                        <button type="submit" class="btn btn-primary"
-                                                            name="submit">Submit</button>
+                                                        <button id="prevButtonStep2" class="btn btn-primary">Previous</button>
+                                                        <button type="submit" class="btn btn-primary" name="submit">Submit</button>
                                                     </div>
                                                 </div>
                                             </div>
