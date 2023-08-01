@@ -145,7 +145,7 @@ if (isset($_SESSION["id"])) {
                                                 </div>
                                                 <script>
 
-                                                    function showSubcategoryBox(category_id) {
+                                                    function handleCategoryChange(category_id) {
                                                         if (category_id === 'select') {
                                                             document.getElementById("subcategoryBox").style.display = "none";
                                                             document.getElementById("sizesBox").classList.add("hidden");
@@ -446,7 +446,7 @@ if (isset($_POST['submit'])) {
         }
 
         // Move the uploaded image to a directory on the server
-        move_uploaded_file($image_tmp, "image/upload/" . $imageupload);
+        move_uploaded_file($image_tmp, "../img/" . $imageupload);
 
         // Insert the data into the database
         $sql = "INSERT INTO addsinglecategory (category, subcategory, p_image, seller_price, return_price, product_name, product_weight, sizes, product_details, manufacturer_details, product_quantity,status,seller_id) VALUES ('$category_name', '$subcategory_name', '$imageupload', '$seller_price', '$return_price', '$product_name', '$product_weight', '$sizes', '$product_details', '$manufacturer_details', '$product_quantity',1,$seller)";

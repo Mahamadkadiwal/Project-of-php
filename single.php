@@ -151,7 +151,7 @@ if (isset($_GET['id']) && ($_GET['category']) && $_GET['subcategory']) {
                 </label>
               </div> -->
 
-                <h4 class="mt-3">Size <small>Please select one</small></h4>
+                <!-- <h4 class="mt-3">Size <small>Please select one</small></h4>
                 <div class="btn-group btn-group-toggle" data-toggle="buttons">
                   <label class="btn btn-default text-center">
                     <input type="radio" name="color_option" id="color_option_b1" autocomplete="off">
@@ -185,7 +185,7 @@ if (isset($_GET['id']) && ($_GET['category']) && $_GET['subcategory']) {
                     <br>
                     Xtra-Large
                   </label>
-                </div>
+                </div> -->
 
                 <div class="bg-gray py-2 px-3 mt-4">
                   <h2 class="mb-0">
