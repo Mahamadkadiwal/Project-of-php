@@ -148,7 +148,7 @@ $res = mysqli_query($con, "select * from addsinglecategory AS adsc INNER JOIN ca
                                                 <td><?php echo $row['subcategory_name']; ?></td>
                                                 <td><?php echo $row['product_name']; ?></td>
                                                 <td>
-                                                    <img src="./image/upload/<?php echo $row['p_image']; ?>" width="29px" alt="image">
+                                                    <img src="../img/<?php echo $row['p_image']; ?>" width="29px" alt="image">
 
                                                 </td>
                                                 <td><?php echo $row['seller_price']; ?></td>

@@ -441,7 +441,7 @@ if (isset($_POST['submit'])) {
         $image_tmp = $_FILES['imageupload']['tmp_name'];
 
         // Check if the file is an image (JPG, PNG, etc.)
-        $filepath = ['jpg', 'jpeg', 'png', 'ico'];
+        $filepath = ['jpg', 'jpeg', 'png','svg', 'ico'];
         $fileExtension = strtolower(pathinfo($imageupload, PATHINFO_EXTENSION));
         if (!in_array($fileExtension, $filepath)) {
             echo "Invalid image file. Only JPG, JPEG, and PNG files are allowed.";
@@ -461,7 +461,12 @@ if (isset($_POST['submit'])) {
                 window.location.href = "cat.php";
             </script>
 
+<<<<<<< Updated upstream
             <?php
+=======
+
+<?php
+>>>>>>> Stashed changes
 
         } else {
             echo "Error .";

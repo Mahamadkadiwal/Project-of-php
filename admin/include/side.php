@@ -153,7 +153,11 @@
                     <?php if (!$_SESSION['adminrole'] == 1) : ?>
                         <!-- <li class="nav-item">
                                 <a href="./form.php" class="nav-link">
+<<<<<<< Updated upstream
 
+=======
+                                    
+>>>>>>> Stashed changes
                                     <i class="nav-icon fas fa-edit"></i>
                                     <p>
                                         Forms
