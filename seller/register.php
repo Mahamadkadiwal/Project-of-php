@@ -328,62 +328,58 @@ require 'phpmailer/src/SMTP.php';
           password: password
         },
         success: function (response) {
-          var errorMessage = response.errorMessage; // Assuming the response contains an "errorMessage" property
-          $('#elementId').append(errorMessage);
+    // alert("Success function called");
 
-          if (response === 'Successfully logged in') {
-            Swal.fire({
-              title: 'Success',
-              text: response,
-              icon: 'success',
-              showClass: {
+    // Parse the JSON response
+    var responseObject = JSON.parse(response);
+
+    var errorMessage = responseObject.errorMessage; // Assuming the response contains an "errorMessage" property
+    $('#elementId').append(errorMessage);
+
+    if (responseObject.message === "Successfully logged in") {
+        // alert("Successfully function called");
+        Swal.fire({
+            title: 'Success',
+            text: responseObject.message,
+            icon: 'success',
+            showClass: {
                 popup: 'animate__animated animate__fadeInDown'
-              },
-              hideClass: {
+            },
+            hideClass: {
                 popup: 'animate__animated animate__fadeOutUp'
-              }
-            }).then(function () {
-              // Redirect to another page
-              window.location.href = 'res.php';
-            });
-          } else if (response === 'Please enter valid') {
-            Swal.fire({
-              title: 'Error',
-              text: response,
-              icon: 'error',
-              showClass: {
+            }
+        }).then(function () {
+            // Redirect to another page
+            window.location.href = 'res.php';
+        });
+    } else if (responseObject.message === "Please enter valid") {
+        // alert(" plz enter function called");
+        Swal.fire({
+            title: 'Error',
+            text: responseObject.message,
+            icon: 'error',
+            showClass: {
                 popup: 'animate__animated animate__fadeInDown'
-              },
-              hideClass: {
+            },
+            hideClass: {
                 popup: 'animate__animated animate__fadeOutUp'
-              }
-            });
-          } else if (errorMessage) { // Check if there is a password error message
-            Swal.fire({
-              title: 'Error',
-              text: errorMessage,
-              icon: 'error',
-              showClass: {
+            }
+        });
+    } else if (errorMessage) { // Check if there is a password error message
+        Swal.fire({
+            title: 'Error',
+            text: errorMessage,
+            icon: 'error',
+            showClass: {
                 popup: 'animate__animated animate__fadeInDown'
-              },
-              hideClass: {
+            },
+            hideClass: {
                 popup: 'animate__animated animate__fadeOutUp'
-              }
-            });
-          } else {
-            Swal.fire({
-              title: 'Error',
-              text: 'Incorrect password',
-              icon: 'error',
-              showClass: {
-                popup: 'animate__animated animate__fadeInDown'
-              },
-              hideClass: {
-                popup: 'animate__animated animate__fadeOutUp'
-              }
-            });
-          }
-        },
+            }
+        });
+    }
+},
+
 
         error: function (xhr, status, error) {
           // Handle errors, if any

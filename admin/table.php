@@ -113,7 +113,7 @@ if (isset($_GET['permission'])) {
                                 <div class="card-body">
                                     <table id="example1" class="table table-bordered table-striped">
                                         <?php
-                                        $sql = mysqli_query($con, "SELECT * FROM seller_detail ");
+                                        $sql = mysqli_query($con, "SELECT * FROM seller_detail AS sd INNER JOIN admin_login AS al ON sd.seller_id=al.id ");
                                         if (mysqli_num_rows($sql) > 0) {
                                         ?>
                                             <thead>
@@ -137,10 +137,10 @@ if (isset($_GET['permission'])) {
                                                             <?php echo $row['store_name']; ?>
                                                         </td>
                                                         <td>
-                                                            <?php echo $row['seller_name']; ?>
+                                                            <?php echo $row['mobile']; ?>
                                                         </td>
                                                         <td>
-
+                                                        <?php echo $row['email']; ?>
                                                         </td>
                                                         <td class="status">
                                                             <?php

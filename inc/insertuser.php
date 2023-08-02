@@ -63,16 +63,14 @@ if (isset($_POST['checking'])) {
 
     if ($query) {
       if (mysqli_affected_rows($con) > 0) {
-        $return = "Successfully logged in";
-        echo $return;
+        $response = array("message" => "Successfully logged in");
       } else {
-        $return = "Please enter valid";
-        echo $return;
+        $response = array("message" => "Please enter valid");
       }
     } else {
-      $return = "Update failed";
-      echo $return;
+      $response = array("message" => "Update failed", "errorMessage" => mysqli_error($con));
     }
+    echo json_encode($response);
 
 
 

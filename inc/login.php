@@ -113,9 +113,10 @@
 
           if($verify==1){
               $_SESSION['user_name']= $row['email'];
-              
+              $_SESSION['name']= $row['name'];
               // echo '<script>alert('.$_SESSION['user_name'].')</script>';
               $_SESSION['user_id']= $row['id'];
+              $_SESSION['mobile']= $row['mobile'];
               // echo '<script>alert('.$_SESSION['seller_id'].')</script>';
               header("location:../index.php");
               // die();

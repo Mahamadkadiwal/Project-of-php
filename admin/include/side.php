@@ -50,63 +50,54 @@
                             </p>
                         </a>
                     </li>
-                    <li class="nav-item">
+                    
+
+                            <?php if ($_SESSION['adminrole'] == 1) : ?>
+                                <a href="<?php echo ADMINURL?>/orders.php" class="nav-link">
+                                    <i class="nav-icon fas fa-cart-plus"></i>
+                                    <p>
+                                        Order
+                                    </p>
+                                </a>
+                            <?php endif; ?>
+                        </li>
                         <?php if ($_SESSION['adminrole'] == 1) : ?>
-                            <a href="././order_vendor.php" class="nav-link">
-                                <i class="nav-icon fas fa-cart-plus"></i>
-                                <p>
-                                    Order
-                                </p>
-                            </a>
-                        <?php endif; ?>
-                    </li>
-                    <?php if ($_SESSION['adminrole'] == 1) : ?>
-                        <li class="nav-item">
-                            <a href="./cat.php" class="nav-link">
-                                <i class='nav-icon fas fa-upload'></i>
-                                <p>
-                                    Catalog Upload
-                                </p>
-                            </a>
-                        </li>
+                            <li class="nav-item">
+                                <a href="<?php echo ADMINURL?>/cat.php" class="nav-link">
+                                    <i class='nav-icon fas fa-upload'></i>
+                                    <p>
+                                        Catalog Upload
+                                    </p>
+                                </a>
+                            </li>
+                        <?php else : ?>
+                            <li class="nav-item">
+                                <a href="<?php echo ADMINURL?>./category.php" class="nav-link">
+                                    <i class='nav-icon fas fa-upload'></i>
+                                    <p>
+                                        Category
+                                    </p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="<?php echo ADMINURL?>./subcategory.php" class="nav-link">
+                                    <i class='nav-icon fas fa-upload'></i>
+                                    <p>
+                                        Sub Category
+                                    </p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="<?php echo ADMINURL?>./allproduct.php" class="nav-link">
+                                    <i class='nav-icon fas fa-upload'></i>
+                                    <p>
+                                        Lists of Product
+                                    </p>
+                                </a>
+                            </li>
+                            
 
-                    <?php else : ?>
 
-                        <li class="nav-item">
-                            <a href="././orders.php" class="nav-link">
-                                <i class="nav-icon fas fa-table"></i>
-                                <p>
-
-                                    All Orders
-                                </p>
-                            </a>
-
-
-                        </li>
-                        <li class="nav-item">
-                            <a href="./category.php" class="nav-link">
-                                <i class='nav-icon fas fa-upload'></i>
-                                <p>
-                                    Category
-                                </p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="./subcategory.php" class="nav-link">
-                                <i class='nav-icon fas fa-upload'></i>
-                                <p>
-                                    Sub Category
-                                </p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="./allproduct.php" class="nav-link">
-                                <i class='nav-icon fas fa-upload'></i>
-                                <p>
-                                    Lists of Product
-                                </p>
-                            </a>
-                        </li>
 
                         <?php
                         $sqlCount = mysqli_query($con, "SELECT COUNT(*) AS total FROM admin_login WHERE role = 1");
@@ -117,6 +108,7 @@
                             $sellerCount = $rowCount['total'];
                         ?>
                             <li class="nav-item">
+
                                 <a href="#" class="nav-link">
                                     <i class="nav-icon fas fa-edit"></i>
                                     <p>
@@ -130,7 +122,7 @@
                                     while ($row = mysqli_fetch_assoc($sqlRows)) {
                                     ?>
                                         <li class="nav-item">
-                                            <a href="../seller_pro.php?id=<?php echo $row['id']; ?>" class="nav-link">
+                                            <a href="<?php echo ADMINURL?>./seller_pro.php?id=<?php echo $row['id']; ?>" class="nav-link">
                                                 <i class="far fa-circle nav-icon"></i>
                                                 <p>Seller <?php echo $i; ?></p>
                                             </a>
@@ -142,7 +134,7 @@
                                 </ul>
                             </li>
                             <li class="nav-item">
-                                <a href="./vendor.php" class="nav-link">
+                                <a href="<?php echo ADMINURL?>./vendor.php" class="nav-link">
                                     <i class='nav-icon fas fa-upload'></i>
                                     <p>
                                         Vendor
@@ -151,6 +143,7 @@
                             </li>
                         <?php
 
+                          
 
                         }
                         ?>
@@ -160,22 +153,37 @@
                     <?php if (!$_SESSION['adminrole'] == 1) : ?>
                         <!-- <li class="nav-item">
                                 <a href="./form.php" class="nav-link">
+
                                     <i class="nav-icon fas fa-edit"></i>
                                     <p>
                                         Forms
                                     </p>
                                 </a>
-                            </li> -->
-                        <li class="nav-item">
-                            <a href="./table.php" class="nav-link">
-                                <i class="nav-icon fas fa-table"></i>
-                                <p>
-                                    Tables
-                                </p>
-                            </a>
-                        </li>
 
-                     
+                            </li> -->
+                        
+                            </li>
+                            <li class="nav-item">
+                                <a href="<?php echo ADMINURL?>./table.php" class="nav-link">
+                                    <i class="nav-icon fas fa-table"></i>
+                                    <p>
+                                        Tables
+                                    </p>
+                                </a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a href="<?php echo ADMINURL?>././orders.php" class="nav-link">
+                                    <i class="nav-icon fas fa-table"></i>
+                                    <p>
+
+                                        All Orders
+                                    </p>
+                                </a>
+
+
+                            </li>
+
 
 
 
