@@ -122,7 +122,7 @@
                                     while ($row = mysqli_fetch_assoc($sqlRows)) {
                                     ?>
                                         <li class="nav-item">
-                                            <a href="../seller_pro.php?id=<?php echo $row['id']; ?>" class="nav-link">
+                                            <a href="<?php echo ADMINURL?>./seller_pro.php?id=<?php echo $row['id']; ?>" class="nav-link">
                                                 <i class="far fa-circle nav-icon"></i>
                                                 <p>Seller <?php echo $i; ?></p>
                                             </a>
@@ -134,7 +134,7 @@
                                 </ul>
                             </li>
                             <li class="nav-item">
-                                <a href="./vendor.php" class="nav-link">
+                                <a href="<?php echo ADMINURL?>./vendor.php" class="nav-link">
                                     <i class='nav-icon fas fa-upload'></i>
                                     <p>
                                         Vendor

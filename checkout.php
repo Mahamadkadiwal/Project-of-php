@@ -88,19 +88,20 @@ include_once 'inc/header.php';
                   
                 </div>
                 <div class="bs-stepper-content">
+                  
                   <!-- your steps content here -->
                   <div id="logins-part" class="content" role="tabpanel" aria-labelledby="logins-part-trigger">
                   <div class="form-group">
-                      <label for="exampleInputPassword1">Full Name</label>
-                      <input type="text" class="form-control" name="name" id="exampleInputPassword1" placeholder="Enter Store Name">
+                      <label for="exampleInputPassword1">Name</label>
+                      <input type="text" class="form-control" value="<?php echo $_SESSION['name']?>" name="name" id="exampleInputPassword1" placeholder="Enter" readonly>
                     </div>
                     <div class="form-group">
                       <label for="exampleInputPassword1">Email</label>
-                      <input type="email" class="form-control" name="email" id="exampleInputPassword1" placeholder="Enter your name">
+                      <input type="" class="form-control" value="<?php echo $_SESSION['user_name']?>" name="email" id="exampleInputPassword1" placeholder="Enter your name" readonly>
                     </div>
                     <div class="form-group">
                       <label for="exampleInputPassword1">Mobile number</label>
-                      <input type="number" class="form-control" name="mobile" id="exampleInputPassword1" placeholder="Enter mobile">
+                      <input type="text" class="form-control" value="<?php echo $_SESSION['mobile']?>" name="mobile" id="exampleInputPassword1" placeholder="Enter mobile" readonly>
                     </div>
 
                     <button class="btn btn-primary" type="button" onclick="stepper.next()">Next</button>
@@ -211,9 +212,7 @@ include_once 'inc/header.php';
       
       //   echo "paid";
     
-      $name= $_POST['name'];
-      $email= $_POST['email'];
-      $mobile= $_POST['mobile'];
+      
       $price = $_SESSION['price'] ;
       $token = $_POST['stripeToken'];
       $floor = $_POST['floor'];
@@ -223,9 +222,9 @@ include_once 'inc/header.php';
       $state = $_POST['state'];
       $pincode = $_POST['pincode'];
       $user_id = $_SESSION['user_id'];
-      $sql = mysqli_query($con, "INSERT INTO `orders`( `name`,`email`,`mobile`,`price` ,`token`,`floor`, `street`, `order_status`,`landmark`, `city`, `state`, 
+      $sql = mysqli_query($con, "INSERT INTO `orders`( `price` ,`token`,`floor`, `street`, `order_status`,`landmark`, `city`, `state`, 
       `pincode`,`user_id`) 
-      VALUES ('$name','$email','$mobile','$price','$token','$floor','$street','1','$landmark','$city','$state','$pincode','$user_id')");
+      VALUES ('$price','$token','$floor','$street','1','$landmark','$city','$state','$pincode','$user_id')");
       
       if($sql){
         echo "<script>alert('Ordered has been Placed');</script>";
