@@ -39,7 +39,7 @@ if(isset($_POST['email'])){
       $verification_code . '</b></p>';
 
     $mail->send();
-    $sql = mysqli_query($con, "INSERT INTO `admin_login`( `mobile`, `email`, `password`, `verification_code`, `email_verified_at`) VALUES (NULL,'$email',NULL,'$verification_code',NULL)");
+    $sql = mysqli_query($con, "INSERT INTO `admin_login`( `mobile`, `email`, `password`, `verification_code`, `email_verified_at`,`role`) VALUES (NULL,'$email',NULL,'$verification_code',NULL,1)");
     if($sql){
       $lastInsertedId = mysqli_insert_id($con);
       $_SESSION["id"] = $lastInsertedId;

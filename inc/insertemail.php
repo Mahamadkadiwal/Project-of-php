@@ -15,6 +15,13 @@ if(isset($_POST['email'])){
     // echo "<script>alert('haa') </script>";
 //    echo '<script>alert("dhkf")</script>';
   $email = $_POST['email'];
+
+  $checkquery= mysqli_query($con, "SELECT email from users where email='$email'");
+    if(mysqli_num_rows($checkquery) > 0){
+     $response= array("message" => "Email already exists");
+    }
+
+    else{
   $mail = new PHPMailer(true);
 
   try {
@@ -44,7 +51,7 @@ if(isset($_POST['email'])){
       $lastInsertedId = mysqli_insert_id($con);
       $_SESSION["id"] = $lastInsertedId;
       
-      echo $return ="Please check your email to verify the code";
+       $response = array("message" => "Please check your email to verify the code");
     }
 } catch (Exception $e){
   //echo "Message could not be sent. Mailer error: {$mail->ErrorInfo}";
@@ -80,6 +87,7 @@ if(isset($_POST['email'])){
 // $conn->close();
 
 
-
+}
+echo json_encode($response);
 
 ?>
