@@ -8,6 +8,12 @@ if (!isset($_SESSION['admin_email'])) {
     header("location:login.php");
 }
 
+if($_SESSION['adminrole'] == 1){
+    $role = " and adsc.seller_id='".$_SESSION['admin_id']."'";
+    $role1 = " and seller_id='".$_SESSION['admin_id']."'";
+}   
+
+
 if (isset($_SESSION["id"])) {
     $id = $_SESSION["id"];
 }
@@ -461,12 +467,8 @@ if (isset($_POST['submit'])) {
                 window.location.href = "cat.php";
             </script>
 
-<<<<<<< Updated upstream
             <?php
-=======
 
-<?php
->>>>>>> Stashed changes
 
         } else {
             echo "Error .";

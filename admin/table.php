@@ -123,12 +123,12 @@ if (isset($_GET['permission'])) {
                                                     <th>Mobile</th>
                                                     <th>Email</th>
                                                     <th>Permission</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <?php
-                                                while ($row = mysqli_fetch_assoc($sql)) {
-                                                ?>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <?php
+                                                    while ($row = mysqli_fetch_assoc($sql)) {
+                                                    ?>
                                                     <tr>
                                                         <td>
                                                             <?php echo $row['seller_name']; ?>

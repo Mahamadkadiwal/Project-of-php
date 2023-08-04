@@ -72,9 +72,20 @@ if (!isset($_SESSION['admin_email'])) {
                                     <tbody>
                                         <?php
                                         // $i = 1;
-                                        $res = mysqli_query($con, "select `orders`.*,order_status.name as 
-							order_status_str from `orders`,order_status where order_status.id=
-							`orders`.order_status order by `orders`.id desc");
+                                        $res = mysqli_query($con,
+                                        "SELECT orders.*,
+                                        order_status.name AS order_status,
+                                        users.name AS user_name
+                                       
+                                        FROM
+                                          orders
+                                        INNER Join 
+                                            order_status On order_status.id= orders.order_status
+                                        INNER join
+                                            users On orders.user_id =users.id
+                                            
+                                        ORDER BY 
+                                            orders.id DESC ");
                                         while ($row = mysqli_fetch_assoc($res)) {
                                         ?>
                                             <tr>
@@ -95,13 +106,13 @@ if (!isset($_SESSION['admin_email'])) {
                                                     echo $row['city'];
                                                     ?>
                                                 </td>
-                                                <td><?php echo $row['name'] ?></td>
+                                                <td><?php echo $row['user_name'] ?></td>
                                                 <td><?php echo $row['created_at'] ?></td>
-                                                <td><?php echo $row['payment_status'] ?></td>
-                                                <td><?php echo $row['order_status_str'] ?></td>
+                                                <td><?php echo $row['payment_type'] ?></td>
+                                                <td><?php echo $row['order_status'] ?></td>
 
                                             </tr>
-                                        <?php
+                                        <?php   
                                             // $i++;
                                         } ?>
                                     </tbody>

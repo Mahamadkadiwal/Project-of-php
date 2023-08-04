@@ -52,14 +52,23 @@
                     </li>
                     
 
-                            <?php if ($_SESSION['adminrole'] == 1) : ?>
+                            <?php if ($_SESSION['adminrole'] == 1) { ?>
+                                <a href="<?php echo ADMINURL?>/order_seller.php" class="nav-link">
+                                    <i class="nav-icon fas fa-cart-plus"></i>
+                                    <p>
+                                        Order
+                                    </p>
+                                </a>
+                               
+                            <?php  } else {?>
+
                                 <a href="<?php echo ADMINURL?>/orders.php" class="nav-link">
                                     <i class="nav-icon fas fa-cart-plus"></i>
                                     <p>
                                         Order
                                     </p>
                                 </a>
-                            <?php endif; ?>
+                             <?php } ?>    
                         </li>
                         <?php if ($_SESSION['adminrole'] == 1) : ?>
                             <li class="nav-item">

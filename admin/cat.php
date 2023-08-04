@@ -6,17 +6,23 @@ session_start();
 if (!isset($_SESSION['admin_email'])) {
     header("location:login.php");
 }
-
+$role ='';
+$role1='';
+if($_SESSION['adminrole'] == 1){
+    $role = " and adsc.seller_id='".$_SESSION['admin_id']."'";
+    $role1 = " and seller_id='".$_SESSION['admin_id']."'";
+}   
 
 if (isset($_GET['type']) && $_GET['type'] === 'delete' && isset($_GET['id']) && $_GET['id'] > 0) {
     $type = ($_GET['type']);
     $p_id = ($_GET['id']);
     if ($type == 'delete') {
-        mysqli_query($con, "delete from addsinglecategory where p_id='$p_id'");
+        mysqli_query($con, "delete from addsinglecategory $role1 where p_id='$p_id'");
         // redirect('addsinglecategory.php');
     }
-}
-$res = mysqli_query($con, "select * from addsinglecategory AS adsc INNER JOIN categories AS cat ON adsc.category=cat.id INNER JOIN sub_categories AS suc ON suc.id = adsc.subcategory where seller_id = '" . $_SESSION['admin_id'] . "'");
+} 
+
+$res = mysqli_query($con, "select * from addsinglecategory AS adsc INNER JOIN categories AS cat ON adsc.category=cat.id INNER JOIN sub_categories AS suc ON suc.id = adsc.subcategory $role");
 
 ?>
 

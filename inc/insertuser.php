@@ -3,6 +3,7 @@
 require_once '../admin/database/dbcon.php';
 if (isset($_POST['checking'])) {
   $mobile = $_POST['mobile'];
+  $name = $_POST['name'];
   $email = $_POST['email'];
   $verify = $_POST['verify'];
   $password = $_POST['password'];
@@ -59,7 +60,7 @@ if (isset($_POST['checking'])) {
  else {
 
     $enc_pass = password_hash($password, PASSWORD_DEFAULT);
-    $query = mysqli_query($con, "UPDATE users SET mobile='$mobile', password='$enc_pass', email_verified_at=NOW() WHERE email='$email' AND verification_code='$verify'");
+    $query = mysqli_query($con, "UPDATE users SET name='$name', mobile='$mobile', password='$enc_pass', email_verified_at=NOW() WHERE email='$email' AND verification_code='$verify'");
 
     if ($query) {
       if (mysqli_affected_rows($con) > 0) {

@@ -48,6 +48,22 @@ require_once '../admin/database/dbcon.php';
             </div>
           </div>
           <div class="input-group mb-3">
+            <input type="text" class="form-control" name="verify" id="verifyInput" placeholder="Enter OTP" required>
+            <div class="input-group-append">
+              <div class="input-group-text">
+                <span class="fas fa-key"></span>
+              </div>
+            </div>
+          </div>
+          <div class="input-group mb-3">
+            <input type="text" class="form-control" name="name" id="nameInput" placeholder="Enter Name" required>
+            <div class="input-group-append">
+              <div class="input-group-text">
+                <span class="fas fa-user"></span>
+              </div>
+            </div>
+          </div>
+          <div class="input-group mb-3">
             <input type="text" class="form-control" name="mobile" id="mobileInput" placeholder="Mobile number" data-inputmask="'mask': '999 999-9999'">
             <div class="input-group-append">
               <div class="input-group-text">
@@ -56,14 +72,7 @@ require_once '../admin/database/dbcon.php';
             </div>
           </div>
           
-          <div class="input-group mb-3">
-            <input type="text" class="form-control" name="verify" id="verifyInput" placeholder="Enter OTP" required>
-            <div class="input-group-append">
-              <div class="input-group-text">
-                <span class="fas fa-key"></span>
-              </div>
-            </div>
-          </div>
+          
           <div class="input-group mb-3">
             <input type="password" class="form-control" name="password" id="passwordInput" placeholder="Password"
               required>
@@ -327,21 +336,25 @@ require '../phpmailer/src/SMTP.php';
   function insertdata() {
     event.preventDefault();
 
+    var password = $('#nameInput').val();
     var mobile = $('#mobileInput').val();
     var email = $('#emailInput').val();
     var verify = $('#verifyInput').val();
     var password = $('#passwordInput').val();
+    
 
-    if (mobile !== '' && email !== '' && verify !== '' && password !== '') {
+    if ( name ! ='' && mobile !== '' && email !== ''  && verify !== '' && password !== '') {
       $.ajax({
         type: "post",
         url: "insertuser.php",
         data: {
           'checking': true,
+          name: name,
           mobile: mobile,
           email: email,
           verify: verify,
           password: password
+          
         },
         success: function (response) {
     // alert("Success function called");

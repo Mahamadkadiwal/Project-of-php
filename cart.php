@@ -13,7 +13,11 @@ if(isset($_POST['submit'])){
 
     $_SESSION['price'] = $price;
     // echo "<script>alert('" . $_SESSION['price'] . "');</script>";
-    header('location: checkout.php');
+   ?>
+     <script>
+        window.location.href="checkout.php";
+     </script>
+   <?php 
 }
 ?>
 
@@ -46,7 +50,7 @@ if(isset($_POST['submit'])){
                                                 <th scope="col">Image</th>
                                                 <th scope="col">Name</th>
                                                 <th scope="col">Price</th>
-                                                <th scope="col">Quantity</th>
+                                                <th scope="col">Qty</th>
                                                 <th scope="col">Total Price</th>
                                                 <th scope="col">Update</th>
                                                 <th scope="col"><button class="delete-all btn btn-danger text-white">Clear</button></th>
@@ -63,7 +67,8 @@ if(isset($_POST['submit'])){
                                                     <td><img width="100" height="100" src="img/<?php echo $row['prod_image']; ?>" class="img-fluid rounded-3" alt="Cotton T-shirt"></td>
                                                     <td><?php echo $row['prod_name']; ?></td>
                                                     <td class="prod_price"><?php echo $row['prod_price']; ?></td>
-                                                    <td><input id="form1" min="1" name="quantity" value="<?php echo $row['quantity']; ?>" type="number" class="form-control form-control-sm quantity" /></td>
+
+                                                    <td><input id="form1" min="1"  name="quantity" value="<?php echo $row['quantity']; ?>" type="number" class="form-control form-control-sm quantity" /></td>
                                                     <td class="total_price">Rs.<?php echo $total_price; ?></td>
                                                     <td><button value="<?php echo $row['id']; ?>" class="btn btn-warning text-white update"><i class="fas fa-edit"></i> </button></td>
                                                     <td><button value="<?php echo $row['id']; ?>" class="btn btn-danger text-white delete"><i class="fa fa-trash"></i> </button></td>

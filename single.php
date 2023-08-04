@@ -40,8 +40,12 @@ if (isset($_GET['id']) && ($_GET['category']) && $_GET['subcategory']) {
   $sql = mysqli_query($con, "SELECT * from addsinglecategory where p_id='$id' and category='$cat_id' and subcategory='$sub_id'");
   $row = mysqli_fetch_assoc($sql);
 } else {
-  header('location: 404.php');
-}
+  ?>
+     <script>
+       window.location.href="404.php";
+     </script>
+  <?php
+} 
 ?>
 <!DOCTYPE html>
 <html lang="en">
