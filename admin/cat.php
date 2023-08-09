@@ -17,7 +17,7 @@ if (isset($_GET['type']) && $_GET['type'] === 'delete' && isset($_GET['id']) && 
     $type = ($_GET['type']);
     $p_id = ($_GET['id']);
     if ($type == 'delete') {
-        mysqli_query($con, "delete from addsinglecategory $role1 where p_id='$p_id'");
+        mysqli_query($con, "delete from addsinglecategory  where p_id='$p_id' $role1");
         // redirect('addsinglecategory.php');
     }
 } 

@@ -24,6 +24,7 @@
         $quantity = $_POST['quantity'];
 
         $update= mysqli_query($con, "update cart set quantity='$quantity' where id='$id'");
+        
         if($update){
             echo $return = 'Quantity has been updated';
         }else{

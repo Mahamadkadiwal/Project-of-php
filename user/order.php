@@ -13,7 +13,19 @@
     if(!isset($_SESSION['user_id'])){
         header("location :".APPURL."");
     }
-    $sql = mysqli_query($con, "SELECT * FROM orders where user_id='$_SESSION[user_id]'");
+    $sql = mysqli_query($con, "SELECT 
+    order_detail.*,
+    addsinglecategory.*,
+    orders.*,
+    order_status.name AS order_status,
+    users.name AS user_name
+FROM 
+    order_detail
+INNER JOIN addsinglecategory ON addsinglecategory.p_id = order_detail.product_id
+INNER JOIN orders ON orders.id = order_detail.orders_id
+INNER JOIN order_status ON order_status.id = orders.order_status
+INNER JOIN users ON orders.user_id = users.id
+WHERE user_id='$_SESSION[user_id]'");
     
 ?>
 <!DOCTYPE html>
@@ -29,14 +41,14 @@
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     <!-- Font Awesome -->
-    <link rel="stylesheet" href="../plugins/fontawesome-free/css/all.min.css">
+    <link rel="stylesheet" href="../admin/plugins/fontawesome-free/css/all.min.css">
     <!-- DataTables -->
-    <link rel="stylesheet" href="../plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
-    <link rel="stylesheet" href="../plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
-    <link rel="stylesheet" href="../plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
+    <link rel="stylesheet" href="../admin/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="../admin/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
+    <link rel="stylesheet" href="../admin/plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
     <!-- Theme style -->
-    <link rel="stylesheet" href="dist/css/adminlte.min.css">
-    <link rel="stylesheet" href="dist/css/adminlte.css">
+    <!-- <link rel="stylesheet" href="../admin/dist/css/adminlte.min.css"> -->
+    <!-- <link rel="stylesheet" href="../admin/dist/css/adminlte.css"> -->
     <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous"> -->
     <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script> -->
     <style></style>
@@ -44,7 +56,7 @@
 
 <body class="hold-transition sidebar-mini">
     
-    <div class="wrapper">
+    <div class="wrapper mx-5">
 
 
 
@@ -55,12 +67,13 @@
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1>DataTables</h1>
+                            <h2>Hello  <?php echo $_SESSION['name']?></h2>
+
                         </div>
                         <div class="col-sm-6">
-                            <ol class="breadcrumb float-sm-right">
-                                <li class="breadcrumb-item"><a href="#">Home</a></li>
-                                <li class="breadcrumb-item active">DataTables</li>
+                            <ol class="breadcrumb ">
+                                <!-- <li class="breadcrumb-item"><a href="#">Home</a></li>
+                                <li class="breadcrumb-item active">DataTables</li> -->
                             </ol>
                         </div>
                     </div>
@@ -93,13 +106,11 @@
                                             <thead>
                                                 <tr>
                                                     <th>Id</th>
-                                                    <th>Name</th>
-                                                    <th>Email</th>
-                                                    <th>Mobile</th>
-                                                    <th>Price</th>
+                                                    <th>Order Placed</th>
+                                                    <th>Total</th>
                                                     <th>Address</th>
                                                     <th>Pincode</th>
-                                                    <th>Payment type</th>
+                                                    <th>Order Status</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -112,29 +123,26 @@
                                                             <?php echo $i ?>
                                                         </td>
                                                         <td>
-                                                            <?php echo $row['name']; ?>
+                                                            <?php echo $row['created_at']; ?>
                                                         </td>
                                                         <td>
-                                                            <?php echo $row['email']; ?>
-                                                        </td>
-                                                        <td>
-                                                            <?php echo $row['mobile']; ?>
-                                                        </td>
-                                                        <td>
-                                                            <?php echo $row['price']; ?>
+                                                            Rs.<?php echo $row['price']; ?>
                                                         </td>
                                                         <td>
                                                             <?php echo $row['floor'].',';
                                                            echo $row['street'].'<br>';
                                                             echo $row['landmark'].'<br>'; 
                                                             echo $row['city'].'<br>';
-                                                            echo $row['state'].'<br>';?>
+                                                            echo $row['state'].'<br>';
+                                                            echo $row['pincode'];?>
                                                         </td>
                                                         <td>
-                                                            <?php echo $row['pincode']; ?>
+                                                            <img src="../img/<?php  echo $row['p_image'];?>" alt="" class="img-thumbnail" width="100px" height="100px">
+                                                            
                                                         </td>
                                                         <td>
-                                                            <?php echo $row['payment_type']; ?>
+                                                            <?php echo $row['order_status']; ?>
+                                                            <a href="order_details.php?id=<?php echo $row['id']?>">View order detail</a>
                                                         </td>
 
                                                         
@@ -158,13 +166,11 @@
                                         <tfoot>
                                             <tr>
                                                    <th>Id</th>
-                                                    <th>Name</th>
-                                                    <th>Email</th>
-                                                    <th>Mobile</th>
-                                                    <th>Price</th>
+                                                    <th>Order Placed</th>
+                                                    <th>Total</th>
                                                     <th>Address</th>
                                                     <th>Pincode</th>
-                                                    <th>Payment type</th>
+                                                    <th>Order Status</th>
 
                                             </tr>
                                         </tfoot>
@@ -203,22 +209,22 @@
     <!-- ./wrapper -->
 
     <!-- jQuery -->
-    <script src="../plugins/jquery/jquery.min.js"></script>
+    <script src="../admin/plugins/jquery/jquery.min.js"></script>
     <!-- Bootstrap 4 -->
-    <script src="../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <!-- DataTables  & ../plugins/ -->
-    <script src="../plugins/datatables/jquery.dataTables.min.js"></script>
-    <script src="../plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
-    <script src="../plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
-    <script src="../plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
-    <script src="../plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
-    <script src="../plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
-    <script src="../plugins/jszip/jszip.min.js"></script>
-    <script src="../plugins/pdfmake/pdfmake.min.js"></script>
-    <script src="../plugins/pdfmake/vfs_fonts.js"></script>
-    <script src="../plugins/datatables-buttons/js/buttons.html5.min.js"></script>
-    <script src="../plugins/datatables-buttons/js/buttons.print.min.js"></script>
-    <script src="../plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
+    <script src="../admin/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- DataTables  & ../admin/plugins/ -->
+    <script src="../admin/plugins/datatables/jquery.dataTables.min.js"></script>
+    <script src="../admin/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+    <script src="../admin/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+    <script src="../admin/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+    <script src="../admin/plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
+    <script src="../admin/plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
+    <script src="../admin/plugins/jszip/jszip.min.js"></script>
+    <script src="../admin/plugins/pdfmake/pdfmake.min.js"></script>
+    <script src="../admin/plugins/pdfmake/vfs_fonts.js"></script>
+    <script src="../admin/plugins/datatables-buttons/js/buttons.html5.min.js"></script>
+    <script src="../admin/plugins/datatables-buttons/js/buttons.print.min.js"></script>
+    <script src="../admin/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
     <!-- AdminLTE App -->
     <script src="dist/js/adminlte.min.js"></script>
     <!-- AdminLTE for demo purposes -->

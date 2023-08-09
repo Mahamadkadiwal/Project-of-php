@@ -10,9 +10,12 @@ $sql = mysqli_query($con, "SELECT * FROM cart WHERE user_id='$_SESSION[user_id]'
 
 if(isset($_POST['submit'])){
     $price = $_POST['price'];
-
+    $qty = $_POST['qty'];
+    $_SESSION['qty']=$qty;
     $_SESSION['price'] = $price;
-    // echo "<script>alert('" . $_SESSION['price'] . "');</script>";
+     echo "<script>alert('" . $_SESSION['price'] . "');</script>";
+     echo "<script>alert('" . $_SESSION['qty'] . "');</script>";
+     echo "<script>alert('" . $_SESSION['single_price'] . "');</script>";
    ?>
      <script>
         window.location.href="checkout.php";
@@ -61,14 +64,19 @@ if(isset($_POST['submit'])){
                                             if(mysqli_num_rows($sql) > 0) :
                                             while ($row = mysqli_fetch_assoc($sql)) :
                                                 $total_price = $row['prod_price'] * $row['quantity'];
+                                                $prod_id= $row['prod_id'];
+                                                 $_SESSION['p_id'] = $prod_id;
+                                                
                                             ?>
+                                                <!-- <input type="hidden" name="p_id" value="<?php echo $row['prod_id']; ?>" class="p_id"> -->
+                                                
                                                 <tr class="mb-4">
                                                     <th scope="row"></th>
                                                     <td><img width="100" height="100" src="img/<?php echo $row['prod_image']; ?>" class="img-fluid rounded-3" alt="Cotton T-shirt"></td>
                                                     <td><?php echo $row['prod_name']; ?></td>
                                                     <td class="prod_price"><?php echo $row['prod_price']; ?></td>
-
-                                                    <td><input id="form1" min="1"  name="quantity" value="<?php echo $row['quantity']; ?>" type="number" class="form-control form-control-sm quantity" /></td>
+                                                    
+                                                    <td><input id="form1"  name="quantity" value="<?php echo $row['quantity']; ?>" type="number" class="form-control form-control-sm quantity" /></td>
                                                     <td class="total_price">Rs.<?php echo $total_price; ?></td>
                                                     <td><button value="<?php echo $row['id']; ?>" class="btn btn-warning text-white update"><i class="fas fa-edit"></i> </button></td>
                                                     <td><button value="<?php echo $row['id']; ?>" class="btn btn-danger text-white delete"><i class="fa fa-trash"></i> </button></td>
@@ -86,14 +94,18 @@ if(isset($_POST['submit'])){
                             </div>
                             <div class="col-lg-4 bg-grey">
                                 <div class="p-5">
-                                    <h3 class="fw-bold mb-5 mt-2 pt-1">Summary</h3>
+                                    <h6 class="fw-bold mb-5 mt-2 pt-1">Summary</h6>
                                     <hr class="my-4">
                                     
                                     <form method="post" action="cart.php">
                                     <div class="d-flex justify-content-between mb-5">
-                                        <h5 class="text-uppercase">Total price</h5>
-                                        <h5 class="full_price">Rs.</h5>
+                                        <h6 class="text-uppercase">Total price</h6>
+                                        <h6 class="full_price">Rs.</h6>
+                                        <h6 class="text-uppercase"> Quantity</h6>
+                                        <h6 class="qty">no:</h6><br><br><br>
                                         <input type="hidden" class="inp_price form-control" name="price">
+                                        <input type="hidden" class="qty form-control" name="qty">
+                                        
                                     </div>
 
                                     <button type="submit" name="submit" class="checkout btn btn-dark btn-block btn-lg" data-mdb-ripple-color="dark">Checkout</button>
@@ -170,18 +182,26 @@ if(isset($_POST['submit'])){
     function fetch() {
         setInterval(function () {
             var sum = 0.0;
+        
             $('.total_price').each(function () {
                 sum += parseFloat($(this).text().replace("Rs.", ""));
             });
             $(".full_price").html("Rs." + sum);
             $(".inp_price").val(sum);
-
+           
+            var quantitySum = 0;
+            $('.quantity').each(function () {
+                quantitySum += parseInt($(this).val());
+            });
+            $(".qty").val(quantitySum);
+            $(".qty").html(quantitySum);
+            
             if($(".inp_price").val() > 0){
                 $('.checkout').show();
             }else{
                 $('.checkout').hide();
             }
-        }, 3000);
+        }, 2000);
     }
 
     $(".update").on('click', function(e) {

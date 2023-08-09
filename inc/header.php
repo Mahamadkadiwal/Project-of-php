@@ -79,7 +79,7 @@ if (isset($_SESSION['user_id'])) {
                             <li class="nav-item dropdown">
                                 <a class="nav-link btn btn-outline-dark shadow-none dropdown-toggle" href="#" role="button"
                                     id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
-                                    <?php echo $_SESSION['user_name']; ?>
+                                    <?php echo $_SESSION['name']; ?>
                                 </a>
                                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                                     <li><a class="dropdown-item"

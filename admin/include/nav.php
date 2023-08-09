@@ -97,7 +97,7 @@ define("ADMINURL", "http://localhost/php/Project-of-php/admin");
 
             <li class="nav-item nav-profile dropdown">
                 <a class="nav-link dropdown-toggle" href="../logout.php" data-toggle="dropdown" id="profileDropdown">
-                    <span class="nav-profile-name"> <?php echo $_SESSION['admin_name']; ?></span>
+                    <span class="nav-profile-name"> <?php echo $_SESSION['admin_email']; ?></span>
                 </a>
                 <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
                     <div class="dropdown-divider"></div>

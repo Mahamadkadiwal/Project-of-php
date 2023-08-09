@@ -171,7 +171,7 @@
                 </div>
                 <div class="display_Category_list">
                     <label for="bluetooth" >
-                        <input type="checkbox" id="bluetooth"/>
+                        <input type="checkbox" id="bluetooth" name="blutooth"/>
                         <span>bluetooth Headset</span>
                     </label>
                     <label for="chains">
@@ -199,7 +199,7 @@
             </aside>
             <main class="product_category_display" id="product_category_displayId">
             
-            <?php foreach($sql as $row) :  ?>
+            <?php foreach($sql as $row) : $_SESSION['single_price'] = $row['seller_price'] ?>
                 <a href="single.php?id=<?php echo $row['p_id'];?>&category=<?php echo $row['category'];?>&subcategory=<?php echo $row['subcategory'];?>">
 
             <div class="productCard mb-4 products" onclick="ClickProduct(product_1)">

@@ -19,12 +19,13 @@ include_once 'inc/header.php';
 
   // }
   if(!isset($_SERVER['HTTP_REFERER'])){
-    header('location: cart.php');
+    //header('location: cart.php');
     exit;
   }
 
   if(!isset($_SESSION['user_name'])){
     header('location: index.php');
+    
   }
 ?>
 <!DOCTYPE html>
@@ -140,6 +141,15 @@ include_once 'inc/header.php';
                       <label for="exampleInputPassword1">Pincode</label>
                       <input type="number" class="form-control" name="pincode" id="exampleInputPassword1" placeholder="Enter street">
                     </div>
+                    <div class="form-group">
+                      <label>Payment_type</label>
+                      <select class="form-control select2" name="payment_type" style="width: 100%;">
+                        <option selected="selected">Selected</option>
+                        <option>COD</option>
+                        <option>Card</option>
+                        
+                      </select>
+                    </div>
                     <button class="btn btn-primary" type="button" onclick="stepper.previous()">Previous</button>
                     <!-- <button class="btn btn-primary" type="button" onclick="stepper.next()">Next</button> -->
                     <script
@@ -213,7 +223,8 @@ include_once 'inc/header.php';
       //   echo "paid";
     
       
-      $price = $_SESSION['price'] ;
+      $price = $_SESSION['price'];
+      $qty = $_SESSION['qty'];
       $token = $_POST['stripeToken'];
       $floor = $_POST['floor'];
       $street = $_POST['street'];
@@ -221,11 +232,16 @@ include_once 'inc/header.php';
       $city = $_POST['city'];
       $state = $_POST['state'];
       $pincode = $_POST['pincode'];
+      $payment_type= $_POST['payment_type'];
       $user_id = $_SESSION['user_id'];
-      $sql = mysqli_query($con, "INSERT INTO `orders`( `price` ,`token`,`floor`, `street`, `order_status`,`landmark`, `city`, `state`, 
-      `pincode`,`user_id`) 
-      VALUES ('$price','$token','$floor','$street','1','$landmark','$city','$state','$pincode','$user_id')");
+      $sql = mysqli_query($con, "INSERT INTO `orders`( `price` ,`qty`,`token`,`floor`, `street`, `order_status`,`landmark`, `city`, `state`, 
+      `pincode`,`payment_type`,`user_id`) 
+      VALUES ('$price','$qty','$token','$floor','$street','1','$landmark','$city','$state','$pincode','$payment_type','$user_id')");
       
+      $order_id = mysqli_insert_id($con);
+      $prod_id = $_SESSION['p_id'];
+      $single_prod = $_SESSION['single_price']; 
+      $query = mysqli_query($con,"INSERT INTO `order_detail`( `orders_id`, `product_id`, `price`, `qty`) VALUES ('$order_id','$prod_id','$single_prod','$qty')" );
       if($sql){
         echo "<script>alert('Ordered has been Placed');</script>";
 

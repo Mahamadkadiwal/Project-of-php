@@ -6,11 +6,7 @@ session_start();
 if (!isset($_SESSION['admin_email'])) {
     header("location:login.php");
 }
-$order_id = mysqli_real_escape_string($con,$_GET['id']);
-	if(isset($_POST['submit'])){
-		$update_order_status = $_POST['update_order_status'];
-		mysqli_query($con,"update `order` set order_status='$update_order_status' where id='$order_id'");
-	}
+
 ?>
 
 
@@ -61,46 +57,67 @@ $order_id = mysqli_real_escape_string($con,$_GET['id']);
                             </div>
                             <!-- /.card-header -->
                             <div class="card-body">
-                            <table border="0px">
-					<thead>
-						<tr>
-							<th>Product Name</th>
-							<th>Product Image</th>
-							<th>Qty</th>
-							<th>Price</th>
-						</tr>
-					</thead>
-					<tbody>       
-						<?php
-							$query = mysqli_query($con,"select distinct(order_detail.id) ,order_detail.*,
-							product.name,product.image,`order`.address,`order`.city,`order`.state,`order`.pincode from order_detail,product,`order` where
-							order_detail.order_id='$order_id' and  order_detail.product_id=product.id GROUP by order_detail.id");
+                                <table id="example1" class="table table-bordered table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>ORDER ID</th>
+                                            <th>CUSTOMER DETAILS</th>
+                                            <th>CUSTOMER NAME</th>
+                                            <th>ORDER DATE</th>
+                                            <th>PAYMENT_STATUS</th>
+                                            <th width="20%">ORDER_STATUS</th>
 
-							$userInfo=mysqli_fetch_assoc(mysqli_query($con,"select * from `order` where id='$order_id'"));
-									
-							$address=$userInfo['address'];
-							$city=$userInfo['city'];
-							$state = $userInfo['state'];
-							$pincode=$userInfo['pincode'];
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php
+                                        // $i = 1;
+                                        $res = mysqli_query($con,
+                                        "SELECT orders.*,
+                                        order_status.name AS order_status,
+                                        users.name AS user_name
+                                       
+                                        FROM
+                                          orders
+                                        INNER Join 
+                                            order_status On order_status.id= orders.order_status
+                                        INNER join
+                                            users On orders.user_id =users.id
+                                            
+                                        ORDER BY 
+                                            orders.id DESC ");
+                                        while ($row = mysqli_fetch_assoc($res)) {
+                                        ?>
+                                            <tr>
+                                                <td><a class="text-dark text-decoration-none" style="background: #27ae60; padding: .3rem;" data-toggle="tooltip" data-placement="top" title="Clisk this" href="Orders_details.php?id=<?php echo $row['id'] ?>" class="text-dark">
+                                                        <?php echo $row['id'] ?></a>
+                                                </td>
+                                                <td>
+                                                    <?php
+                                                    echo "<b>floor: </b>";
+                                                    echo $row['floor'] . "<br>";
+                                                    echo "<b>street: </b>";
+                                                    echo $row['street'] . "<br>";
+                                                    echo "<b>landmark: </b>";
+                                                    echo $row['landmark'] . "<br>";
+                                                    echo "<b>State: </b>";
+                                                    echo $row['state'] . "<br>";
+                                                    echo "<b>City: </b>";
+                                                    echo $row['city'];
+                                                    ?>
+                                                </td>
+                                                <td><?php echo $row['user_name'] ?></td>
+                                                <td><?php echo $row['created_at'] ?></td>
+                                                <td><?php echo $row['payment_type'] ?></td>
+                                                <td><?php echo $row['order_status'] ?></td>
 
-							$totalPrice = 0;
-							while($row = mysqli_fetch_assoc($query)){
-							$totalPrice = $totalPrice + ($row['qty']*$row['price']);
-						?>                 
-						<tr>
-							<td><?php echo $row['name']?></td>
-							<td><img src="media/product/<?php echo $row['image']?>" width="80px" height="80px"></td>
-							<td><?php echo $row['qty']?></td>
-							<td><?php echo $row['qty']*$row['price']?></td>
-						</tr>
-						<?php }?>
-						<tr>
-							<td colspan="2"></td>
-							<td><b>Toatal Price</b></td>
-							<td><?php echo $totalPrice?></td>
-						</tr>
-					</tbody>
-				</table>
+                                            </tr>
+                                        <?php   
+                                            // $i++;
+                                        } ?>
+                                    </tbody>
+                                </table>
+
                             </div>
                             <!-- /.card-body -->
                         </div>

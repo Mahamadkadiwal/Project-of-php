@@ -343,7 +343,7 @@ require '../phpmailer/src/SMTP.php';
     var password = $('#passwordInput').val();
     
 
-    if ( name ! ='' && mobile !== '' && email !== ''  && verify !== '' && password !== '') {
+    if ( name !=='' && mobile !== '' && email !== ''  && verify !== '' && password !== '') {
       $.ajax({
         type: "post",
         url: "insertuser.php",

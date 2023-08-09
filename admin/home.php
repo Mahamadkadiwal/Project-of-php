@@ -4,7 +4,7 @@ session_start();
 if (!isset($_SESSION['admin_email'])) {
   header("location:login.php");
 }
- require_once 'database/dbcon.php';
+require_once 'database/dbcon.php';
 // session_regenerate_id(true);
 ?>
 <!DOCTYPE html>
@@ -17,7 +17,8 @@ if (!isset($_SESSION['admin_email'])) {
   <!-- favicon -->
   <link rel="icon" type="image/png" href="image/favicon.jpg">
   <!-- Google Font: Source Sans Pro -->
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
   <!-- Font Awesome -->
   <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
   <!-- Ionicons -->
@@ -42,7 +43,7 @@ if (!isset($_SESSION['admin_email'])) {
   <div class="wrapper">
 
     <!-- Preloader -->
-    
+
 
     <!-- nav bar  -->
     <?php
@@ -83,12 +84,19 @@ if (!isset($_SESSION['admin_email'])) {
         <div class="container-fluid">
           <!-- Small boxes (Stat box) -->
           <div class="row">
+            <?php if($_SESSION['adminrole'] == 0) { ?>
             <div class="col-lg-3 col-6">
               <!-- small box -->
               <div class="small-box bg-info">
-                <div class="inner">
-                  <h3>150</h3>
+                <?php $sql = mysqli_query($con, "SELECT * from orders where order_status=1 ");
+                if ($count = mysqli_num_rows($sql)): ?>
 
+                  <div class="inner">
+                    <h3>
+                      <?php echo $count ?>
+                    </h3>
+                  <?php endif ?>
+                   
                   <p>New Orders</p>
                 </div>
                 <div class="icon">
@@ -97,6 +105,42 @@ if (!isset($_SESSION['admin_email'])) {
                 <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
               </div>
             </div>
+            <?php } else { ?>
+              <div class="col-lg-3 col-6">
+              <!-- small box -->
+              <div class="small-box bg-info">
+                <?php $sql = mysqli_query($con, "SELECT 
+                                        order_detail.qty,
+                                        addsinglecategory.product_name,
+                                        orders.*,
+                                        order_status.name AS order_status,
+                                        users.name AS user_name
+                                    FROM 
+                                        order_detail
+                                    INNER JOIN addsinglecategory ON addsinglecategory.p_id = order_detail.product_id
+                                    INNER JOIN orders ON orders.id = order_detail.orders_id
+                                    INNER JOIN order_status ON order_status.id = orders.order_status
+                                    INNER JOIN users ON orders.user_id = users.id
+                                    WHERE 
+                                        addsinglecategory.seller_id = '".$_SESSION['admin_id']."' and order_status='1' ");
+                if ($count = mysqli_num_rows($sql)): ?>
+
+                  <div class="inner">
+                    <h3>
+                      <?php echo $count ?>
+                    </h3>
+                  <?php endif ?>
+                   
+                  <p>New Orders</p>
+                </div>
+                <div class="icon">
+                  <i class="ion ion-bag"></i>
+                </div>
+                <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+              </div>
+            </div>
+
+              <?php } ?> 
             <!-- ./col -->
             <div class="col-lg-3 col-6">
               <!-- small box -->
@@ -116,9 +160,14 @@ if (!isset($_SESSION['admin_email'])) {
             <div class="col-lg-3 col-6">
               <!-- small box -->
               <div class="small-box bg-warning">
-                <div class="inner">
-                  <h3>44</h3>
+                <?php $sql = mysqli_query($con, "SELECT * from users ");
+                if ($count = mysqli_num_rows($sql)): ?>
 
+                  <div class="inner">
+                    <h3>
+                      <?php echo $count ?>
+                    </h3>
+                  <?php endif ?>
                   <p>User Registrations</p>
                 </div>
                 <div class="icon">
@@ -509,7 +558,8 @@ if (!isset($_SESSION['admin_email'])) {
                 </div>
                 <!-- /.card-body -->
                 <div class="card-footer clearfix">
-                  <button type="button" class="btn btn-primary float-right"><i class="fas fa-plus"></i> Add item</button>
+                  <button type="button" class="btn btn-primary float-right"><i class="fas fa-plus"></i> Add
+                    item</button>
                 </div>
               </div>
               <!-- /.card -->
@@ -581,25 +631,29 @@ if (!isset($_SESSION['admin_email'])) {
                   </div>
                 </div>
                 <div class="card-body">
-                  <canvas class="chart" id="line-chart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+                  <canvas class="chart" id="line-chart"
+                    style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
                 </div>
                 <!-- /.card-body -->
                 <div class="card-footer bg-transparent">
                   <div class="row">
                     <div class="col-4 text-center">
-                      <input type="text" class="knob" data-readonly="true" value="20" data-width="60" data-height="60" data-fgColor="#39CCCC">
+                      <input type="text" class="knob" data-readonly="true" value="20" data-width="60" data-height="60"
+                        data-fgColor="#39CCCC">
 
                       <div class="text-white">Mail-Orders</div>
                     </div>
                     <!-- ./col -->
                     <div class="col-4 text-center">
-                      <input type="text" class="knob" data-readonly="true" value="50" data-width="60" data-height="60" data-fgColor="#39CCCC">
+                      <input type="text" class="knob" data-readonly="true" value="50" data-width="60" data-height="60"
+                        data-fgColor="#39CCCC">
 
                       <div class="text-white">Online</div>
                     </div>
                     <!-- ./col -->
                     <div class="col-4 text-center">
-                      <input type="text" class="knob" data-readonly="true" value="30" data-width="60" data-height="60" data-fgColor="#39CCCC">
+                      <input type="text" class="knob" data-readonly="true" value="30" data-width="60" data-height="60"
+                        data-fgColor="#39CCCC">
 
                       <div class="text-white">In-Store</div>
                     </div>
@@ -623,7 +677,8 @@ if (!isset($_SESSION['admin_email'])) {
                   <div class="card-tools">
                     <!-- button with a dropdown -->
                     <div class="btn-group">
-                      <button type="button" class="btn btn-success btn-sm dropdown-toggle" data-toggle="dropdown" data-offset="-52">
+                      <button type="button" class="btn btn-success btn-sm dropdown-toggle" data-toggle="dropdown"
+                        data-offset="-52">
                         <i class="fas fa-bars"></i>
                       </button>
                       <div class="dropdown-menu" role="menu">

@@ -6,7 +6,7 @@
         header('location: index.php');
         exit;
       }
-    header('refresh:5; url=index.php');
+    //header('refresh:5; url=index.php');
     ?>
     
         <div class="d-flex justify-content-center align-items-center vh-100">
