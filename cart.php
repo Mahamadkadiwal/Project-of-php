@@ -65,11 +65,13 @@ if(isset($_POST['submit'])){
                                             while ($row = mysqli_fetch_assoc($sql)) :
                                                 $total_price = $row['prod_price'] * $row['quantity'];
                                                 $prod_id= $row['prod_id'];
-                                                 $_SESSION['p_id'] = $prod_id;
+                                                $prod= $_SESSION['p_id'] = $prod_id;
+                                            
                                                 
                                             ?>
-                                                <!-- <input type="hidden" name="p_id" value="<?php echo $row['prod_id']; ?>" class="p_id"> -->
-                                                
+                                                <input type="text" name="p_id" value="<?php echo $pid[]= $row['prod_id']; ?>" class="p_id">
+                                                <?php $_SESSION['prod_id']= $pid?>
+                                               
                                                 <tr class="mb-4">
                                                     <th scope="row"></th>
                                                     <td><img width="100" height="100" src="img/<?php echo $row['prod_image']; ?>" class="img-fluid rounded-3" alt="Cotton T-shirt"></td>

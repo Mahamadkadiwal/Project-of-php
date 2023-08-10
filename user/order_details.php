@@ -42,10 +42,10 @@ if (!isset($_SESSION['user_id'])) {
 
 <body>
        
-<div class="card  mt-5 mx-5">
+<div class="card  mt-5 mx-5 d-flex justify-content-between">
     <?php foreach ($sql as $row) { ?>
         <div class="card-body " style="display:inline">
-        <ul class="nav nav-tabs card-header-tabs">
+        <ul class="nav nav-tabs card-header-tabs d-flex justify-content-between flex-fill">
         <li class="nav-item">
     <p class="fw-bold fs-5 mx-2">Shipping Address</p>
     <p class="fs-6 mb-3 mx-2">

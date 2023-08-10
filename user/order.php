@@ -25,7 +25,7 @@ INNER JOIN addsinglecategory ON addsinglecategory.p_id = order_detail.product_id
 INNER JOIN orders ON orders.id = order_detail.orders_id
 INNER JOIN order_status ON order_status.id = orders.order_status
 INNER JOIN users ON orders.user_id = users.id
-WHERE user_id='$_SESSION[user_id]'");
+WHERE user_id='$_SESSION[user_id]' Order by orders.id desc");
     
 ?>
 <!DOCTYPE html>
@@ -109,7 +109,7 @@ WHERE user_id='$_SESSION[user_id]'");
                                                     <th>Order Placed</th>
                                                     <th>Total</th>
                                                     <th>Address</th>
-                                                    <th>Pincode</th>
+                                                    <th>Image</th>
                                                     <th>Order Status</th>
                                                 </tr>
                                             </thead>
@@ -169,7 +169,7 @@ WHERE user_id='$_SESSION[user_id]'");
                                                     <th>Order Placed</th>
                                                     <th>Total</th>
                                                     <th>Address</th>
-                                                    <th>Pincode</th>
+                                                    <th>Image</th>
                                                     <th>Order Status</th>
 
                                             </tr>
