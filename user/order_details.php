@@ -82,7 +82,7 @@ if (!isset($_SESSION['user_id'])) {
 <div class="card mt-2 mx-5">
     
         <div class="card-body " style="display:inline">
-        <ul class="nav nav-tabs card-header-tabs">
+        <ul class="nav nav-tabs card-header-tabs d-flex justify-content-between">
         <li class="nav-item">
    
     <p class="fs-6 mb-3 mx-2">
