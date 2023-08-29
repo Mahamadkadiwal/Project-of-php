@@ -1,6 +1,6 @@
 <?php 
     require_once 'admin/database/dbcon.php';
-    include_once 'inc/header.php';
+    include_once 'header.php';
 
     if(!isset($_SERVER['HTTP_REFERER'])){
         header('location: index.php');

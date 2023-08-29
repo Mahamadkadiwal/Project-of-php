@@ -2,7 +2,7 @@
 <?php
     
     require_once 'admin/database/dbcon.php';
-    require_once 'inc/header.php';
+    require_once 'header.php';
     require_once 'vendor/autoload.php';
 
 

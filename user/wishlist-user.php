@@ -1,6 +1,6 @@
 <?php
     require_once '../admin/database/dbcon.php';
-    require('../inc/header.php');
+    require('../header.php');
 
  
     $sql = mysqli_query($con, "SELECT * from wishlist where user_id='$_SESSION[user_id]'");

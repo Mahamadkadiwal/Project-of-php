@@ -1,7 +1,7 @@
 
     <?php
     require_once '../admin/database/dbcon.php';
-    require('../inc/header.php');
+    require('../header.php');
     
     if(isset($_GET['id'])){
         $id = $_GET['id'];

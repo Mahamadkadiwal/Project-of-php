@@ -1,6 +1,6 @@
 <?php
 include_once 'admin/database/dbcon.php';
-include_once 'inc/header.php';
+include_once 'header.php';
 
 if(!isset($_SESSION['user_name'])){
     header('location: index.php');
@@ -63,6 +63,8 @@ if(isset($_POST['submit'])){
                                             <?php
                                             if(mysqli_num_rows($sql) > 0) :
                                             while ($row = mysqli_fetch_assoc($sql)) :
+                                                // $prod_price = $row['prod_price'];
+                                                // $price =$_SESSION['prod_price'] = $prod_price;
                                                 $total_price = $row['prod_price'] * $row['quantity'];
                                                 $prod_id= $row['prod_id'];
                                                 $prod= $_SESSION['p_id'] = $prod_id;
@@ -70,6 +72,7 @@ if(isset($_POST['submit'])){
                                                 
                                             ?>
                                                 <input type="text" name="p_id" value="<?php echo $pid[]= $row['prod_id']; ?>" class="p_id">
+                                                <!-- <input type="text" name="p_id" value="<?php echo $pid[]= $row['prod_price']; ?>" class="p_id"> -->
                                                 <?php $_SESSION['prod_id']= $pid?>
                                                
                                                 <tr class="mb-4">

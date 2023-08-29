@@ -1,6 +1,6 @@
 <?php
     require_once 'admin/database/dbcon.php';
-     include 'inc/header.php'; 
+     include 'header.php'; 
 
      if(isset($_POST['submit'])){
         $prod_id= $_POST['prod_id'];

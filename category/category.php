@@ -1,6 +1,6 @@
 <?php
 require_once '../admin/database/dbcon.php';
-require('../inc/header.php');
+require('../header.php');
 
 $sql = mysqli_query($con, "SELECT * FROM categories WHERE status='1'");
 if (mysqli_num_rows($sql) > 0) {

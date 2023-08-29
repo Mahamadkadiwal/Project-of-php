@@ -162,11 +162,7 @@
                     <?php if (!$_SESSION['adminrole'] == 1) : ?>
                         <!-- <li class="nav-item">
                                 <a href="./form.php" class="nav-link">
-<<<<<<< Updated upstream
 
-=======
-                                    
->>>>>>> Stashed changes
                                     <i class="nav-icon fas fa-edit"></i>
                                     <p>
                                         Forms
@@ -195,6 +191,43 @@
                                 </a>
 
 
+                            </li>
+                            <li class="nav-item">
+
+                                <a href="#" class="nav-link">
+                                    <i class="nav-icon fas fa-edit"></i>
+                                    <p>
+                                        Reports
+                                        <i class="fas fa-angle-left right"></i>
+                                    </p>
+                                </a>
+                                <ul class="nav nav-treeview">
+                                    
+                                        <li class="nav-item">
+                                            <a href="reportOrder.php" class="nav-link">
+                                                <i class="far fa-circle nav-icon"></i>
+                                                <p>Order Report</p>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="reportPrice.php" class="nav-link">
+                                                <i class="far fa-circle nav-icon"></i>
+                                                <p>Purchase Report</p>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="reportSale.php" class="nav-link">
+                                                <i class="far fa-circle nav-icon"></i>
+                                                <p>Sales Report</p>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="reportCustomer.php" class="nav-link">
+                                                <i class="far fa-circle nav-icon"></i>
+                                                <p>Customer Report</p>
+                                            </a>
+                                        </li>
+                                </ul>
                             </li>
 
 

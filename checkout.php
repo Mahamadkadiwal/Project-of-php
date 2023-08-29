@@ -1,6 +1,6 @@
 <?php
 include_once 'admin/database/dbcon.php';
-include_once 'inc/header.php'; 
+include_once 'header.php'; 
 // session_start();
 
 
